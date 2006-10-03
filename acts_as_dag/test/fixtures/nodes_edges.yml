@@ -1,0 +1,18 @@
+root_1_left_child_edge:
+  source_id: 2
+  destination_id: 1
+root_1_right_child_edge:
+  source_id: 3
+  destination_id: 1
+root_2_child_edge:
+  source_id: 5
+  destination_id: 4
+root_2_grandchild_edge:
+  source_id: 6
+  destination_id: 5
+doubly_linked_edge_1:
+  source_id: 7
+  destination_id: 6
+doubly_linked_edge_2:
+  source_id: 7
+  destination_id: 2

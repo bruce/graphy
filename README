@@ -159,7 +159,7 @@ The rdoc is useful as well:
   irb> require 'gratr/import'
   => true
   irb> dg = Digraph[1,2, 2,3, 2,4, 4,5, 6,4, 1,6]
-  => GRATR::Digraph[[2, 3] => nil, [1, 6] => nil, [2, 4] => nil, [4, 5] => nil, [1, 2] => nil, [6, 4] => nil]
+  => GRATR::Digraph[[2, 3], [1, 6], [2, 4], [4, 5], [1, 2], [6, 4]] 
 
 A few properties of the graph 
 
@@ -185,8 +185,7 @@ object _Object_:
 Add inverse edge (4-2) to directed graph:
 
   irb> dg.add_edge! 4,2
-  => GRATR::Digraph[[2, 3] => nil, [1, 6] => nil, [4, 2] => nil, [2, 4] => nil, [4, 5] => nil, [1, 2] => nil, [6, 4] => nil]
-  
+  => GRATR::Digraph[[2, 3], [1, 6], [4, 2], [2, 4], [4, 5], [1, 2], [6, 4]]
   
 (4-2) == (2-4) in the undirected graph:
 
@@ -198,7 +197,7 @@ Add inverse edge (4-2) to directed graph:
   irb> dg.edges.sort.to_s
   => "(1-2)(1-6)(2-3)(2-4)(4-2)(4-5)(6-4)"
   irb> dg.remove_edge! 4,2
-  => GRATR::Digraph[[2, 3] => nil, [1, 6] => nil, [2, 4] => nil, [4, 5] => nil, [1, 2] => nil, [6, 4] => nil]
+  => GRATR::Digraph[[2, 3], [1, 6], [2, 4], [4, 5], [1, 2], [6, 4]] 
 
 <em>Topological sort</em> is realized with as iterator:
 

@@ -291,7 +291,10 @@ module GRATR
     
     def inspect
       self.class.to_s + '[' + 
-      edges.map {|e| '['+e.source.inspect+', '+e.target.inspect+'] => '+self[e].inspect}.join(', ') +']'
+      edges.map do |e| 
+        '['+e.source.inspect+', '+e.target.inspect+']' +
+        (self[e] ? (' => ' + self[e].inspect) : '')
+      end.join(', ') + ']'
     end
 
    public

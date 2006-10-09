@@ -46,7 +46,7 @@ module GRATR
       # from each other.
       #
       def strong_components
-  
+
         dfs_num    = 0
         stack = []; result = []; root = {}; comp = {}; number = {}
 
@@ -80,49 +80,48 @@ module GRATR
         dfs({:enter_vertex => enter, :exit_vertex => exit}); result
 
       end # strong_components
-
-    end # StrongComponents
-
-    # Returns a condensation graph of the strongly connected components
-    # Each node is an array of nodes from the original graph
-    def condensation
-      sc  = strong_components
-      cg  = self.class.new
-      map = sc.inject({}) do |a,c| 
-        c.each {|v| a[v] = c }; a
-      end
-      sc.each do |c|
-        c.each do |v|
-          adjacent(v).each {|v| cg.add_edge!(c, map[v]) unless c == map[v]}
+      
+      # Returns a condensation graph of the strongly connected components
+      # Each node is an array of nodes from the original graph
+      def condensation
+        sc  = strong_components
+        cg  = self.class.new
+        map = sc.inject({}) do |a,c| 
+          c.each {|v| a[v] = c }; a
         end
-      end; cg
-    end
-
-    # Compute transitive closure of a graph. That is any node that is reachable
-    # along a path is added as a directed edge.
-    def transitive_closure!
-      cgtc = condensation.gratr_inner_transitive_closure!
-      cgtc.each do |cgv|
-        cgtc.adjacent(cgv).each do |adj|
-          cgv.each do |u| 
-            adj.each {|v| add_edge!(u,v)}  
+        sc.each do |c|
+          c.each do |v|
+            adjacent(v).each {|v| cg.add_edge!(c, map[v]) unless c == map[v]}
           end
-        end
-      end; self
-    end
+        end; cg
+      end
 
-    # This returns the transitive closure of a graph. The original graph
-    # is not changed.
-    def transitive_closure() self.class.new(self).transitive_closure!; end
+      # Compute transitive closure of a graph. That is any node that is reachable
+      # along a path is added as a directed edge.
+      def transitive_closure!
+        cgtc = condensation.gratr_inner_transitive_closure!
+        cgtc.each do |cgv|
+          cgtc.adjacent(cgv).each do |adj|
+            cgv.each do |u| 
+              adj.each {|v| add_edge!(u,v)}  
+            end
+          end
+        end; self
+      end
 
-   private
-    def gratr_inner_transitive_closure!  # :nodoc:
-      topsort.reverse.each do |u| 
-        adjacent(u).each do |v|
-          adjacent(v).each {|w| add_edge!(u,w) unless edge?(u,w)}
-        end
-      end; self
-    end
+      # This returns the transitive closure of a graph. The original graph
+      # is not changed.
+      def transitive_closure() self.class.new(self).transitive_closure!; end
 
+     private
+      def gratr_inner_transitive_closure!  # :nodoc:
+        topsort.reverse.each do |u| 
+          adjacent(u).each do |v|
+            adjacent(v).each {|w| add_edge!(u,w) unless edge?(u,w)}
+          end
+        end; self
+      end
+    end # StrongComponens
+    
   end # Graph
 end # GRATR

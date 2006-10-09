@@ -31,6 +31,7 @@ require 'gratr/digraph'
 require 'gratr/edge'
 require 'gratr/graph'
 require 'gratr/adjacency_graph'
+require 'gratr/search'
 require 'gratr/biconnected'
 require 'gratr/comparability'
 require 'set'
@@ -38,9 +39,10 @@ require 'set'
 module GRATR
   class UndirectedGraph
     include Graph
-    include AdjacencyGraph
-    include Biconnected
-    include Comparability
+    include Graph::AdjacencyGraph
+    include Graph::Search
+    include Graph::Biconnected
+    include Graph::Comparability
     
     def initialize(*params)
       raise ArgumentError if params.any? do |p| 

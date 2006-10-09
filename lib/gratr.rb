@@ -28,10 +28,6 @@
 
 
 require 'gratr/base'
-require 'gratr/edge'
-require 'gratr/graph'
 require 'gratr/digraph'
 require 'gratr/undirected_graph'
-require 'gratr/search'
-require 'gratr/topsort'
 require 'gratr/common'

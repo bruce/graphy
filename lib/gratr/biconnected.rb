@@ -29,8 +29,7 @@
 require 'set'
 
 module GRATR
-  module Graph
-    
+  module Graph    
     # Biconnected is a module for adding the biconnected algorithm to 
     # UndirectedGraphs
     module Biconnected
@@ -107,7 +106,7 @@ module GRATR
              :tree_edge    => tree_edge,
              :back_edge    => back_edge,
              :exit_vertex  => exit_vertex})
-             
+           
         [result, articulation]
       end # biconnected
 

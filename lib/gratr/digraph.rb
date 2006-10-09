@@ -28,6 +28,7 @@
 
 require 'gratr/edge'
 require 'gratr/graph'
+require 'gratr/search'
 require 'gratr/adjacency_graph'
 require 'gratr/strong_components'
 require 'gratr/digraph_distance'
@@ -46,10 +47,11 @@ module GRATR
   # as well.
   class Digraph
     include Graph
-    include AdjacencyGraph
-    include StrongComponents
-    include DigraphDistance
-    include ChinesePostman
+    include Graph::AdjacencyGraph
+    include Graph::Search
+    include Graph::StrongComponents
+    include Graph::Distance
+    include Graph::ChinesePostman
   
     def initialize(*params)
       raise ArgumentError if params.any? do |p| 

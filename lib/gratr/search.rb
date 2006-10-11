@@ -115,7 +115,7 @@ module GRATR
       # Returns a hash of predecessors in a tree rooted at the start node. If this is a connected graph
       # then it will be a spanning tree and contain all vertices. An easier way to tell if it's a spanning tree is to
       # use a spanning_forest call and check if there is a single root node.
-      def tree_rooted_at(start, routine)
+      def tree_from_vertex(start, routine)
         predecessor={}
         correct_tree = false
         te = Proc.new {|e| predecessor[e.target] = e.source if correct_tree}
@@ -125,10 +125,10 @@ module GRATR
       end
       
       # Returns a hash of predecessors for the depth first search tree rooted at the given node
-      def dfs_tree_rooted_at(start) tree_rooted_at(start, :dfs); end
+      def dfs_tree_from_vertex(start) tree_from_vertex(start, :dfs); end
       
       # Returns a hash of predecessors for the depth first search tree rooted at the given node
-      def bfs_tree_rooted_at(start) tree_rooted_at(start, :bfs); end
+      def bfs_tree_from_vertex(start) tree_from_vertex(start, :bfs); end
        
       # An inner class used for greater efficiency in lexicograph_bfs
       #

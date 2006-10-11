@@ -35,6 +35,7 @@ class TestSearch < Test::Unit::TestCase # :nodoc:
   def setup
     @directed   = Digraph[1,2, 2,3, 2,4, 4,5, 1,6, 6,4]
     @undirected = UndirectedGraph[1,2, 2,3, 2,4, 4,5, 1,6]
+    @tree       = Digraph[ 1,2, 1,3, 1,4, 2,5, 2,4, 2,6, 6,7, 23,24 ]
   end
 
   # "Algorithmic Graph Theory and Perfect Graphs", Martin Charles
@@ -229,24 +230,28 @@ class TestSearch < Test::Unit::TestCase # :nodoc:
   end
   
   def test_bfs_spanning_forest
-    x=Digraph[ 1,2, 1,3, 1,4, 2,5, 2,4, 2,6, 6,7, 23,24 ]
-    predecessor, roots = x.bfs_spanning_forest(1)
+    predecessor, roots = @tree.bfs_spanning_forest(1)
     assert_equal({2=>1, 3=>1, 4=>1, 5=>2, 6=>2, 7=>6, 24=>23}, predecessor)
     assert_equal [1,23], roots.sort
-    predecessor, roots = x.bfs_spanning_forest(3)
+    predecessor, roots = @tree.bfs_spanning_forest(3)
     assert_equal({7=>6, 24=>23, 2=>1, 4=>1}, predecessor)
     assert_equal [1,3,5,6,23], roots.sort    
   end
   
   def test_dfs_spanning_forest
-    x=Digraph[ 1,2, 1,3, 1,4, 2,5, 2,4, 2,6, 6,7, 23,24 ]
-    predecessor, roots = x.dfs_spanning_forest(1)
+    predecessor, roots = @tree.dfs_spanning_forest(1)
     assert_equal({5=>2, 6=>2, 7=>6, 24=>23, 2=>1, 3=>1, 4=>2}, predecessor)
     assert_equal [1,23], roots.sort
-    predecessor, roots = x.dfs_spanning_forest(3)
+    predecessor, roots = @tree.dfs_spanning_forest(3)
     assert_equal({7=>6, 24=>23, 2=>1, 4=>2}, predecessor)
     assert_equal [1,3,5,6,23], roots.sort    
   end
   
+  def test_tree_from_vertex
+    assert_equal({5=>2, 6=>2, 7=>6, 2=>1, 3=>1, 4=>1}, @tree.bfs_tree_from_vertex(1))
+    assert_equal({}, @tree.bfs_tree_from_vertex(3))
+    assert_equal({5=>2, 6=>2, 7=>6, 2=>1, 3=>1, 4=>2}, @tree.dfs_tree_from_vertex(1))
+    assert_equal({}, @tree.dfs_tree_from_vertex(3))
+  end
 
 end

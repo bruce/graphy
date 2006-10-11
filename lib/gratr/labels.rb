@@ -71,6 +71,21 @@ module GRATR
     def vertex_label_dict() @vertex_labels ||= {}; end
     def edge_label_dict()   @edge_labels   ||= {}; end
 
+    # A generic cost function. It either calls the weight function with and edge
+    # constructed from the two nodes, or calls the [] operator of the label
+    # when given a value. If no weight value is specified, the label itself is
+    # treated as the cost value.
+    #
+    # Note: This function will not work for Pseudo or Multi graphs at present. 
+    def cost(u,v=nil,weight=nil)
+      u.kind_of?(Edge) ? weight = v : u = edge_class[u,v] 
+      case weight
+        when Proc : weight.call(u)
+        when nil  : self[u]
+        else        self[u][weight]
+      end
+    end
+
    private
 
     def edge_convert(u,v,n=nil) u.kind_of?(GRATR::Edge) ? u : edge_class[u,v,nil,n]; end

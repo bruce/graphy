@@ -41,6 +41,7 @@ module GRATR
       # :tree_edge     => Proc  Called when the edge is a member of the tree
       # :back_edge     => Proc  Called when the edge is a back edge
       # :forward_edge  => Proc  Called when the edge is a forward edge
+      # :adjacent      => Proc that given a vertex returns adjacent nodes, defaults to adjacent call of graph useful for changing the definition of adjacent in some algorithms
       #
       # :start         => Vertex  Specifies the vertex to start search from
       #
@@ -93,7 +94,42 @@ module GRATR
 
       # See options for bfs method
       def dfs(options={}, &block) gratr_search_helper(:pop,   options, &block); end
-
+      
+      # Routine to compute a spanning forest for the given search method
+      # Returns two values, first is a hash of predecessors and second an array of root nodes
+      def spanning_forest(start, routine)
+        predecessor = {}
+        roots       = []
+        te = Proc.new {|e| predecessor[e.target] = e.source}
+        rv = Proc.new {|v| roots << v}
+        method(routine).call :start => start, :tree_edge => te, :root_vertex => rv
+        [predecessor, roots]
+      end
+      
+      # Return the dfs spanning forest for the given start node, see spanning_forest
+      def dfs_spanning_forest(start) spanning_forest(start, :dfs); end
+      
+      # Return the bfs spanning forest for the given start node, see spanning_forest
+      def bfs_spanning_forest(start) spanning_forest(start, :bfs); end
+      
+      # Returns a hash of predecessors in a tree rooted at the start node. If this is a connected graph
+      # then it will be a spanning tree and contain all vertices. An easier way to tell if it's a spanning tree is to
+      # use a spanning_forest call and check if there is a single root node.
+      def tree_rooted_at(start, routine)
+        predecessor={}
+        correct_tree = false
+        te = Proc.new {|e| predecessor[e.target] = e.source if correct_tree}
+        rv = Proc.new {|v| correct_tree = (v == start)}
+        method(routine).call :start => start, :tree_edge => te, :root_vertex => rv
+        predecessor       
+      end
+      
+      # Returns a hash of predecessors for the depth first search tree rooted at the given node
+      def dfs_tree_rooted_at(start) tree_rooted_at(start, :dfs); end
+      
+      # Returns a hash of predecessors for the depth first search tree rooted at the given node
+      def bfs_tree_rooted_at(start) tree_rooted_at(start, :bfs); end
+       
       # An inner class used for greater efficiency in lexicograph_bfs
       #
       # Original desgn taken from Golumbic's, "Algorithmic Graph Theory and
@@ -231,11 +267,7 @@ module GRATR
           adjacent(u).each do |v|
             e = edge_class[u,v]
             options.handle_edge(:examine_edge, u, v)
-            w = case options[:weight]
-                  when Proc   : w.call(e)
-                  when nil    : self[e]
-                  else self[e][w]
-                end
+            w = cost(e, options[:weight])
             raise ArgumentError unless w
             if d[v].nil? or (w + d[u]) < d[v] 
               options.handle_edge(:edge_relaxed, u, v)
@@ -317,7 +349,8 @@ module GRATR
         options.handle_vertex(:enter_vertex,u)
         result << u
         # Examine all adjacent outgoing edges, not previously traversed
-        adjacent(u).select {|w| visited_edges[edge_class[u,w]].nil? }.each do |v|
+        adj_proc = options[:adjacent] || self.method(:adjacent).to_proc
+        adj_proc.call(u).select {|w| visited_edges[edge_class[u,w]].nil? }.each do |v|
           options.handle_edge(:examine_edge, u, v)
           visited_edges[edge_class[u,v]]=true
           case color_map[v]

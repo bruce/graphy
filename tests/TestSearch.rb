@@ -227,5 +227,26 @@ class TestSearch < Test::Unit::TestCase # :nodoc:
       "fv Craiova", "ev Pitesti", "enr (Pitesti=Rimnicu Vilcea)", 
       "er (Bucharest=Pitesti)", "dv Bucharest"], list
   end
+  
+  def test_bfs_spanning_forest
+    x=Digraph[ 1,2, 1,3, 1,4, 2,5, 2,4, 2,6, 6,7, 23,24 ]
+    predecessor, roots = x.bfs_spanning_forest(1)
+    assert_equal({2=>1, 3=>1, 4=>1, 5=>2, 6=>2, 7=>6, 24=>23}, predecessor)
+    assert_equal [1,23], roots.sort
+    predecessor, roots = x.bfs_spanning_forest(3)
+    assert_equal({7=>6, 24=>23, 2=>1, 4=>1}, predecessor)
+    assert_equal [1,3,5,6,23], roots.sort    
+  end
+  
+  def test_dfs_spanning_forest
+    x=Digraph[ 1,2, 1,3, 1,4, 2,5, 2,4, 2,6, 6,7, 23,24 ]
+    predecessor, roots = x.dfs_spanning_forest(1)
+    assert_equal({5=>2, 6=>2, 7=>6, 24=>23, 2=>1, 3=>1, 4=>2}, predecessor)
+    assert_equal [1,23], roots.sort
+    predecessor, roots = x.dfs_spanning_forest(3)
+    assert_equal({7=>6, 24=>23, 2=>1, 4=>2}, predecessor)
+    assert_equal [1,3,5,6,23], roots.sort    
+  end
+  
 
 end

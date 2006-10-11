@@ -25,11 +25,10 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #++
 
-
 module GRATR
   module Graph
     module Distance
-        
+              
       # Shortest path from Jorgen Band-Jensen and Gregory Gutin,
       # _DIGRAPHS:_Theory,_Algorithms_and_Applications, pg 53-54
       #
@@ -180,22 +179,7 @@ module GRATR
         end
         [c, path, delta]
       end # floyd_warshall
-    
-     private
-      # A generic cost function. It either calls the weight function with and edge
-      # constructed from the two nodes, or calls the [] operator of the label
-      # when given a value. If no weight value is specified, the label itself is
-      # treated as the cost value.
-      #
-      # Note: This function will not work for Pseudo or Multi graphs at present. 
-      def cost(u,v=nil,weight=nil)
-        u.kind_of?(Edge) ? weight = v : u = edge_class[u,v] 
-        case weight
-          when Proc : weight.call(u)
-          when nil  : self[u]
-          else        self[u][weight]
-        end
-      end
+           
     end # Distance
   end # Graph
 end # GRATR

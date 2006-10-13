@@ -38,10 +38,7 @@ module GRATR
 
   class Edge < Struct::EdgeBase
 
-    attr_accessor :number # Used to differentiate between mutli-edges
-
-    def initialize(p_source,p_target,p_label=nil,p_number=nil)
-      self.number = p_number || 0
+    def initialize(p_source,p_target,p_label=nil)
       super(p_source, p_target, p_label)
     end
 
@@ -52,7 +49,7 @@ module GRATR
     alias == eql?
 
     # Returns (v,u) if self == (u,v).
-    def reverse() self.class.new(target, source); end
+    def reverse() self.class.new(target, source, label); end
 
     # Sort support
     def <=>(rhs) [source,target] <=> [rhs.source,rhs.target]; end
@@ -65,23 +62,23 @@ module GRATR
     
     # Hash is defined in such a way that label is not
     # part of the hash value
-    def hash() source.hash ^ (target.hash+1) ^ number.hash; end
+    def hash() source.hash ^ (target.hash+1); end
 
     # Shortcut constructor. Instead of Edge.new(1,2) one can use Edge[1,2]
-    def self.[](p_source, p_target, p_label=nil, p_number=nil)
-      new(p_source, p_target, p_label,p_number)
+    def self.[](p_source, p_target, p_label=nil)
+      new(p_source, p_target, p_label)
     end
     
-    def inspect() "#{self.class.to_s}[#{source.inspect},#{target.inspect},#{label.inspect},#{number.inspect}]"; end
-
+    def inspect() "#{self.class.to_s}[#{source.inspect},#{target.inspect},#{label.inspect}]"; end
+    
   end
-  
+    
   # An undirected edge is simply an undirected pair (source, target) used in
   # undirected graphs. UndirectedEdge[u,v] == UndirectedEdge[v,u]
   class UndirectedEdge < Edge
 
     # Equality allows for the swapping of source and target
-    def eql?(other) super or (target == other.source and source == other.target); end 
+    def eql?(other) super or (self.class == other.class and target==other.source and source==other.target); end
       
     # Alias for eql?
     alias == eql?
@@ -90,7 +87,7 @@ module GRATR
     # hash value will be the same
     #
     # This will cause problems with self loops
-    def hash() source.hash ^ target.hash ^ number.hash; end
+    def hash() source.hash ^ target.hash; end
 
     # Sort support
     def <=>(rhs)
@@ -106,6 +103,43 @@ module GRATR
       "(#{[s,t].min}=#{[s,t].max}#{l})"
     end
     
+  end
+  
+  # This module provides for internal numbering of edges for differentiating between mutliple edges
+  module EdgeNumber
+    
+    attr_accessor :number # Used to differentiate between mutli-edges
+    
+    def initialize(p_source,p_target,p_number,p_label=nil)
+      self.number = p_number 
+      super(p_source, p_target, p_label)
+    end
+
+    # Returns (v,u) if self == (u,v).
+    def reverse() self.class.new(target, source, number, label); end
+    def hash() super ^ number.hash; end    
+    def to_s() super + "[#{number}]"; end
+    def <=>(rhs) (result = super(rhs)) == 0 ? number <=> rhs.number : result; end 
+    def inspect() "#{self.class.to_s}[#{source.inspect},#{target.inspect},#{number.inspect},#{label.inspect}]"; end
+    def eql?(rhs) super(rhs) and (rhs.number.nil? or number.nil? or number == rhs.number); end 
+    def ==(rhs) eql?(rhs); end
+
+    # Shortcut constructor. Instead of Edge.new(1,2) one can use Edge[1,2]
+    def self.included(cl)
+      
+      def cl.[](p_source, p_target, p_number=nil, p_label=nil)
+        new(p_source, p_target, p_number, p_label)
+      end
+    end
+
+  end
+  
+  class MultiEdge < Edge
+    include EdgeNumber
+  end
+  
+  class MultiUndirectedEdge < UndirectedEdge
+    include EdgeNumber
   end
   
 end

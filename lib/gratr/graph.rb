@@ -63,6 +63,7 @@ module GRATR
     # Note: It is probably more efficently done in implementation.
     def adjacent(x, options={})
       d = (options[:direction] ||= :out)
+      d = :all unless directed?
 
       # Discharge the easy ones first
       return [x.source] if x.kind_of? Edge and options[:type] == :vertices and d == :in
@@ -111,7 +112,7 @@ module GRATR
     def vertex?(v) vertices.include?(v); end  
     
     # Returns true if u or (u,v) is an Edge of the graph.
-    def edge?(u,v=nil) edges.include?(u.kind_of?(GRATR::Edge) ? u : edge_class[u,v]); end  
+    def edge?(*arg) edges.include?(edge_convert(*args)); end  
 
     # Tests two objects to see if they are adjacent.
     # direction parameter specifies direction of adjacency, :in, :out, or :all(default)
@@ -247,8 +248,8 @@ module GRATR
     # Merge another graph into this one
     def merge(other)
       other.vertices.each {|v| add_vertex!(v)      }
-      other.edges.each    {|e| e.number = nil; add_edge!(e)         }
-      other.edges.each    {|e| e.number = nil; add_edge!(e.reverse) } if directed? and !other.directed? 
+      other.edges.each    {|e| add_edge!(e)         }
+      other.edges.each    {|e| add_edge!(e.reverse) } if directed? and !other.directed? 
       self 
     end
 
@@ -296,6 +297,10 @@ module GRATR
         (self[e] ? (' => ' + self[e].inspect) : '')
       end.join(', ') + ']'
     end
+    
+   private
+    def edge_convert(*args) args[0].kind_of?(GRATR::Edge) ? args[0] : edge_class[*args]; end
+    
 
    public
   
@@ -323,7 +328,7 @@ module GRATR
         end
         result
       end
-      
+                   
     end
 
   end # Graph

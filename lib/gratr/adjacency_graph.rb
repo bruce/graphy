@@ -105,12 +105,17 @@ module GRATR
       # Can be called in two basic ways, label is optional
       #   * add_edge!(Edge[source,target], "Label")
       #   * add_edge!(source,target, "Label")
-      def add_edge!(u, v=nil, l=nil)
-        u, v, l, n = u.source, u.target, u.label, u.number if u.kind_of? GRATR::Edge
+      def add_edge!(u, v=nil, l=nil, n=nil)
+        n = u.number if u.class.include? EdgeNumber
+        u, v, l = u.source, u.target, u.label if u.kind_of? GRATR::Edge
         return self if not @allow_loops and u == v
-        add_vertex!(u); add_vertex!(v)
+        add_vertex!(u); add_vertex!(v)        
         @vertex_dict[u].add(v)
         (@edge_number[u] ||= @edgelist_class.new).add(n ? n : (@next_edge_number+=1) ) if @parallel_edges
+        unless directed?
+          @vertex_dict[v].add(u)
+          (@edge_number[v] ||= @edgelist_class.new).add(n ? n : (@next_edge_number) ) if @parallel_edges
+        end        
         self[@parallel_edges ? edge_class[u,v,nil,(n ? n : @next_edge_number)] : edge_class[u,v]] = l if l
         self
       end
@@ -155,13 +160,18 @@ module GRATR
       # Returns an array of edges, most likely of class Edge or UndirectedEdge depending 
       # upon the type of graph
       def edges
-        @vertex_dict.keys.inject(@edgelist_class.new) do |a,v|
+        @vertex_dict.keys.inject(Set.new) do |a,v|
           if @parallel_edges and @edge_number[v]
-            @vertex_dict[v].zip(@edge_number[v]).each do |t|       
-              a.add( edge_class[ v, t[0], edge_label(v,t[0],t[1]), t[1] ] )
+            @vertex_dict[v].zip(@edge_number[v]).each do |w|
+              s,t,n = v,w[0],w[1]
+              #s,t,n = ( (directed? or v < w[0]) ? [v,w[0],w[1]] : [w[0],v,w[1]] )     
+              a.add( edge_class[ s,t,n, edge_label(s,t,n) ] )
             end
           else
-            @vertex_dict[v].each {|t| a.add(edge_class[v,t,edge_label(v,t)])}
+            @vertex_dict[v].each do |w|
+              #s,t = ( (directed? or v < w) ? [v,w] : [w,v] ) 
+              a.add(edge_class[v,w,edge_label(v,w)])
+            end
           end; a
         end.to_a
       end

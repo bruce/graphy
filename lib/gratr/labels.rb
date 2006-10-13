@@ -86,9 +86,5 @@ module GRATR
       end
     end
 
-   private
-
-    def edge_convert(u,v,n=nil) u.kind_of?(GRATR::Edge) ? u : edge_class[u,v,nil,n]; end
-
   end
 end

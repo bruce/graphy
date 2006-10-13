@@ -31,6 +31,8 @@ require 'gratr'
 # Pull all GRATR classes up into the current namespace
 Edge                  = GRATR::Edge
 UndirectedEdge        = GRATR::UndirectedEdge
+MultiEdge             = GRATR::MultiEdge
+MultiUndirectedEdge   = GRATR::MultiUndirectedEdge
 Graph                 = GRATR::Graph
 Digraph               = GRATR::Digraph
 DirectedGraph         = GRATR::DirectedGraph

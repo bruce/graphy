@@ -61,17 +61,7 @@ module GRATR
     def balanced?(v)  true;  end
 
     # UndirectedGraph uses UndirectedEdge for the edge class.
-    def edge_class() GRATR::UndirectedEdge; end
-
-    def add_edge!(u, v=nil, l=nil)
-      u = edge_class[u,v,l] unless u.kind_of? GRATR::Edge
-      return self unless @allow_loops or u.source != u.target
-      unless u.source==u.target
-        u.number = @next_edge_number if @parallel_edges
-        super(u.reverse)
-      end
-      super(u)
-    end
+    def edge_class() @parallel_edges ? GRATR::MultiUndirectedEdge : GRATR::UndirectedEdge; end
 
     def remove_edge!(u, v=nil)
       unless u.kind_of? GRATR::Edge

@@ -66,30 +66,30 @@ class TestDigraph < Test::Unit::TestCase # :nodoc:
     assert !@single.remove_edge!(5,5).edge?(5,5)
 
     assert_equal 5,@dups.edges.size 
-    assert @dups.edges.include?(Edge[1,2])
-    assert @dups.edges.include?(Edge[2,3])
-    assert @dups.edges.include?(Edge[3,4])
-    assert !@dups.edges.include?(Edge[4,4])
-    assert @dups.edges.include?(Edge[1,2])
-    assert @dups.edges.include?(Edge[2,3])
-    assert !@dups.edges.include?(Edge[1,3])
+    assert @dups.edges.include?(MultiEdge[1,2])
+    assert @dups.edges.include?(MultiEdge[2,3])
+    assert @dups.edges.include?(MultiEdge[3,4])
+    assert !@dups.edges.include?(MultiEdge[4,4])
+    assert @dups.edges.include?(MultiEdge[1,2])
+    assert @dups.edges.include?(MultiEdge[2,3])
+    assert !@dups.edges.include?(MultiEdge[1,3])
     assert @dups.edge?(2,3)
     assert !@dups.edge?(1,4)
-    assert @dups.edge?(Edge[1,2])
+    assert @dups.edge?(MultiEdge[1,2])
     assert !@dups.add_edge!(5,5).edge?(5,5)
     assert_raise(ArgumentError) { @dups.remove_edge!(5,5) }
 
     assert_equal 5,@dups.edges.size 
-    assert @loops.edges.include?(Edge[1,2])
-    assert @loops.edges.include?(Edge[2,3])
-    assert @loops.edges.include?(Edge[3,4])
-    assert @loops.edges.include?(Edge[4,4])
-    assert @loops.edges.include?(Edge[1,2])
-    assert @loops.edges.include?(Edge[2,3])
-    assert !@loops.edges.include?(Edge[1,3])
+    assert @loops.edges.include?(MultiEdge[1,2])
+    assert @loops.edges.include?(MultiEdge[2,3])
+    assert @loops.edges.include?(MultiEdge[3,4])
+    assert @loops.edges.include?(MultiEdge[4,4])
+    assert @loops.edges.include?(MultiEdge[1,2])
+    assert @loops.edges.include?(MultiEdge[2,3])
+    assert !@loops.edges.include?(MultiEdge[1,3])
     assert @loops.edge?(2,3)
     assert !@loops.edge?(1,4)
-    assert @loops.edge?(Edge[1,2])
+    assert @loops.edge?(MultiEdge[1,2])
     assert @loops.add_edge!(5,5).edge?(5,5)
     assert_raise(ArgumentError) { @loops.remove_edge!(5,5) }
 
@@ -251,14 +251,22 @@ class TestDigraph < Test::Unit::TestCase # :nodoc:
     assert_equal [Edge[1,2]], @single.adjacent(2, :type=>:edges, :direction=> :in)
     assert_equal [Edge[1,2],Edge[2,3]], @single.adjacent(2, :type=>:edges, :direction=> :all).sort
 
-    assert_equal [Edge[1,2]]*2, @dups.adjacent(1, :type=>:edges)
-    assert_equal [Edge[1,2]]*2, @dups.adjacent(1, :type=>:edges, :direction=> :out)
-    assert_equal [Edge[1,2]]*2, @dups.adjacent(2, :type=>:edges, :direction=> :in)
-    assert_equal ([Edge[1,2]]*2 + [Edge[2,3]]*2), @dups.adjacent(2, :type=>:edges, :direction=> :all).sort
-
-    assert_equal [2], @single.adjacent(1, :type=>:vertices)
-    assert_equal [2], @single.adjacent(1, :type=>:vertices, :direction=> :out)
-    assert_equal [1], @single.adjacent(2, :type=>:vertices, :direction=> :in)
+    [[{},1], [{:direction => :out},1], [{:direction => :in},2]].each do |h,v|
+      adj = @dups.adjacent(v, h.merge(:type=>:edges))
+      assert_equal 2, adj.size
+      adj.each {|e| assert e.source == 1; assert e.target == 2}
+    end 
+    
+    adj = @dups.adjacent(2, {:type=>:edges,:direction=>:all})
+    assert_equal 4, adj.size
+    adj.each do |e| 
+      assert((e.source==1 and e.target==2) ||
+             (e.source==2 and e.target==3)) 
+    end
+    
+    assert_equal [2],   @single.adjacent(1, :type=>:vertices)
+    assert_equal [2],   @single.adjacent(1, :type=>:vertices, :direction=> :out)
+    assert_equal [1],   @single.adjacent(2, :type=>:vertices, :direction=> :in)
     assert_equal [1,3], @single.adjacent(2, :type=>:vertices, :direction=> :all)
 
     assert_equal [3], @single.adjacent(Edge[2,3], :type=>:vertices)
@@ -270,10 +278,11 @@ class TestDigraph < Test::Unit::TestCase # :nodoc:
     assert_equal [Edge[3,4]], @single.adjacent(Edge[2,3], :type=>:edges, :direction=> :out)
     assert_equal [Edge[1,2]], @single.adjacent(Edge[2,3], :type=>:edges, :direction=> :in)
     assert_equal [Edge[1,2],Edge[3,4]], @single.adjacent(Edge[2,3], :type=>:edges, :direction=> :all).sort
-    assert_equal [Edge[3,4]], @dups.adjacent(Edge[2,3], :type=>:edges)
-    assert_equal [Edge[3,4]], @dups.adjacent(Edge[2,3], :type=>:edges, :direction=> :out)
-    assert_equal [Edge[1,2]]*2, @dups.adjacent(Edge[2,3], :type=>:edges, :direction=> :in)
-    assert_equal ([Edge[1,2]]*2+[Edge[3,4]]), @dups.adjacent(Edge[2,3], :type=>:edges, :direction=> :all).sort
+    
+    assert_equal [MultiEdge[3,4]], @dups.adjacent(MultiEdge[2,3], :type=>:edges)
+    assert_equal [MultiEdge[3,4]], @dups.adjacent(MultiEdge[2,3], :type=>:edges, :direction=> :out)
+    assert_equal [MultiEdge[1,2]]*2, @dups.adjacent(MultiEdge[2,3], :type=>:edges, :direction=> :in)
+    assert_equal ([MultiEdge[1,2]]*2+[MultiEdge[3,4]]), @dups.adjacent(MultiEdge[2,3], :type=>:edges, :direction=> :all).sort
   end
 
   def test_neighborhood

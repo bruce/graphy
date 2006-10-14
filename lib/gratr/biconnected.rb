@@ -44,7 +44,7 @@ module GRATR
       # articulation vertices.
       #
       # A connected graph is biconnected if the removal of any single vertex 
-      # (and all edges incident on that vertex) can not disconnect the graph.
+      # (and all edges incident on that vertex) cannot disconnect the graph.
       # More generally, the biconnected components of a graph are the maximal
       # subsets of vertices such that the removal of a vertex from a particular
       # component will not disconnect the component. Unlike connected components,

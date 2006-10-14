@@ -318,7 +318,7 @@ module GRATR
         # Create options hash that handles callbacks
         options = {:enter_vertex => block, :start => to_a[0]}.merge(options)
         options.instance_eval "def handle_vertex(sym,u) self[sym].call(u) if self[sym]; end"
-        options.instance_eval "def handle_edge(sym,u,v) self[sym].call(#{edge_class}[u,v]) if self[sym]; end"
+        options.instance_eval "def handle_edge(sym,e) self[sym].call(e) if self[sym]; end"
         # Create waiting list that is a queue or stack depending on op specified.
         # First entry is the start vertex.
         waiting = [options[:start]]
@@ -350,21 +350,23 @@ module GRATR
         result << u
         # Examine all adjacent outgoing edges, not previously traversed
         adj_proc = options[:adjacent] || self.method(:adjacent).to_proc
-        adj_proc.call(u).select {|w| visited_edges[edge_class[u,w]].nil? }.each do |v|
-          options.handle_edge(:examine_edge, u, v)
-          visited_edges[edge_class[u,v]]=true
+        adj_proc.call(u,:type => :edges, :direction => :out).reject {|w| visited_edges[w]}.each do |e|
+          e = e.reverse unless directed? or e.source == u # Preserves directionality where required 
+          v = e.target
+          options.handle_edge(:examine_edge, e)
+          visited_edges[e]=true
           case color_map[v]
             # If it's unvisited it goes into the waiting list
             when :unvisited 
-              options.handle_edge(:tree_edge, u, v)
+              options.handle_edge(:tree_edge, e)
               color_map[v] = :waiting
               waiting.push(v) 
               # If it's recursive (i.e. dfs) then call self
               gratr_search_iteration(options, waiting, color_map, visited_edges, result, true) if recursive
             when :waiting 
-              options.handle_edge(:back_edge, u, v)
+              options.handle_edge(:back_edge, e)
             else 
-              options.handle_edge(:forward_edge, u, v)
+              options.handle_edge(:forward_edge, e)
           end
         end
         # Finished with this vertex

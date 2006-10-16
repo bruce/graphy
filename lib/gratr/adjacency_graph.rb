@@ -106,17 +106,18 @@ module GRATR
       #   * add_edge!(Edge[source,target], "Label")
       #   * add_edge!(source,target, "Label")
       def add_edge!(u, v=nil, l=nil, n=nil)
-        n = u.number if u.class.include? EdgeNumber
+        n = u.number if u.class.include? EdgeNumber and n.nil?
         u, v, l = u.source, u.target, u.label if u.kind_of? GRATR::Edge
         return self if not @allow_loops and u == v
+        n = (@next_edge_number+=1) unless n if @parallel_edges
         add_vertex!(u); add_vertex!(v)        
         @vertex_dict[u].add(v)
-        (@edge_number[u] ||= @edgelist_class.new).add(n ? n : (@next_edge_number+=1) ) if @parallel_edges
+        (@edge_number[u] ||= @edgelist_class.new).add(n) if @parallel_edges
         unless directed?
           @vertex_dict[v].add(u)
-          (@edge_number[v] ||= @edgelist_class.new).add(n ? n : (@next_edge_number) ) if @parallel_edges
+          (@edge_number[v] ||= @edgelist_class.new).add(n) if @parallel_edges
         end        
-        self[@parallel_edges ? edge_class[u,v,nil,(n ? n : @next_edge_number)] : edge_class[u,v]] = l if l
+        self[n ? edge_class[u,v,nil,n] : edge_class[u,v]] = l if l
         self
       end
 

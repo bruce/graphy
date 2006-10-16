@@ -291,11 +291,7 @@ module GRATR
     end
     
     def inspect
-      self.class.to_s + '[' + 
-      edges.map do |e| 
-        '['+e.source.inspect+', '+e.target.inspect+']' +
-        (self[e] ? (' => ' + self[e].inspect) : '')
-      end.join(', ') + ']'
+      self.class.to_s + '[' + edges.map {|e| e.inspect}.join(', ') + ']'
     end
     
    private
@@ -316,11 +312,16 @@ module GRATR
         result = new
         if a.size == 1 and a[0].kind_of? Hash
           # Convert to edge class
-          e = a[0].keys.inject({}) {|acc,val| acc[result.edge_class[val[0],val[1]]] = a[0][val]; acc}
-          result.add_edges!(*(e.keys)) # Add edges
-          e.keys.each do |edge|     # Add labels
-            result[edge] = e[edge]
+          a[0].each do |k,v|
+            #puts "Examining k=#{k.inspect} v=#{v.inspect}"
+            if result.edge_class.include? GRATR::EdgeNumber
+              result.add_edge!(result.edge_class[k[0],k[1],nil,v])
+            else
+              result.add_edge!(result.edge_class[k[0],k[1],v])
+            end
           end
+        elsif a[0].kind_of? GRATR::Edge
+          a.each{|e| result.add_edge!(e); result[e] = e.label}
         elsif a.size % 2 == 0    
           0.step(a.size-1, 2) {|i| result.add_edge!(a[i], a[i+1])}
         else

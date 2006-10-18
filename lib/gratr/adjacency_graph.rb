@@ -118,7 +118,7 @@ module GRATR
         @vertex_dict[v].add(u)
         (@edge_number[v] ||= @edgelist_class.new).add(n) if @parallel_edges
       end        
-      self[n ? edge_class[u,v,nil,n] : edge_class[u,v]] = l if l
+      self[n ? edge_class[u,v,n] : edge_class[u,v]] = l if l
       self
     end
 

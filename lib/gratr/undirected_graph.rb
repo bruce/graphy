@@ -27,9 +27,6 @@
 #++
 
 
-require 'gratr/digraph'
-require 'gratr/edge'
-require 'gratr/graph'
 require 'gratr/adjacency_graph'
 require 'gratr/search'
 require 'gratr/biconnected'
@@ -38,8 +35,7 @@ require 'set'
 
 module GRATR
   class UndirectedGraph
-    include Graph
-    include Graph::AdjacencyGraph
+    include AdjacencyGraph
     include Graph::Search
     include Graph::Biconnected
     include Graph::Comparability

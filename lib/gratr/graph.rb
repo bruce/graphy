@@ -62,15 +62,14 @@ module GRATR
     #
     # Note: It is probably more efficently done in implementation.
     def adjacent(x, options={})
-      d = (options[:direction] ||= :out)
-      d = :all unless directed?
+      d = directed? ? (options[:direction] || :out) : :all
 
       # Discharge the easy ones first
       return [x.source] if x.kind_of? Edge and options[:type] == :vertices and d == :in
       return [x.target] if x.kind_of? Edge and options[:type] == :vertices and d == :out
       return [x.source, x.target] if x.kind_of? Edge and options[:type] != :edges and d == :all
 
-      (options[:type] == :edges ? edges : to_a).select { |u| adjacent?(x,u,d)}
+      (options[:type] == :edges ? edges : to_a).select {|u| adjacent?(x,u,d)}
     end
 
     # Add all objects in _a_ to the vertex set.
@@ -297,40 +296,6 @@ module GRATR
    private
     def edge_convert(*args) args[0].kind_of?(GRATR::Edge) ? args[0] : edge_class[*args]; end
     
-
-   public
-  
-    def self.included(cl)
-      # Shortcut for creating a Graph
-      #
-      #  Example: GRATR::Digraph[1,2, 2,3, 2,4, 4,5].edges.to_a.to_s =>
-      #    "(1-2)(2-3)(2-4)(4-5)"
-      # 
-      # Or as a Hash for specifying lables
-      # GRATR::Digraph[ [:a,:b] => 3, [:b,:c] => 4 ]  (Note: Do not use for Multi or Pseudo graphs)
-      def cl.[] (*a)
-        result = new
-        if a.size == 1 and a[0].kind_of? Hash
-          # Convert to edge class
-          a[0].each do |k,v|
-            #puts "Examining k=#{k.inspect} v=#{v.inspect}"
-            if result.edge_class.include? GRATR::EdgeNumber
-              result.add_edge!(result.edge_class[k[0],k[1],nil,v])
-            else
-              result.add_edge!(result.edge_class[k[0],k[1],v])
-            end
-          end
-        elsif a[0].kind_of? GRATR::Edge
-          a.each{|e| result.add_edge!(e); result[e] = e.label}
-        elsif a.size % 2 == 0    
-          0.step(a.size-1, 2) {|i| result.add_edge!(a[i], a[i+1])}
-        else
-          raise ArgumentError
-        end
-        result
-      end
-                   
-    end
 
   end # Graph
 

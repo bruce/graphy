@@ -316,7 +316,7 @@ class TestDigraph < Test::Unit::TestCase # :nodoc:
     assert_equal 2, @loops.max_in_degree
     assert_equal 1, @loops.min_out_degree
     assert_equal 2, @loops.max_out_degree
-    assert_equal 3, @loops.degree(2)
+    assert_equal 4, @loops.degree(2)
     assert_equal 1, @single.degree(1)
     assert !@loops.regular?
     assert !@single.regular?

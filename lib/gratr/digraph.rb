@@ -46,8 +46,7 @@ module GRATR
   # DirectedMultiGraph is a class that allows for parallel edges and loops
   # as well.
   class Digraph
-    include Graph
-    include Graph::AdjacencyGraph
+    include AdjacencyGraph
     include Graph::Search
     include Graph::StrongComponents
     include Graph::Distance

@@ -207,3 +207,14 @@ task :rdoc2rf => [:rdoc] do
   sh "scp -r #{RDOC_DIR} monora@rubyforge.org:/var/www/gforge-projects/gratr"
   sh "scp examples/*.jpg monora@rubyforge.org:/var/www/gforge-projects/gratr/examples"
 end
+
+STATS_DIRECTORIES = [
+  %w(Libraries          lib/gratr),
+  %w(Unit\ tests        tests),
+].collect { |name, dir| [ name, "./#{dir}" ] }.select { |name, dir| File.directory?(dir) }
+
+desc "Report code statistics (KLOCs, etc) from the application"
+task :stats do
+  require 'stats/code_statistics'
+  CodeStatistics.new(*STATS_DIRECTORIES).to_s
+end

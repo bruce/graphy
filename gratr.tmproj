@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>lib/gratr/adjacency_graph.rb</string>
+	<string>Rakefile</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -36,7 +36,9 @@
 			<key>filename</key>
 			<string>Rakefile</string>
 			<key>lastUsed</key>
-			<date>2006-10-01T01:16:49Z</date>
+			<date>2006-10-18T04:40:29Z</date>
+			<key>selected</key>
+			<true/>
 		</dict>
 		<dict>
 			<key>filename</key>
@@ -88,14 +90,14 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>0</integer>
+				<integer>17</integer>
 				<key>line</key>
-				<integer>0</integer>
+				<integer>217</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>166</integer>
+			<integer>181</integer>
 		</dict>
 		<key>acts_as_dag/Rakefile</key>
 		<dict>
@@ -202,14 +204,14 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>25</integer>
+				<integer>0</integer>
 				<key>line</key>
-				<integer>38</integer>
+				<integer>110</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>28</integer>
+			<integer>87</integer>
 		</dict>
 		<key>lib/gratr/base.rb</key>
 		<dict>
@@ -274,12 +276,12 @@
 				<key>column</key>
 				<integer>0</integer>
 				<key>line</key>
-				<integer>0</integer>
+				<integer>48</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>34</integer>
+			<integer>74</integer>
 		</dict>
 		<key>lib/gratr/digraph_distance.rb</key>
 		<dict>
@@ -314,44 +316,28 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>7</integer>
+				<integer>91</integer>
 				<key>line</key>
-				<integer>132</integer>
+				<integer>122</integer>
 			</dict>
-			<key>columnSelection</key>
-			<false/>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>105</integer>
-			<key>selectFrom</key>
-			<dict>
-				<key>column</key>
-				<integer>3</integer>
-				<key>line</key>
-				<integer>126</integer>
-			</dict>
-			<key>selectTo</key>
-			<dict>
-				<key>column</key>
-				<integer>7</integer>
-				<key>line</key>
-				<integer>132</integer>
-			</dict>
+			<integer>103</integer>
 		</dict>
 		<key>lib/gratr/graph.rb</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>18</integer>
+				<integer>91</integer>
 				<key>line</key>
-				<integer>39</integer>
+				<integer>293</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>12</integer>
+			<integer>0</integer>
 		</dict>
 		<key>lib/gratr/graph_api.rb</key>
 		<dict>
@@ -366,6 +352,34 @@
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>31</integer>
+		</dict>
+		<key>lib/gratr/labels.rb</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>63</integer>
+				<key>line</key>
+				<integer>42</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>34</integer>
+		</dict>
+		<key>lib/gratr/maximum_flow.rb</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>22</integer>
+				<key>line</key>
+				<integer>36</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>23</integer>
 		</dict>
 		<key>lib/gratr/rdot.rb</key>
 		<dict>
@@ -393,21 +407,21 @@
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>0</integer>
+			<integer>23</integer>
 		</dict>
 		<key>lib/gratr/undirected_graph.rb</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>1</integer>
+				<integer>12</integer>
 				<key>line</key>
-				<integer>40</integer>
+				<integer>37</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>20</integer>
+			<integer>7</integer>
 		</dict>
 		<key>tests/TestComplement.rb</key>
 		<dict>
@@ -444,14 +458,14 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>29</integer>
+				<integer>18</integer>
 				<key>line</key>
-				<integer>91</integer>
+				<integer>318</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>36</integer>
+			<integer>294</integer>
 		</dict>
 		<key>tests/TestEdge.rb</key>
 		<dict>
@@ -472,7 +486,7 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>5</integer>
+				<integer>0</integer>
 				<key>line</key>
 				<integer>49</integer>
 			</dict>
@@ -555,20 +569,26 @@
 	<key>openDocuments</key>
 	<array>
 		<string>tests/TestInspection.rb</string>
+		<string>Rakefile</string>
 		<string>lib/gratr/graph.rb</string>
+		<string>lib/gratr/labels.rb</string>
 		<string>lib/gratr/adjacency_graph.rb</string>
+		<string>tests/TestComplement.rb</string>
 		<string>lib/gratr/digraph.rb</string>
 		<string>lib/gratr/graph_api.rb</string>
 		<string>lib/gratr/strong_components.rb</string>
+		<string>lib/gratr/chinese_postman.rb</string>
+		<string>lib/gratr/maximum_flow.rb</string>
 		<string>lib/gratr/undirected_graph.rb</string>
 		<string>tests/TestDigraph.rb</string>
 		<string>tests/TestUndirectedGraph.rb</string>
 		<string>tests/TestTriagulated.rb</string>
 		<string>lib/gratr/edge.rb</string>
+		<string>tests/TestEdge.rb</string>
 	</array>
 	<key>showFileHierarchyDrawer</key>
 	<true/>
 	<key>windowFrame</key>
-	<string>{{540, 120}, {1131, 746}}</string>
+	<string>{{231, 125}, {1131, 746}}</string>
 </dict>
 </plist>

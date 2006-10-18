@@ -264,6 +264,17 @@ Rick Bradley who reworked the library and added many graph theoretic constructs.
 * Near optimal traveling salesman problem
 * Orientation of undirected graphs
 
+== Release Notes
+
+=== 0.4.1
+
+* Got reflection working for graphs
+* Fixed major bugs in multi and pseudo graph handling
+
+=== 0.4.0
+
+Initial release of fork from RGL library.
+
 == Copying
 
 Copyright (c) 2006 Shawn Patrick Garbett

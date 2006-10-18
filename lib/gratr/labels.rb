@@ -40,7 +40,7 @@ module GRATR
     def vertex_label(v)        vertex_label_dict[v]; end
 
     # Set the label for an edge
-    def vertex_label_set(v, l) vertex_label_dict[v] = l; end
+    def vertex_label_set(v, l) vertex_label_dict[v] = l; self; end
 
     # Get the label for an edge
     def edge_label(u,v=nil,n=nil)

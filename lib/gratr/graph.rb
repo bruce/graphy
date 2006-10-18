@@ -290,7 +290,8 @@ module GRATR
     end
     
     def inspect
-      self.class.to_s + '[' + edges.map {|e| e.inspect}.join(', ') + ']'
+      l = vertices.select {|v| self[v]}.map {|u| "vertex_label_set(#{u.inspect},#{self[u].inspect})"}.join('.')
+      self.class.to_s + '[' + edges.map {|e| e.inspect}.join(', ') + ']' + (l ? '.'+l : '')
     end
     
    private

@@ -292,7 +292,7 @@ module DOT
 
   # This is an edge.
 
-  class DOTEdge < DOTElement
+  class DOTArc < DOTElement
 
     attr_accessor :from, :to
 
@@ -315,13 +315,13 @@ module DOT
           }.compact.join( "\n" ) + "\n" + t + "]\n"
     end
 
-  end		# class DOTEdge
+  end		# class DOTArc
           
-  class DOTDirectedEdge < DOTEdge
+  class DOTDirectedArc < DOTArc
 
     def edge_link
       '->'
     end
 
-  end                           # class DOTDirectedEdge
+  end                           # class DOTDirectedArc
 end                             # module DOT

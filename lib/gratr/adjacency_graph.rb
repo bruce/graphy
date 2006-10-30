@@ -88,10 +88,10 @@ module GRATR
     # An O(1) implementation of vertex?
     def vertex?(v) @vertex_dict.has_key?(v); end
 
-    # Returns true if [u,v] or u is an Edge
+    # Returns true if [u,v] or u is an Arc
     # An O(1) implementation 
     def edge?(u, v=nil)
-      u, v = u.source, u.target if u.kind_of? GRATR::Edge
+      u, v = u.source, u.target if u.kind_of? GRATR::Arc
       vertex?(u) and @vertex_dict[u].include?(v)
     end
 
@@ -104,11 +104,11 @@ module GRATR
 
     # Adds an edge to the graph
     # Can be called in two basic ways, label is optional
-    #   * add_edge!(Edge[source,target], "Label")
+    #   * add_edge!(Arc[source,target], "Label")
     #   * add_edge!(source,target, "Label")
     def add_edge!(u, v=nil, l=nil, n=nil)
-      n = u.number if u.class.include? EdgeNumber and n.nil?
-      u, v, l = u.source, u.target, u.label if u.kind_of? GRATR::Edge
+      n = u.number if u.class.include? ArcNumber and n.nil?
+      u, v, l = u.source, u.target, u.label if u.kind_of? GRATR::Arc
       return self if not @allow_loops and u == v
       n = (@next_edge_number+=1) unless n if @parallel_edges
       add_vertex!(u); add_vertex!(v)        
@@ -136,9 +136,9 @@ module GRATR
     end
 
     # Removes an edge from the graph, can be called with source and target or with
-    # and object of GRATR::Edge derivation
+    # and object of GRATR::Arc derivation
     def remove_edge!(u, v=nil)
-      unless u.kind_of? GRATR::Edge
+      unless u.kind_of? GRATR::Arc
         raise ArgumentError if @parallel_edges
         u = edge_class[u,v]
       end
@@ -147,7 +147,7 @@ module GRATR
       delete_label(u) # Get rid of label
       if @parallel_edges
         index = @edge_number[u.source].index(u.number)
-        raise NoEdgeError unless index
+        raise NoArcError unless index
         @vertex_dict[u.source].delete_at(index)
         @edge_number[u.source].delete_at(index) 
       else
@@ -159,7 +159,7 @@ module GRATR
     # Returns an array of vertices that the graph has
     def vertices() @vertex_dict.keys; end
 
-    # Returns an array of edges, most likely of class Edge or UndirectedEdge depending 
+    # Returns an array of edges, most likely of class Arc or Edge depending 
     # upon the type of graph
     def edges
       @vertex_dict.keys.inject(Set.new) do |a,v|
@@ -179,7 +179,7 @@ module GRATR
     alias graph_adjacent adjacent
     def adjacent(x, options={})
       options[:direction] ||= :out
-      if !x.kind_of?(GRATR::Edge) and (options[:direction] == :out || !directed?)
+      if !x.kind_of?(GRATR::Arc) and (options[:direction] == :out || !directed?)
         if options[:type] == :edges
           @parallel_edges ?
             @vertex_dict[x].map {|v| e=edge_class[x,v,@edge_number[x][v]]; e.label = self[e]; e} :
@@ -208,13 +208,13 @@ module GRATR
         if a.size == 1 and a[0].kind_of? Hash
           # Convert to edge class
           a[0].each do |k,v|
-            if result.edge_class.include? GRATR::EdgeNumber
+            if result.edge_class.include? GRATR::ArcNumber
               result.add_edge!(result.edge_class[k[0],k[1],nil,v])
             else
              result.add_edge!(result.edge_class[k[0],k[1],v])
             end 
           end
-        elsif a[0].kind_of? GRATR::Edge
+        elsif a[0].kind_of? GRATR::Arc
           a.each{|e| result.add_edge!(e); result[e] = e.label}
         elsif a.size % 2 == 0    
           0.step(a.size-1, 2) {|i| result.add_edge!(a[i], a[i+1])}

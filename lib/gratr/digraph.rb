@@ -62,8 +62,8 @@ module GRATR
     # A directed graph is directed by definition
     def directed?() true; end
 
-    # A digraph uses the Edge class for edges
-    def edge_class() @parallel_edges ? GRATR::MultiEdge : GRATR::Edge; end
+    # A digraph uses the Arc class for edges
+    def edge_class() @parallel_edges ? GRATR::MultiArc : GRATR::Arc; end
 
     # Reverse all edges in a graph
     def reversal

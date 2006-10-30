@@ -30,5 +30,5 @@ GRATR_VERSION = "0.4.1"
 
 module GRATR
   class NoVertexError      < IndexError;   end
-  class NoEdgeError        < IndexError;   end
+  class NoArcError        < IndexError;   end
 end

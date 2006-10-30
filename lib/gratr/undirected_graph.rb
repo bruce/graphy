@@ -56,11 +56,11 @@ module GRATR
     # A vertex of an undirected graph is balanced by definition
     def balanced?(v)  true;  end
 
-    # UndirectedGraph uses UndirectedEdge for the edge class.
-    def edge_class() @parallel_edges ? GRATR::MultiUndirectedEdge : GRATR::UndirectedEdge; end
+    # UndirectedGraph uses Edge for the edge class.
+    def edge_class() @parallel_edges ? GRATR::MultiEdge : GRATR::Edge; end
 
     def remove_edge!(u, v=nil)
-      unless u.kind_of? GRATR::Edge
+      unless u.kind_of? GRATR::Arc
         raise ArgumentError if @parallel_edges 
         u = edge_class[u,v]
       end

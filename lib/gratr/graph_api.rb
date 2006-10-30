@@ -16,8 +16,7 @@
 # 
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 # ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-# WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-# DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+# WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE AREf
 # FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
 # DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
 # SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
@@ -45,7 +44,7 @@ module GRATR
     def add_vertex!(v,l=nil)     raise NotImplementedError; end
       
     # Add an edge to the Graph and return the Graph
-    # u can be an object of type GRATR::Edge or u,v specifies
+    # u can be an object of type GRATR::Arc or u,v specifies
     # a source, target pair. The last parameter is an optional label
     # 
     # This method must be implemented by the specific graph class
@@ -58,7 +57,7 @@ module GRATR
       
     # Remove an edge from the Graph and return the Graph
     # 
-    # Can be a type of GRATR::Edge or a source and target
+    # Can be a type of GRATR::Arc or a source and target
     # This method must be implemented by the specific graph class
     def remove_edge!(u,v=nil)    raise NotImplementedError; end
             

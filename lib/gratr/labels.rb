@@ -28,13 +28,13 @@
 module GRATR
   module Labels
     # Return a label for an edge or vertex
-    def [](u) (u.kind_of? GRATR::Edge) ? edge_label(u) : vertex_label(u); end
+    def [](u) (u.kind_of? GRATR::Arc) ? edge_label(u) : vertex_label(u); end
 
     # Set a label for an edge or vertex
-    def []= (u, value) (u.kind_of? GRATR::Edge) ? edge_label_set(u,value) : vertex_label_set(u, value); end
+    def []= (u, value) (u.kind_of? GRATR::Arc) ? edge_label_set(u,value) : vertex_label_set(u, value); end
 
     # Delete a label entirely
-    def delete_label(u) (u.kind_of? GRATR::Edge) ? edge_label_delete(u) : vertex_label_delete(u); end
+    def delete_label(u) (u.kind_of? GRATR::Arc) ? edge_label_delete(u) : vertex_label_delete(u); end
 
     # Get the label for an edge
     def vertex_label(v)        vertex_label_dict[v]; end
@@ -50,7 +50,7 @@ module GRATR
 
     # Set the label for an edge
     def edge_label_set(u, v=nil, l=nil, n=nil) 
-      u.kind_of?(GRATR::Edge) ? l = v : u = edge_convert(u,v,n)
+      u.kind_of?(GRATR::Arc) ? l = v : u = edge_convert(u,v,n)
       edge_label_dict[u] = l; self
     end
 
@@ -77,12 +77,25 @@ module GRATR
     # treated as the cost value.
     #
     # Note: This function will not work for Pseudo or Multi graphs at present. 
+    # FIXME: Remove u,v interface to fix Pseudo Multi graph problems.
     def cost(u,v=nil,weight=nil)
-      u.kind_of?(Edge) ? weight = v : u = edge_class[u,v] 
+      u.kind_of?(Arc) ? weight = v : u = edge_class[u,v] 
       case weight
         when Proc : weight.call(u)
         when nil  : self[u]
         else        self[u][weight]
+      end
+    end
+    
+    # An alias of cost for property retrieval in general
+    alias property cost
+    
+    # A function to set properties specified by the user.
+    def property_set(u,name,value)
+      case name
+        when Proc : name.call(value)
+        when nil  : self[u] = value
+        else        self[u][name] = value
       end
     end
 

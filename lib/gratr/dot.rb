@@ -43,7 +43,7 @@ module GRATR
       params['name'] ||= self.class.name.gsub(/:/,'_')
       fontsize   = params['fontsize'] ? params['fontsize'] : '8'
       graph      = (directed? ? DOT::DOTDigraph : DOT::DOTSubgraph).new(params)
-      edge_klass = directed? ? DOT::DOTDirectedEdge : DOT::DOTEdge
+      edge_klass = directed? ? DOT::DOTDirectedArc : DOT::DOTArc
       vertices.each do |v|
         name = v.to_s
         params = {'name'     => '"'+name+'"',

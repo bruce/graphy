@@ -42,17 +42,24 @@ module GRATR
     include Labels
     include GraphAPI
       
+    alias remove_arc! remove_edge!
+    alias add_arc! add_edge!
+    alias arcs edges
+    alias arc_class edge_class  
+      
     # Non destructive version of add_vertex!, returns modified copy of Graph
     def add_vertex(v, l=nil) x=self.class.new(self); x.add_vertex!(v,l); end
       
     # Non destructive version add_edge!, returns modified copy of Graph  
     def add_edge(u, v=nil, l=nil) x=self.class.new(self); x.add_edge!(u,v,l); end
+    alias add_arc add_edge  
       
     # Non destructive version of remove_vertex!, returns modified copy of Graph
     def remove_vertex(v) x=self.class.new(self); x.remove_vertex!(v); end  
 
     # Non destructive version of remove_edge!, returns modified copy of Graph
     def remove_edge(u,v=nil) x=self.class.new(self); x.remove_edge!(u,v); end
+    alias remove_arc remove_edge  
       
     # Return Array of adjacent portions of the Graph
     #  x can either be a vertex an edge.
@@ -65,9 +72,9 @@ module GRATR
       d = directed? ? (options[:direction] || :out) : :all
 
       # Discharge the easy ones first
-      return [x.source] if x.kind_of? Edge and options[:type] == :vertices and d == :in
-      return [x.target] if x.kind_of? Edge and options[:type] == :vertices and d == :out
-      return [x.source, x.target] if x.kind_of? Edge and options[:type] != :edges and d == :all
+      return [x.source] if x.kind_of? Arc and options[:type] == :vertices and d == :in
+      return [x.target] if x.kind_of? Arc and options[:type] == :vertices and d == :out
+      return [x.source, x.target] if x.kind_of? Arc and options[:type] != :edges and d == :all
 
       (options[:type] == :edges ? edges : to_a).select {|u| adjacent?(x,u,d)}
     end
@@ -80,12 +87,14 @@ module GRATR
     def add_vertices(*a) x=self.class.new(self); x.add_vertices(*a); self; end
 
     # Add all edges in the _edges_ Enumerable to the edge set.  Elements of the
-    # Enumerable can be both two-element arrays or instances of DirectedEdge or
-    # UnDirectedEdge. 
+    # Enumerable can be both two-element arrays or instances of DirectedArc or
+    # UnDirectedArc. 
     def add_edges!(*args) args.each { |edge| add_edge!(edge) }; self; end
+    alias add_arc! add_edges!  
       
     # See add_edge!
     def add_edges(*a) x=self.class.new(self); x.add_edges!(*a); self; end
+    alias add_arcs add_edges
 
     # Remove all vertices specified by the Enumerable a from the graph by
     # calling remove_vertex!.
@@ -97,9 +106,11 @@ module GRATR
     # Remove all vertices edges by the Enumerable a from the graph by
     # calling remove_edge!
     def remove_edges!(*a) a.each { |e| remove_edges! e }; end
+    alias remove_arc! remove_edges!
 
     # See remove_edges
     def remove_edges(*a) x=self.class.new(self); x.remove_edges(*a); end
+    alias remove_arcs remove_edges
 
     # Execute given block for each vertex, provides for methods in Enumerable
     def each(&block) vertices.each(&block); end
@@ -110,8 +121,9 @@ module GRATR
     # made into an O(1) average complexity operation.
     def vertex?(v) vertices.include?(v); end  
     
-    # Returns true if u or (u,v) is an Edge of the graph.
+    # Returns true if u or (u,v) is an Arc of the graph.
     def edge?(*arg) edges.include?(edge_convert(*args)); end  
+    alias arc? edge?
 
     # Tests two objects to see if they are adjacent.
     # direction parameter specifies direction of adjacency, :in, :out, or :all(default)
@@ -121,10 +133,10 @@ module GRATR
     # if two objects touch. For vertexes, any edge between the two will usually do, but the direction
     # can be specified if need be.
     def adjacent?(source, target, direction=:all)
-      if source.kind_of? GRATR::Edge
-        raise NoEdgeError unless edge? source
-        if target.kind_of? GRATR::Edge
-          raise NoEdgeError unless edge? target
+      if source.kind_of? GRATR::Arc
+        raise NoArcError unless edge? source
+        if target.kind_of? GRATR::Arc
+          raise NoArcError unless edge? target
           (direction != :out and source.source == target.target) or (direction != :in and source.target == target.source)
         else
           raise NoVertexError unless vertex? target
@@ -132,8 +144,8 @@ module GRATR
         end
       else
         raise NoVertexError unless vertex? source
-        if target.kind_of? GRATR::Edge
-          raise NoEdgeError unless edge? target
+        if target.kind_of? GRATR::Arc
+          raise NoArcError unless edge? target
           (direction != :out and source == target.target) or (direction != :in and source == target.source)
         else
           raise NoVertexError unless vertex? target
@@ -145,15 +157,15 @@ module GRATR
     # Returns true if the graph has no vertex, i.e. num_vertices == 0.
     def empty?() vertices.size.zero?; end
 
-    # Returns true if the given object is a vertex or Edge in the Graph.
+    # Returns true if the given object is a vertex or Arc in the Graph.
     # 
-    def include?(x) x.kind_of?(GRATR::Edge) ? edge?(x) : vertex?(x); end
+    def include?(x) x.kind_of?(GRATR::Arc) ? edge?(x) : vertex?(x); end
 
-    # Returns the neighboorhood of the given vertex (or Edge)
+    # Returns the neighboorhood of the given vertex (or Arc)
     # This is equivalent to adjacent, but bases type on the type of object.
     # direction can be :all, :in, or :out 
     def neighborhood(x, direction = :all)
-      adjacent(x, :direction => direction, :type => ((x.kind_of? GRATR::Edge) ? :edges : :vertices )) 
+      adjacent(x, :direction => direction, :type => ((x.kind_of? GRATR::Arc) ? :edges : :vertices )) 
     end
     
     # Union of all neighborhoods of vertices (or edges) in the Enumerable x minus the contents of x
@@ -257,7 +269,7 @@ module GRATR
       result = self.class.new(self)
       case other
         when GRATR::Graph : result.merge(other)
-        when GRATR::Edge  : result.add_edge!(other)
+        when GRATR::Arc  : result.add_edge!(other)
         else              result.add_vertex!(other)
       end
     end
@@ -266,7 +278,7 @@ module GRATR
     def -(other)
       case  other
         when GRATR::Graph : induced_subgraph(vertices - other.vertices)
-        when GRATR::Edge  : self.class.new(self).remove_edge!(other)
+        when GRATR::Arc  : self.class.new(self).remove_edge!(other)
         else              self.class.new(self).remove_vertex!(other)
       end
     end
@@ -295,7 +307,7 @@ module GRATR
     end
     
    private
-    def edge_convert(*args) args[0].kind_of?(GRATR::Edge) ? args[0] : edge_class[*args]; end
+    def edge_convert(*args) args[0].kind_of?(GRATR::Arc) ? args[0] : edge_class[*args]; end
     
 
   end # Graph

@@ -42,10 +42,10 @@ module GRATR
     def vertices()    (1..@size).to_a; end
     def vertex?(v)    v > 0 and v <= @size; end
     def edge?(u,v=nil)
-      u, v = [u.source, v.target] if u.kind_of? GRATR::Edge
+      u, v = [u.source, v.target] if u.kind_of? GRATR::Arc
       vertex?(u) && vertex?(v) && ((v-u == 1) or (u==@size && v=1))
     end
-    def edges() Array.new(@size) {|i| GRATR::UndirectedEdge[i+1, (i+1)==@size ? 1 : i+2]}; end
+    def edges() Array.new(@size) {|i| GRATR::Edge[i+1, (i+1)==@size ? 1 : i+2]}; end
   end
   
   # This class defines a complete graph of size n
@@ -59,11 +59,11 @@ module GRATR
       return @edges if @edges      # Cache edges
       @edges = []
       @size.times do |u|
-        @size.times {|v| @edges << GRATR::UndirectedEdge[u+1, v+1]}
+        @size.times {|v| @edges << GRATR::Edge[u+1, v+1]}
       end; @edges
     end
     def edge?(u,v=nil)
-      u, v = [u.source, v.target] if u.kind_of? GRATR::Edge
+      u, v = [u.source, v.target] if u.kind_of? GRATR::Arc
       vertex?(u) && vertex?(v)
     end
   end              # Complete

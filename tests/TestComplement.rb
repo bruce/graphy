@@ -35,8 +35,8 @@ class TestComplement < Test::Unit::TestCase # :nodoc:
   def test_square
     x = UndirectedGraph[:a,:b, :b,:c, :c,:d, :d,:a].complement
     assert_equal 2, x.edges.size
-    assert x.edges.include?(UndirectedEdge[:a,:c])
-    assert x.edges.include?(UndirectedEdge[:b,:d])
+    assert x.edges.include?(Edge[:a,:c])
+    assert x.edges.include?(Edge[:b,:d])
   end
   
   def test_g1

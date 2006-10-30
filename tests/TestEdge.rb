@@ -30,18 +30,18 @@
 require 'test/unit'
 require 'gratr/import'
 
-class TestEdge < Test::Unit::TestCase # :nodoc:
+class TestArc < Test::Unit::TestCase # :nodoc:
 
   def setup
-    @e = Edge.new(1,2,'boo')
-    @u = UndirectedEdge.new(1,2,'hoo')
+    @e = Arc.new(1,2,'boo')
+    @u = Edge.new(1,2,'hoo')
   end
 
   def test_edge_new
-    assert_raises(ArgumentError) {Edge.new}
-    assert_raises(ArgumentError) {Edge.new(1)}
-    assert Edge.new(1,2)
-    assert Edge.new(1,2,'label')
+    assert_raises(ArgumentError) {Arc.new}
+    assert_raises(ArgumentError) {Arc.new(1)}
+    assert Arc.new(1,2)
+    assert Arc.new(1,2,'label')
   end
 
   def test_edge_getters
@@ -112,26 +112,26 @@ class TestEdge < Test::Unit::TestCase # :nodoc:
     assert_equal("(1-2 'boo')", @e.to_s)
     @e.label = nil
     assert_equal("(1-2)", @e.to_s)
-    assert(@e.eql?(Edge.new(1,2)))
-    assert(!@e.eql?(Edge.new(1,3)))
-    assert(!Edge.new(2,1).eql?(@e))
+    assert(@e.eql?(Arc.new(1,2)))
+    assert(!@e.eql?(Arc.new(1,3)))
+    assert(!Arc.new(2,1).eql?(@e))
 
-    assert(@e             == (Edge.new(1,2)))
-    assert(@e.reverse     == (Edge.new(2,1)))
-    assert(Edge.new(1,2)  != (Edge.new(1,3)))
-    assert(Edge.new(2,1)  != @e)
+    assert(@e             == (Arc.new(1,2)))
+    assert(@e.reverse     == (Arc.new(2,1)))
+    assert(Arc.new(1,2)  != (Arc.new(1,3)))
+    assert(Arc.new(2,1)  != @e)
   end
 
   def test_edge_sort
-    x = [ Edge.new(2,3), Edge.new(1,3), Edge.new(1,2), Edge.new(2,1) ].sort
-    assert_equal [Edge.new(1,2), Edge.new(1,3), Edge.new(2,1), Edge.new(2,3)], x
+    x = [ Arc.new(2,3), Arc.new(1,3), Arc.new(1,2), Arc.new(2,1) ].sort
+    assert_equal [Arc.new(1,2), Arc.new(1,3), Arc.new(2,1), Arc.new(2,3)], x
   end
 
   def test_undirected_edge_new
-    assert_raises(ArgumentError) {UndirectedEdge.new}
-    assert_raises(ArgumentError) {UndirectedEdge.new(1)}
-    assert UndirectedEdge.new(1,2)
-    assert UndirectedEdge.new(1,2,'label')
+    assert_raises(ArgumentError) {Edge.new}
+    assert_raises(ArgumentError) {Edge.new(1)}
+    assert Edge.new(1,2)
+    assert Edge.new(1,2,'label')
   end
 
   def test_undirected_edge_getters
@@ -144,27 +144,27 @@ class TestEdge < Test::Unit::TestCase # :nodoc:
   def test_undirected_edge_methods
     @u.label = nil
     assert_equal("(1=2)",@u.to_s)
-    assert_equal("(1=2)",UndirectedEdge.new(2,1).to_s)
+    assert_equal("(1=2)",Edge.new(2,1).to_s)
 
-    assert @u.eql?(UndirectedEdge.new(2,1))
-    assert @u == UndirectedEdge.new(2,1,'boo')
-    assert @u != UndirectedEdge.new(2,3)
+    assert @u.eql?(Edge.new(2,1))
+    assert @u == Edge.new(2,1,'boo')
+    assert @u != Edge.new(2,3)
 
-    assert_equal(@u.hash,UndirectedEdge.new(2,1).hash)
+    assert_equal(@u.hash,Edge.new(2,1).hash)
   end
 
   def test_undirected_edge_sort
-    x=[UndirectedEdge.new(12, 1), UndirectedEdge.new(2,11)].sort
-    assert_equal [UndirectedEdge.new(2,11), UndirectedEdge.new(1,12)], x
+    x=[Edge.new(12, 1), Edge.new(2,11)].sort
+    assert_equal [Edge.new(2,11), Edge.new(1,12)], x
   end
   
   def test_hash
-    assert_equal Edge[1,2,:b], Edge[1,2,:c]
-    assert_equal Edge[1,2,:b].hash, Edge[1,2,:c].hash
-    assert Edge[1,2] != Edge[2,1]
-    assert Edge[1,2] != UndirectedEdge[1,2]
-    assert_equal UndirectedEdge[1,2], UndirectedEdge[2,1]
-    assert_equal UndirectedEdge[1,2,:a], UndirectedEdge[2,1,:b]
+    assert_equal Arc[1,2,:b], Arc[1,2,:c]
+    assert_equal Arc[1,2,:b].hash, Arc[1,2,:c].hash
+    assert Arc[1,2] != Arc[2,1]
+    assert Arc[1,2] != Edge[1,2]
+    assert_equal Edge[1,2], Edge[2,1]
+    assert_equal Edge[1,2,:a], Edge[2,1,:b]
   end
 
 end

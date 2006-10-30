@@ -58,10 +58,10 @@ module GRATR
       #  ev = Proc.new {|x| puts "Enter Vertex #{x}"}
       #  xv = Proc.new {|x| puts "Exit Vertex #{x}"}
       #  sv = Proc.new {|x| puts "Start Vertex #{x}"}
-      #  ee = Proc.new {|x| puts "Examine Edge #{x}"}
-      #  te = Proc.new {|x| puts "Tree Edge #{x}"}
-      #  be = Proc.new {|x| puts "Back Edge #{x}"}
-      #  fe = Proc.new {|x| puts "Forward Edge #{x}"}
+      #  ee = Proc.new {|x| puts "Examine Arc #{x}"}
+      #  te = Proc.new {|x| puts "Tree Arc #{x}"}
+      #  be = Proc.new {|x| puts "Back Arc #{x}"}
+      #  fe = Proc.new {|x| puts "Forward Arc #{x}"}
       #  Digraph[1,2,2,3,3,4].dfs({ 
       #        :enter_vertex => ev, 
       #        :exit_vertex  => xv,
@@ -75,17 +75,17 @@ module GRATR
       #
       # Start Vertex 1
       # Enter Vertex 1
-      # Examine Edge (1=2)
-      # Tree Edge (1=2)
+      # Examine Arc (1=2)
+      # Tree Arc (1=2)
       # Enter Vertex 2
-      # Examine Edge (2=3)
-      # Tree Edge (2=3)
+      # Examine Arc (2=3)
+      # Tree Arc (2=3)
       # Enter Vertex 3
-      # Examine Edge (3=4)
-      # Tree Edge (3=4)
+      # Examine Arc (3=4)
+      # Tree Arc (3=4)
       # Enter Vertex 4
-      # Examine Edge (1=4)
-      # Back Edge (1=4)
+      # Examine Arc (1=4)
+      # Back Arc (1=4)
       # Exit Vertex 4
       # Exit Vertex 3
       # Exit Vertex 2
@@ -213,12 +213,12 @@ module GRATR
       #   be equal to or less than the true cost
       # 
       # options are mostly callbacks passed in as a hash, the default block is 
-      # :discover_vertex and weight is assumed to be the label for the Edge.
+      # :discover_vertex and weight is assumed to be the label for the Arc.
       # The following options are valid, anything else is ignored.
       #
       # * :weight => can be a Proc, or anything else is accessed using the [] for the
       #     the label or it defaults to using
-      #     the value stored in the label for the Edge. If it is a Proc it will 
+      #     the value stored in the label for the Arc. If it is a Proc it will 
       #     pass the edge to the proc and use the resulting value.
       # * :discover_vertex => Proc invoked when a vertex is first discovered
       #   and is added to the open list.

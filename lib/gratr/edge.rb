@@ -29,14 +29,14 @@
 
 module GRATR
 
-  # Edge includes classes for representing egdes of directed and
+  # Arc includes classes for representing egdes of directed and
   # undirected graphs. There is no need for a Vertex class, because any ruby
   # object can be a vertex of a graph.
   #
-  # Edge's base is a Struct with a :source, a :target and a :label
-  Struct.new("EdgeBase",:source, :target, :label)
+  # Arc's base is a Struct with a :source, a :target and a :label
+  Struct.new("ArcBase",:source, :target, :label)
 
-  class Edge < Struct::EdgeBase
+  class Arc < Struct::ArcBase
 
     def initialize(p_source,p_target,p_label=nil)
       super(p_source, p_target, p_label)
@@ -54,7 +54,7 @@ module GRATR
     # Sort support
     def <=>(rhs) [source,target] <=> [rhs.source,rhs.target]; end
 
-    # Edge.new[1,2].to_s => "(1-2 'label')"
+    # Arc.new[1,2].to_s => "(1-2 'label')"
     def to_s
       l = label ? " '#{label.to_s}'" : ''
       "(#{source}-#{target}#{l})"
@@ -64,7 +64,7 @@ module GRATR
     # part of the hash value
     def hash() source.hash ^ (target.hash+1); end
 
-    # Shortcut constructor. Instead of Edge.new(1,2) one can use Edge[1,2]
+    # Shortcut constructor. Instead of Arc.new(1,2) one can use Arc[1,2]
     def self.[](p_source, p_target, p_label=nil)
       new(p_source, p_target, p_label)
     end
@@ -74,8 +74,8 @@ module GRATR
   end
     
   # An undirected edge is simply an undirected pair (source, target) used in
-  # undirected graphs. UndirectedEdge[u,v] == UndirectedEdge[v,u]
-  class UndirectedEdge < Edge
+  # undirected graphs. Edge[u,v] == Edge[v,u]
+  class Edge < Arc
 
     # Equality allows for the swapping of source and target
     def eql?(other) super or (self.class == other.class and target==other.source and source==other.target); end
@@ -95,7 +95,7 @@ module GRATR
       [[rhs.source,rhs.target].max,[rhs.source,rhs.target].min]
     end
     
-    # UndirectedEdge[1,2].to_s == "(1=2 'label)"
+    # Edge[1,2].to_s == "(1=2 'label)"
     def to_s
       l = label ? " '#{label.to_s}'" : ''
       s = source.to_s
@@ -106,7 +106,7 @@ module GRATR
   end
   
   # This module provides for internal numbering of edges for differentiating between mutliple edges
-  module EdgeNumber
+  module ArcNumber
     
     attr_accessor :number # Used to differentiate between mutli-edges
     
@@ -124,7 +124,7 @@ module GRATR
     def eql?(rhs) super(rhs) and (rhs.number.nil? or number.nil? or number == rhs.number); end 
     def ==(rhs) eql?(rhs); end
 
-    # Shortcut constructor. Instead of Edge.new(1,2) one can use Edge[1,2]
+    # Shortcut constructor. Instead of Arc.new(1,2) one can use Arc[1,2]
     def self.included(cl)
       
       def cl.[](p_source, p_target, p_number=nil, p_label=nil)
@@ -134,12 +134,12 @@ module GRATR
 
   end
   
-  class MultiEdge < Edge
-    include EdgeNumber
+  class MultiArc < Arc
+    include ArcNumber
   end
   
-  class MultiUndirectedEdge < UndirectedEdge
-    include EdgeNumber
+  class MultiEdge < Edge
+    include ArcNumber
   end
   
 end

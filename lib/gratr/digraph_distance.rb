@@ -39,7 +39,7 @@ module GRATR
       # start is the starting vertex 
       # weight can be a Proc, or anything else is accessed using the [] for the
       #     the label or it defaults to using
-      #     the value stored in the label for the Edge. If it is a Proc it will 
+      #     the value stored in the label for the Arc. If it is a Proc it will 
       #     pass the edge to the proc and use the resulting value.
       # zero is used for math system with a different definition of zero
       #
@@ -70,7 +70,7 @@ module GRATR
       #
       # weight can be a Proc, or anything else is accessed using the [] for the
       #     the label or it defaults to using
-      #     the value stored in the label for the Edge. If it is a Proc it will 
+      #     the value stored in the label for the Arc. If it is a Proc it will 
       #     pass the edge to the proc and use the resulting value.
       #  
       # zero is used for math system with a different definition of zero
@@ -105,7 +105,7 @@ module GRATR
       #
       # weight can be a Proc, or anything else is accessed using the [] for the
       #     the label or it defaults to using
-      #     the value stored in the label for the Edge. If it is a Proc it will 
+      #     the value stored in the label for the Arc. If it is a Proc it will 
       #     pass the edge to the proc and use the resulting value.
       #  
       # zero is used for math system with a different definition of zero
@@ -143,10 +143,10 @@ module GRATR
       # of in edges and out edges) is indexed by vertex.
       #
       # weight specifies how an edge weight is determined, if it's a
-      # Proc the Edge is passed to it, if it's nil it will just use
-      # the value in the label for the Edge, otherwise the weight is
+      # Proc the Arc is passed to it, if it's nil it will just use
+      # the value in the label for the Arc, otherwise the weight is
       # determined by applying the [] operator to the value in the 
-      # label for the Edge
+      # label for the Arc
       #
       # zero defines the zero value in the math system used. Defaults
       # of course, to 0. This allows for no assumptions to be made

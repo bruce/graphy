@@ -39,17 +39,17 @@ class TestDigraphDistance < Test::Unit::TestCase # :nodoc:
                   :e,:b, :e,:f,
                   :f,:c, :f,:d, :f,:e ]
   
-    @w = {  Edge[:a,:b] => 9,
-            Edge[:a,:e] => 3,
-            Edge[:b,:c] => 2,
-            Edge[:b,:e] => 6,
-            Edge[:c,:d] => 1,
-            Edge[:d,:c] => 2,
-            Edge[:e,:b] => 2,
-            Edge[:e,:f] => 1,
-            Edge[:f,:c] => 2,
-            Edge[:f,:d] => 7,
-            Edge[:f,:e] => 2  }
+    @w = {  Arc[:a,:b] => 9,
+            Arc[:a,:e] => 3,
+            Arc[:b,:c] => 2,
+            Arc[:b,:e] => 6,
+            Arc[:c,:d] => 1,
+            Arc[:d,:c] => 2,
+            Arc[:e,:b] => 2,
+            Arc[:e,:f] => 1,
+            Arc[:f,:c] => 2,
+            Arc[:f,:d] => 7,
+            Arc[:f,:e] => 2  }
     @a = {  :a => 0,
             :b => 5,
             :c => 6,

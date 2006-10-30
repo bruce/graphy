@@ -48,17 +48,17 @@ class TestUndirectedGraph < Test::Unit::TestCase # :nodoc:
   end
 
   def test_edges
-    assert @single.edges.include?(UndirectedEdge[1,2])
-    assert @single.edges.include?(UndirectedEdge[2,3])
-    assert @single.edges.include?(UndirectedEdge[3,4])
-    assert !@single.edges.include?(UndirectedEdge[4,4])
-    assert @loops.edges.include?(MultiUndirectedEdge[4,4])
-    assert @single.edges.include?(UndirectedEdge[1,2])
-    assert @single.edges.include?(UndirectedEdge[2,3])
-    assert !@single.edges.include?(UndirectedEdge[1,3])
+    assert @single.edges.include?(Edge[1,2])
+    assert @single.edges.include?(Edge[2,3])
+    assert @single.edges.include?(Edge[3,4])
+    assert !@single.edges.include?(Edge[4,4])
+    assert @loops.edges.include?(MultiEdge[4,4])
+    assert @single.edges.include?(Edge[1,2])
+    assert @single.edges.include?(Edge[2,3])
+    assert !@single.edges.include?(Edge[1,3])
     assert @single.edge?(2,3)
     assert !@single.edge?(1,4)
-    assert @single.edge?(UndirectedEdge[1,2])
+    assert @single.edge?(Edge[1,2])
     assert !@single.add_edge!(5,5).edge?(5,5)
     assert !@dups.add_edge!(5,5).edge?(5,5)
     assert @loops.add_edge!(5,5).edge?(5,5)
@@ -94,7 +94,7 @@ class TestUndirectedGraph < Test::Unit::TestCase # :nodoc:
   end
 
   def test_operators
-    result = @single + UndirectedEdge[3,2] 
+    result = @single + Edge[3,2] 
     assert_equal 4, @single.size 
     assert_equal 3, @single.num_edges
     assert_equal 4, result.size 
@@ -106,7 +106,7 @@ class TestUndirectedGraph < Test::Unit::TestCase # :nodoc:
     assert_equal 5, result.size 
     assert_equal 3, result.num_edges
 
-    result = @single - UndirectedEdge[4,4]
+    result = @single - Edge[4,4]
     assert_equal 4, @single.size 
     assert_equal 3, @single.num_edges
     assert_equal 4, result.size 
@@ -118,7 +118,7 @@ class TestUndirectedGraph < Test::Unit::TestCase # :nodoc:
     assert_equal 3, result.size 
     assert_equal 2, result.num_edges
     
-    @single << UndirectedEdge[6,1]
+    @single << Edge[6,1]
     assert_equal 5, @single.size
     assert_equal 4, @single.num_edges
     assert @single.edge?(6,1)
@@ -151,49 +151,49 @@ class TestUndirectedGraph < Test::Unit::TestCase # :nodoc:
     assert @dups.include?(4)
     assert !@dups.include?(5)
     assert !@single.include?(5)
-    assert @single.include?(UndirectedEdge[1,2])
-    assert @dups.include?(UndirectedEdge[1,2])
+    assert @single.include?(Edge[1,2])
+    assert @dups.include?(Edge[1,2])
   end
 
   def test_adjacent
 
-    assert @single.adjacent?(2, UndirectedEdge[1,2])
+    assert @single.adjacent?(2, Edge[1,2])
     assert_equal [2], @single.adjacent(1)
 
-    assert_equal [UndirectedEdge[1,2]], @single.adjacent(1, :type=>:edges)
-    assert_equal [UndirectedEdge[1,2]], @single.adjacent(1, :type=>:edges, :direction=> :out)
-    assert_equal [UndirectedEdge[1,2],UndirectedEdge[2,3]], @single.adjacent(2, :type=>:edges, :direction=> :in).sort
-    assert_equal [UndirectedEdge[1,2],UndirectedEdge[2,3]], @single.adjacent(2, :type=>:edges, :direction=> :all).sort
+    assert_equal [Edge[1,2]], @single.adjacent(1, :type=>:edges)
+    assert_equal [Edge[1,2]], @single.adjacent(1, :type=>:edges, :direction=> :out)
+    assert_equal [Edge[1,2],Edge[2,3]], @single.adjacent(2, :type=>:edges, :direction=> :in).sort
+    assert_equal [Edge[1,2],Edge[2,3]], @single.adjacent(2, :type=>:edges, :direction=> :all).sort
 
-    assert_equal [MultiUndirectedEdge[1,2]]*2, @dups.adjacent(1, :type=>:edges)
-    assert_equal [MultiUndirectedEdge[1,2]]*2, @dups.adjacent(1, :type=>:edges, :direction=> :out)
-    assert_equal ([MultiUndirectedEdge[1,2]]*2 + [MultiUndirectedEdge[2,3]]*2), @dups.adjacent(2, :type=>:edges, :direction=> :in).sort
-    assert_equal ([MultiUndirectedEdge[1,2]]*2 + [MultiUndirectedEdge[2,3]]*2), @dups.adjacent(2, :type=>:edges, :direction=> :all).sort
+    assert_equal [MultiEdge[1,2]]*2, @dups.adjacent(1, :type=>:edges)
+    assert_equal [MultiEdge[1,2]]*2, @dups.adjacent(1, :type=>:edges, :direction=> :out)
+    assert_equal ([MultiEdge[1,2]]*2 + [MultiEdge[2,3]]*2), @dups.adjacent(2, :type=>:edges, :direction=> :in).sort
+    assert_equal ([MultiEdge[1,2]]*2 + [MultiEdge[2,3]]*2), @dups.adjacent(2, :type=>:edges, :direction=> :all).sort
 
     assert_equal [2], @single.adjacent(1, :type=>:vertices)
     assert_equal [2], @single.adjacent(1, :type=>:vertices, :direction=> :out)
     assert_equal [1,3], @single.adjacent(2, :type=>:vertices, :direction=> :in)
     assert_equal [1,3], @single.adjacent(2, :type=>:vertices, :direction=> :all)
 
-    assert_equal [2,3], @single.adjacent(UndirectedEdge[2,3], :type=>:vertices)
-    assert_equal [2,3], @single.adjacent(UndirectedEdge[2,3], :type=>:vertices, :direction=> :out)
-    assert_equal [2,3], @single.adjacent(UndirectedEdge[2,3], :type=>:vertices, :direction=> :in)
-    assert_equal [2,3], @single.adjacent(UndirectedEdge[2,3], :type=>:vertices, :direction=> :all)
+    assert_equal [2,3], @single.adjacent(Edge[2,3], :type=>:vertices)
+    assert_equal [2,3], @single.adjacent(Edge[2,3], :type=>:vertices, :direction=> :out)
+    assert_equal [2,3], @single.adjacent(Edge[2,3], :type=>:vertices, :direction=> :in)
+    assert_equal [2,3], @single.adjacent(Edge[2,3], :type=>:vertices, :direction=> :all)
 
-    assert_equal [UndirectedEdge[1,2],UndirectedEdge[3,4]], @single.adjacent(UndirectedEdge[2,3], :type=>:edges).sort
-    assert_equal [UndirectedEdge[1,2],UndirectedEdge[3,4]], @single.adjacent(UndirectedEdge[2,3], :type=>:edges, :direction=> :out).sort
-    assert_equal [UndirectedEdge[1,2],UndirectedEdge[3,4]], @single.adjacent(UndirectedEdge[2,3], :type=>:edges, :direction=> :in).sort
-    assert_equal [UndirectedEdge[1,2],UndirectedEdge[3,4]], @single.adjacent(UndirectedEdge[2,3], :type=>:edges, :direction=> :all).sort
-    assert_equal ([MultiUndirectedEdge[1,2]]*2 + [MultiUndirectedEdge[3,4]]), @dups.adjacent(MultiUndirectedEdge[2,3], :type=>:edges).sort
-    assert_equal ([MultiUndirectedEdge[1,2]]*2 + [MultiUndirectedEdge[3,4]]), @dups.adjacent(MultiUndirectedEdge[2,3], :type=>:edges, :direction=>:out).sort
-    assert_equal ([MultiUndirectedEdge[1,2]]*2 + [MultiUndirectedEdge[3,4]]), @dups.adjacent(MultiUndirectedEdge[2,3], :type=>:edges, :direction=>:in).sort
-    assert_equal ([MultiUndirectedEdge[1,2]]*2+[MultiUndirectedEdge[3,4]]), @dups.adjacent(MultiUndirectedEdge[2,3], :type=>:edges, :direction=> :all).sort
+    assert_equal [Edge[1,2],Edge[3,4]], @single.adjacent(Edge[2,3], :type=>:edges).sort
+    assert_equal [Edge[1,2],Edge[3,4]], @single.adjacent(Edge[2,3], :type=>:edges, :direction=> :out).sort
+    assert_equal [Edge[1,2],Edge[3,4]], @single.adjacent(Edge[2,3], :type=>:edges, :direction=> :in).sort
+    assert_equal [Edge[1,2],Edge[3,4]], @single.adjacent(Edge[2,3], :type=>:edges, :direction=> :all).sort
+    assert_equal ([MultiEdge[1,2]]*2 + [MultiEdge[3,4]]), @dups.adjacent(MultiEdge[2,3], :type=>:edges).sort
+    assert_equal ([MultiEdge[1,2]]*2 + [MultiEdge[3,4]]), @dups.adjacent(MultiEdge[2,3], :type=>:edges, :direction=>:out).sort
+    assert_equal ([MultiEdge[1,2]]*2 + [MultiEdge[3,4]]), @dups.adjacent(MultiEdge[2,3], :type=>:edges, :direction=>:in).sort
+    assert_equal ([MultiEdge[1,2]]*2+[MultiEdge[3,4]]), @dups.adjacent(MultiEdge[2,3], :type=>:edges, :direction=> :all).sort
   end
 
   def test_neighborhood
     assert_equal [2],    @single.neighborhood(1).sort
     assert_equal [1,3],  @single.neighborhood(2).sort
-    assert_equal [UndirectedEdge[1,2], UndirectedEdge[3,4]], @single.neighborhood(UndirectedEdge[2,3]).sort
+    assert_equal [Edge[1,2], Edge[3,4]], @single.neighborhood(Edge[2,3]).sort
   end
 
   def test_degree
@@ -212,8 +212,8 @@ class TestUndirectedGraph < Test::Unit::TestCase # :nodoc:
   def test_include
     assert @single.include?(2)
     assert !@single.include?(23)
-    assert @single.include?(UndirectedEdge[1,2])
-    assert !@single.include?(UndirectedEdge[1,4])
+    assert @single.include?(Edge[1,2])
+    assert !@single.include?(Edge[1,4])
   end
 
 end

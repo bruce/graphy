@@ -29,7 +29,7 @@
 require 'test/unit'
 require 'gratr/import'
 
-class TestMultiEdge < Test::Unit::TestCase # :nodoc:
+class TestMultiArc < Test::Unit::TestCase # :nodoc:
 
   def test_directed_pseudo_graph
     dpg=DirectedPseudoGraph[ :a,:b,

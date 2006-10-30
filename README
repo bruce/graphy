@@ -13,7 +13,7 @@ A comprehensive summary of graph terminology can be found in the the graph
 section of the <em>Dictionary of Algorithms and Data Structures</em> at
 http://www.nist.gov/dads/HTML/graph.html.
 
-There are two Edge classes, GRATR::Edge and GRATR::UndirectedEdge.
+There are two Arc classes, GRATR::Arc and GRATR::Edge.
 
 GRATR::Digraph and it's pseudonym GRATR::DirectedGraph are classes that have single directed edges
 between vertices and loops are forbidden.  GRATR::DirectedPseudoGraph allows for
@@ -58,7 +58,7 @@ genericity:
 * Algorithm/Data-Structure Interoperability
 * Extension through Function Objects and Visitors
 * Element Type Parameterization
-* Vertex and Edge Property Multi-Parameterization
+* Vertex and Arc Property Multi-Parameterization
 
 The first is easily achieved in GRATR using mixins, which of course is not as
 efficient than C++ templates (but much more readable :-). The second one is
@@ -131,7 +131,7 @@ installation directory and start rake:
  % cd /usr/lib/ruby/gems/1.8/gems/gratr-0.2.2/
  % r40> rake
   (in /usr/lib/ruby/gems/1.8/gems/gratr-0.2.2)
-  ruby1.8 -Ilib:tests -e0  -rtests/TestGraphXML  -rtests/TestComponents  -rtests/TestDirectedGraph  -rtests/TestEdge  -rtests/TestImplicit  -rtests/TestTransitiveClosure  -rtests/TestTraversal  -rtests/TestUnDirectedGraph
+  ruby1.8 -Ilib:tests -e0  -rtests/TestGraphXML  -rtests/TestComponents  -rtests/TestDirectedGraph  -rtests/TestArc  -rtests/TestImplicit  -rtests/TestTransitiveClosure  -rtests/TestTraversal  -rtests/TestUnDirectedGraph
  Loaded suite -e
  Started
  ........................................................................................................

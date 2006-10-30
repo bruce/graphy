@@ -43,8 +43,8 @@ class TestChinesePostman < Test::Unit::TestCase # :nodoc:
     assert_equal 0, tour[10]
     edges = Set.new
     0.upto(9) do |n| 
-      edges << Edge[tour[n],tour[n+1]]
-      assert(@simple.edge?(tour[n],tour[n+1]), "Edge(#{tour[n]},#{tour[n+1]}) from tour not in graph")
+      edges << Arc[tour[n],tour[n+1]]
+      assert(@simple.edge?(tour[n],tour[n+1]), "Arc(#{tour[n]},#{tour[n+1]}) from tour not in graph")
     end
     assert_equal @simple.edges.size, edges.size, "Not all arcs traversed!"
   end

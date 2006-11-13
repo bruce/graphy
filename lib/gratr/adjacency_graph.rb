@@ -181,8 +181,9 @@ module GRATR
       options[:direction] ||= :out
       if !x.kind_of?(GRATR::Arc) and (options[:direction] == :out || !directed?)
         if options[:type] == :edges
+          i = -1
           @parallel_edges ?
-            @vertex_dict[x].map {|v| e=edge_class[x,v,@edge_number[x][v]]; e.label = self[e]; e} :
+            @vertex_dict[x].map {|v| e=edge_class[x,v,@edge_number[x][i+=1]]; e.label = self[e]; e} :
             @vertex_dict[x].map {|v| e=edge_class[x,v];  e.label = self[e]; e}
         else
           @vertex_dict[x].to_a

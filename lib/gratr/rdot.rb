@@ -140,9 +140,8 @@ module DOT
       @name   = params['name']   ? params['name']   : nil 
       @parent = params['parent'] ? params['parent'] : nil
       @options = {}
-      option_list.each{ |i|
-        @options[i] = params[i] if params[i]
-      }
+      p = params.stringify_keys
+      option_list.each {|i| @options[i] = p[i] if p[i] }
       @options['label'] ||= @name if @name != 'node'
     end
         

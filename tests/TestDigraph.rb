@@ -182,13 +182,13 @@ class TestDigraph < Test::Unit::TestCase # :nodoc:
   end
 
   def test_reversal
-    reverse = @single.reversal
-    assert [1,2,3,4], reverse.vertices.sort
+    reverse = @single.add_vertex!(42).reversal
+    assert_equal [1,2,3,4,42], reverse.vertices.sort
     assert reverse.edge?(2,1)
     assert reverse.edge?(3,2)
     assert reverse.edge?(4,3)
     assert !reverse.edge?(4,4)
-    assert 3, reverse.num_edges
+    assert_equal 3, reverse.num_edges
     reverse = @loops.reversal
     assert reverse.edge?(4,4)
   end

@@ -1,0 +1,33 @@
+0.1.2
+  * Repaired benchmark
+  * Added c_priority_queue wrapper, such that one can now require versions
+    explicitly using:
+        require "priority_queue/(c|ruby|poor)_priority_queue"
+  * Improved README
+
+0.1.1
+  * Removed debug cruft
+  * Added more documentation and examples
+  * Readme typo fixed
+  * I had the tests commented out
+  * Removed a bug when pushing twice onto the c priority queue (and added a test)
+
+0.1.0
+  * API changes
+  * Added lots of unit tests
+  * Restructured 
+  * Fallback to ruby version if c version is not available
+  * Added Efficent Pure Ruby Implementation (3 times slower than c version in
+    dijkstras algorithm)
+  * Added "Poor Mans Priority Queue" as a simple reference Implementation
+  * Minor improvements
+  * Added possibility to increase keys
+  * Minor bugs fixed
+  * Released as a .tar.gz (setup.rb)
+  * Released as a .gem (Anybody want to improve the distribution or point me to
+    some information on how to relase as .tar.gz and as .gem without too much
+    ado)
+
+0.0.0:
+  * First c-implementation
+  * Experimental Release

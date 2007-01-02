@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>initialize_copy (RubyPriorityQueue)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/priority_queue/ruby_priority_queue.rb, line 490</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize_copy</span>(<span class="ruby-identifier">copy</span>)
+    <span class="ruby-identifier">copy_nodes</span> = <span class="ruby-ivar">@nodes</span>
+    <span class="ruby-ivar">@nodes</span> = {}
+
+    <span class="ruby-identifier">copy_nodes</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span> (<span class="ruby-identifier">_</span>, <span class="ruby-identifier">cn</span>) <span class="ruby-operator">|</span>
+      <span class="ruby-identifier">n</span> = <span class="ruby-ivar">@nodes</span>[<span class="ruby-identifier">cn</span>.<span class="ruby-identifier">key</span>] = <span class="ruby-constant">Node</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">cn</span>.<span class="ruby-identifier">key</span>, <span class="ruby-identifier">cn</span>.<span class="ruby-identifier">priority</span>)
+      <span class="ruby-identifier">n</span>.<span class="ruby-identifier">mark</span> = <span class="ruby-identifier">cn</span>.<span class="ruby-identifier">mark</span>
+      <span class="ruby-identifier">n</span>.<span class="ruby-identifier">degree</span> = <span class="ruby-identifier">cn</span>.<span class="ruby-identifier">degree</span>
+    <span class="ruby-keyword kw">end</span>
+    
+    <span class="ruby-identifier">copy_nodes</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span> (<span class="ruby-identifier">_</span>, <span class="ruby-identifier">cn</span>) <span class="ruby-operator">|</span>
+      <span class="ruby-identifier">n</span> = <span class="ruby-ivar">@nodes</span>[<span class="ruby-identifier">cn</span>.<span class="ruby-identifier">key</span>]
+      <span class="ruby-identifier">n</span>.<span class="ruby-identifier">left</span>   = <span class="ruby-ivar">@nodes</span>[<span class="ruby-identifier">cn</span>.<span class="ruby-identifier">left</span>.<span class="ruby-identifier">key</span>]   <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">cn</span>.<span class="ruby-identifier">left</span>
+      <span class="ruby-identifier">n</span>.<span class="ruby-identifier">right</span>  = <span class="ruby-ivar">@nodes</span>[<span class="ruby-identifier">cn</span>.<span class="ruby-identifier">right</span>.<span class="ruby-identifier">key</span>]  <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">cn</span>.<span class="ruby-identifier">right</span>
+      <span class="ruby-identifier">n</span>.<span class="ruby-identifier">parent</span> = <span class="ruby-ivar">@nodes</span>[<span class="ruby-identifier">cn</span>.<span class="ruby-identifier">parent</span>.<span class="ruby-identifier">key</span>] <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">cn</span>.<span class="ruby-identifier">parent</span>
+      <span class="ruby-identifier">n</span>.<span class="ruby-identifier">child</span>  = <span class="ruby-ivar">@nodes</span>[<span class="ruby-identifier">cn</span>.<span class="ruby-identifier">child</span>.<span class="ruby-identifier">key</span>]  <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">cn</span>.<span class="ruby-identifier">child</span>
+    <span class="ruby-keyword kw">end</span>
+    <span class="ruby-ivar">@rootlist</span> = <span class="ruby-ivar">@nodes</span>[<span class="ruby-ivar">@rootlist</span>.<span class="ruby-identifier">key</span>] <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@rootlist</span>
+    <span class="ruby-ivar">@min</span> = <span class="ruby-ivar">@nodes</span>[<span class="ruby-ivar">@min</span>.<span class="ruby-identifier">key</span>] <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@min</span>
+    <span class="ruby-keyword kw">self</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

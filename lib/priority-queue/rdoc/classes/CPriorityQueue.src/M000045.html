@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>delete (CPriorityQueue)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre>/* call-seq:
+ *    delete(key) -&gt; [key, priority]
+ *    delete(key) -&gt; nil
+ * 
+ * Delete a key from the priority queue. Returns nil when the key was not in
+ * the queue and [key, priority] otherwise.
+ * 
+ *     q = PriorityQueue.new
+ *     (0..10).each do | i | q[i.to_s] = i end
+ *     q.delete(5)                               #=&gt; [&quot;5&quot;, 5]
+ *     q.delete(5)                               #=&gt; nil
+ */
+static
+VALUE pq_delete(VALUE self, VALUE object) {
+</pre>
+</body>
+</html>

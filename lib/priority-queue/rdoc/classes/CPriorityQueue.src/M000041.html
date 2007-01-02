@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>has_key? (CPriorityQueue)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre>/*
+ * call-seq:
+ *     has_key? key -&gt; boolean
+ *     
+ * Return false if the key is not in the queue, true otherwise.
+ *
+ *     q = PriorityQueue.new
+ *     (0..10).each do | i | q[i.to_s] = i end
+ *     q.has_key(&quot;5&quot;) #=&gt; true 
+ *     q.has_key(5)   #=&gt; false
+ */
+static
+VALUE pq_has_key(VALUE self, VALUE object) {
+</pre>
+</body>
+</html>

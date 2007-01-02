@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>to_dot (RubyPriorityQueue)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/priority_queue/ruby_priority_queue.rb, line 172</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_dot</span>
+    <span class="ruby-identifier">r</span> = [<span class="ruby-value str">&quot;digraph fibheap {&quot;</span>]
+    <span class="ruby-comment cmt">#r &lt;&lt; @rootlist.to_dot.join(&quot;\n&quot;) if @rootlist</span>
+      <span class="ruby-identifier">r</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;ROOT -&gt; #{@rootlist.dot_id};&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@rootlist</span>
+    <span class="ruby-ivar">@nodes</span>.<span class="ruby-identifier">to_a</span>.<span class="ruby-identifier">sort</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span> (<span class="ruby-identifier">_</span>, <span class="ruby-identifier">n</span>) <span class="ruby-operator">|</span>
+      <span class="ruby-identifier">r</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;  #{n.dot_id} [label=\&quot;#{n.key}: #{n.priority}\&quot;];&quot;</span>
+      <span class="ruby-identifier">r</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;  #{n.dot_id} -&gt; #{n.right.dot_id} [constraint=false];&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">n</span>.<span class="ruby-identifier">right</span><span class="ruby-comment cmt"># and n.dot_id &lt; n.right.dot_id</span>
+      <span class="ruby-identifier">r</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;  #{n.dot_id} -&gt; #{n.left.dot_id} [constraint=false];&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">n</span>.<span class="ruby-identifier">left</span> <span class="ruby-comment cmt">#and n.dot_id &lt; n.left.dot_id</span>
+      <span class="ruby-identifier">r</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;  #{n.dot_id} -&gt; #{n.child.dot_id}&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">n</span>.<span class="ruby-identifier">child</span>
+    <span class="ruby-keyword kw">end</span>
+    <span class="ruby-identifier">r</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot;}&quot;</span>
+    <span class="ruby-identifier">r</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot;\n&quot;</span>)
+    <span class="ruby-identifier">r</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

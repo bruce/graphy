@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>[] (CPriorityQueue)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre>/*
+ * call-seq:
+ *     [key] -&gt; priority
+ *
+ * Return the priority of a key or nil if the key is not in the queue.
+ *
+ *     q = PriorityQueue.new
+ *     (0..10).each do | i | q[i.to_s] = i end
+ *     q[&quot;5&quot;] #=&gt; 5
+ *     q[5] #=&gt; nil
+ */
+static
+VALUE pq_get_priority(VALUE self, VALUE object) {
+</pre>
+</body>
+</html>

@@ -209,24 +209,44 @@ class TestSearch < Test::Unit::TestCase # :nodoc:
                       
     result = romania.astar('Arad', 'Bucharest', h, options)
 
-    assert_equal ["Arad", "Sibiu", "Rimnicu Vilcea", "Bucharest"], result
+    assert_equal ["Arad", "Sibiu", "Rimnicu Vilcea", "Pitesti", "Bucharest"], result
     # This isn't the greatest test since the exact ordering is not
     # not specified by the algorithm. If someone has a better idea, please fix
-    assert_equal ["ev Arad", "er (Arad=Sibiu)", "dv Sibiu", 
-      "er (Arad=Timisoara)", "dv Timisoara", "er (Arad=Zerind)", "dv Zerind", 
-      "fv Arad", "ev Zerind", "er (Oradea=Zerind)", "dv Oradea", 
-      "enr (Arad=Zerind)", "fv Zerind", "ev Oradea", "enr (Oradea=Sibiu)", 
-      "enr (Oradea=Zerind)", "fv Oradea", "ev Timisoara", 
-      "er (Lugoj=Timisoara)", "dv Lugoj", "enr (Arad=Timisoara)", 
-      "fv Timisoara", "ev Lugoj", "enr (Lugoj=Timisoara)", 
-      "er (Lugoj=Mehadia)", "dv Mehadia", "fv Lugoj", "ev Mehadia", 
-      "er (Dobreta=Mehadia)", "dv Dobreta", "enr (Lugoj=Mehadia)", 
-      "fv Mehadia", "ev Dobreta", "enr (Dobreta=Mehadia)", 
-      "er (Craiova=Dobreta)", "dv Craiova", "fv Dobreta", "ev Craiova",
-      "enr (Craiova=Dobreta)", "er (Craiova=Rimnicu Vilcea)", 
-      "dv Rimnicu Vilcea", "er (Craiova=Pitesti)", "dv Pitesti", 
-      "fv Craiova", "ev Pitesti", "enr (Pitesti=Rimnicu Vilcea)", 
-      "er (Bucharest=Pitesti)", "dv Bucharest"], list
+    assert_equal ["ev Arad",
+     "er (Arad=Sibiu '99')",
+     "dv Sibiu",
+     "er (Arad=Timisoara '138')",
+     "dv Timisoara",
+     "er (Arad=Zerind '75')",
+     "dv Zerind",
+     "fv Arad",
+     "ev Sibiu",
+     "er (Rimnicu Vilcea=Sibiu '80')",
+     "dv Rimnicu Vilcea",
+     "er (Fagaras=Sibiu '99')",
+     "dv Fagaras",
+     "er (Oradea=Sibiu '151')",
+     "dv Oradea",
+     "enr (Arad=Sibiu '99')",
+     "fv Sibiu",
+     "ev Rimnicu Vilcea",
+     "enr (Rimnicu Vilcea=Sibiu '80')",
+     "er (Craiova=Rimnicu Vilcea '146')",
+     "dv Craiova",
+     "er (Pitesti=Rimnicu Vilcea '97')",
+     "dv Pitesti",
+     "fv Rimnicu Vilcea",
+     "ev Fagaras",
+     "enr (Fagaras=Sibiu '99')",
+     "er (Bucharest=Fagaras '211')",
+     "dv Bucharest",
+     "fv Fagaras",
+     "ev Pitesti",
+     "enr (Pitesti=Rimnicu Vilcea '97')",
+     "er (Bucharest=Pitesti '101')",
+     "enr (Craiova=Pitesti '138')",
+     "fv Pitesti",
+     "ev Bucharest"], list
   end
   
   def test_bfs_spanning_forest

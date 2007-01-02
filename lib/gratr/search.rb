@@ -26,7 +26,6 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #++
 
-
 module GRATR
   module Graph
     module Search
@@ -252,44 +251,58 @@ module GRATR
       # Also see: http://en.wikipedia.org/wiki/A-star_search_algorithm
       #
       def astar(start, goal, func, options, &block)
-        options.instance_eval "def handle_vertex(sym,u) self[sym].call(u) if self[sym]; end"
-        options.instance_eval "def handle_edge(sym,u,v) self[sym].call(#{edge_class}[u,v]) if self[sym]; end"
-
+        options.instance_eval "def handle_callback(sym,u) self[sym].call(u) if self[sym]; end"
+         
+        # Initialize
         d = { start => 0 }
-        f = { start => func.call(start) }
-        color = {start => :gray}
-        p = Hash.new {|k| p[k] = k}
-        queue = [start]
+        
+        color = {start => :gray} # Open is :gray, Closed is :black
+        parent = Hash.new {|k| parent[k] = k}
+        f = {start => func.call(start)}
+        queue = PriorityQueue.new.push(start,f[start])
         block.call(start) if block
+        
+        # Process queue
         until queue.empty?
-          u = queue.pop
-          options.handle_vertex(:examine_vertex, u)
-          adjacent(u).each do |v|
-            e = edge_class[u,v]
-            options.handle_edge(:examine_edge, u, v)
+          u,dummy = queue.delete_min
+          options.handle_callback(:examine_vertex, u)
+
+          # Unravel solution if goal is reached.
+          if u == goal
+            solution = [goal]
+            while u != start
+              solution << parent[u]; u = parent[u]
+            end
+            return solution.reverse
+          end
+
+          adjacent(u, :type => :edges).each do |e|
+            v = e.source == u ? e.target : e.source
+            options.handle_callback(:examine_edge, e)
             w = cost(e, options[:weight])
             raise ArgumentError unless w
             if d[v].nil? or (w + d[u]) < d[v] 
-              options.handle_edge(:edge_relaxed, u, v)
+              options.handle_callback(:edge_relaxed, e)
               d[v] = w + d[u]
-              f[v] = d[v] + func.call(u)
-              p[v] = u
+              f[v] = d[v] + func.call(v)
+              parent[v] = u
               unless color[v] == :gray
-                options.handle_vertex(:black_target, v) if color[v] == :black
+                options.handle_callback(:black_target, v) if color[v] == :black
                 color[v] = :gray 
-                options.handle_vertex(:discover_vertex, v)
-                queue << v 
+                options.handle_callback(:discover_vertex, v)
+                queue.push v, f[v] 
                 block.call(v) if block
-                return [start]+queue if v == goal
               end
             else
-              options.handle_edge(:edge_not_relaxed, u, v)
+              options.handle_callback(:edge_not_relaxed, e)
             end
           end # adjacent(u)
           color[u] = :black
-          options.handle_vertex(:finish_vertex,u)
+          options.handle_callback(:finish_vertex,u)
         end # queue.empty?
+                
         nil # failure, on fall through
+      
       end # astar
     
       # Best first has all the same options as astar with func set to h(v) = 0.

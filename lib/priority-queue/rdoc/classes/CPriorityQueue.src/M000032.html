@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>min_priority (CPriorityQueue)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre>/* call-seq:
+ *     min_priority -&gt; priority
+ *
+ * Return the minimal priority or nil when the queue is empty.
+ *
+ *     q = PriorityQueue.new
+ *     q[&quot;a&quot;] = 10
+ *     q[&quot;b&quot;] = 20
+ *     q.min_priority #=&gt; 10
+ *     q.delete_min   #=&gt; [&quot;a&quot;, 10]
+ *     q.min_priority #=&gt; 20
+ *     q.delete_min   #=&gt; [&quot;b&quot;, 20]
+ *     q.min_priority #=&gt; nil
+ */
+static
+VALUE pq_min_priority(VALUE self) {
+</pre>
+</body>
+</html>

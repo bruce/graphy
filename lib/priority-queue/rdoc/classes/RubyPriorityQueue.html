@@ -1,0 +1,597 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: RubyPriorityQueue</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">RubyPriorityQueue</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../files/lib/priority_queue/ruby_priority_queue_rb.html">
+                lib/priority_queue/ruby_priority_queue.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                Object
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+Pure ruby Priority Queue
+</p>
+
+    </div>
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000015">[]</a>&nbsp;&nbsp;
+      <a href="#M000017">[]=</a>&nbsp;&nbsp;
+      <a href="#M000012">change_priority</a>&nbsp;&nbsp;
+      <a href="#M000022">delete</a>&nbsp;&nbsp;
+      <a href="#M000025">delete_min</a>&nbsp;&nbsp;
+      <a href="#M000023">delete_min_return_key</a>&nbsp;&nbsp;
+      <a href="#M000024">delete_min_return_priority</a>&nbsp;&nbsp;
+      <a href="#M000011">display_dot</a>&nbsp;&nbsp;
+      <a href="#M000018">each</a>&nbsp;&nbsp;
+      <a href="#M000014">empty?</a>&nbsp;&nbsp;
+      <a href="#M000016">has_key?</a>&nbsp;&nbsp;
+      <a href="#M000027">initialize_copy</a>&nbsp;&nbsp;
+      <a href="#M000026">inspect</a>&nbsp;&nbsp;
+      <a href="#M000019">min</a>&nbsp;&nbsp;
+      <a href="#M000020">min_key</a>&nbsp;&nbsp;
+      <a href="#M000021">min_priority</a>&nbsp;&nbsp;
+      <a href="#M000009">new</a>&nbsp;&nbsp;
+      <a href="#M000013">push</a>&nbsp;&nbsp;
+      <a href="#M000010">to_dot</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+    <div id="includes">
+      <h3 class="section-bar">Included Modules</h3>
+
+      <div id="includes-list">
+        <span class="include-name">Enumerable</span>
+      </div>
+    </div>
+
+    <div id="section">
+
+
+
+
+
+    <div id="attribute-list">
+      <h3 class="section-bar">Attributes</h3>
+
+      <div class="name-list">
+        <table>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">length</td>
+          <td class="context-item-value">&nbsp;[R]&nbsp;</td>
+          <td class="context-item-desc">
+Returns the number of elements of the queue.
+
+<pre>
+   q = PriorityQueue.new
+   q.length #=&gt; 0
+   q[0] = 1
+   q.length #=&gt; 1
+</pre>
+</td>
+        </tr>
+        </table>
+      </div>
+    </div>
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Class methods</h3>
+
+      <div id="method-M000009" class="method-detail">
+        <a name="M000009"></a>
+
+        <div class="method-heading">
+          <a href="RubyPriorityQueue.src/M000009.html" target="Code" class="method-signature"
+            onclick="popupCode('RubyPriorityQueue.src/M000009.html');return false;">
+          <span class="method-name">new</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Create a new, empty PriorityQueue
+</p>
+        </div>
+      </div>
+
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000015" class="method-detail">
+        <a name="M000015"></a>
+
+        <div class="method-heading">
+          <a href="RubyPriorityQueue.src/M000015.html" target="Code" class="method-signature"
+            onclick="popupCode('RubyPriorityQueue.src/M000015.html');return false;">
+          <span class="method-name">[key] &rarr; priority<br />
+</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Return the priority of a key or nil if the key is not in the queue.
+</p>
+<pre>
+    q = PriorityQueue.new
+    (0..10).each do | i | q[i.to_s] = i end
+    q[&quot;5&quot;] #=&gt; 5
+    q[5] #=&gt; nil
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000017" class="method-detail">
+        <a name="M000017"></a>
+
+        <div class="method-heading">
+          <span class="method-name">[]=</span><span class="method-args">(key, priority)</span>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Alias for <a href="RubyPriorityQueue.html#M000013">push</a>
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000012" class="method-detail">
+        <a name="M000012"></a>
+
+        <div class="method-heading">
+          <a href="RubyPriorityQueue.src/M000012.html" target="Code" class="method-signature"
+            onclick="popupCode('RubyPriorityQueue.src/M000012.html');return false;">
+          <span class="method-name">[key] = priority<br />
+change_priority(key, priority)<br />
+push(key, priority)<br />
+</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Set the priority of a key.
+</p>
+<pre>
+    q = PriorityQueue.new
+    q[&quot;car&quot;] = 50
+    q[&quot;train&quot;] = 50
+    q[&quot;bike&quot;] = 10
+    q.min #=&gt; [&quot;bike&quot;, 10]
+    q[&quot;car&quot;] = 0
+    q.min #=&gt; [&quot;car&quot;, 0]
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000022" class="method-detail">
+        <a name="M000022"></a>
+
+        <div class="method-heading">
+          <a href="RubyPriorityQueue.src/M000022.html" target="Code" class="method-signature"
+            onclick="popupCode('RubyPriorityQueue.src/M000022.html');return false;">
+          <span class="method-name">delete(key) &rarr; [key, priority]<br />
+delete(key) &rarr; nil<br />
+</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Delete a key from the priority queue. Returns nil when the key was not in
+the queue and [key, priority] otherwise.
+</p>
+<pre>
+    q = PriorityQueue.new
+    (0..10).each do | i | q[i.to_s] = i end
+    q.delete(5)                              #=&gt; [&quot;5&quot;, 5]
+    q.delete(5)                              #=&gt; nil
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000025" class="method-detail">
+        <a name="M000025"></a>
+
+        <div class="method-heading">
+          <a href="RubyPriorityQueue.src/M000025.html" target="Code" class="method-signature"
+            onclick="popupCode('RubyPriorityQueue.src/M000025.html');return false;">
+          <span class="method-name">delete_min &rarr; [key, priority]<br />
+</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Delete key with minimal priority and return [key, priority]
+</p>
+<pre>
+   q = PriorityQueue.new
+   q[&quot;a&quot;] = 1
+   q[&quot;b&quot;] = 0
+   q.delete_min #=&gt; [&quot;b&quot;, 0]
+   q.delete_min #=&gt; [&quot;a&quot;, 1]
+   q.delete_min #=&gt; nil
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000023" class="method-detail">
+        <a name="M000023"></a>
+
+        <div class="method-heading">
+          <a href="RubyPriorityQueue.src/M000023.html" target="Code" class="method-signature"
+            onclick="popupCode('RubyPriorityQueue.src/M000023.html');return false;">
+          <span class="method-name">delete_min_return_key &rarr; key<br />
+</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Delete key with minimal priority and return the key
+</p>
+<pre>
+   q = PriorityQueue.new
+   q[&quot;a&quot;] = 1
+   q[&quot;b&quot;] = 0
+   q.delete_min_return_key #=&gt; &quot;b&quot;
+   q.delete_min_return_key #=&gt; &quot;a&quot;
+   q.delete_min_return_key #=&gt; nil
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000024" class="method-detail">
+        <a name="M000024"></a>
+
+        <div class="method-heading">
+          <a href="RubyPriorityQueue.src/M000024.html" target="Code" class="method-signature"
+            onclick="popupCode('RubyPriorityQueue.src/M000024.html');return false;">
+          <span class="method-name">delete_min_return_priority &rarr; priority<br />
+</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Delete key with minimal priority and return the priority value
+</p>
+<pre>
+   q = PriorityQueue.new
+   q[&quot;a&quot;] = 1
+   q[&quot;b&quot;] = 0
+   q.delete_min_return_priority #=&gt; 0
+   q.delete_min_return_priority #=&gt; 1
+   q.delete_min_return_priority #=&gt; nil
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000011" class="method-detail">
+        <a name="M000011"></a>
+
+        <div class="method-heading">
+          <a href="RubyPriorityQueue.src/M000011.html" target="Code" class="method-signature"
+            onclick="popupCode('RubyPriorityQueue.src/M000011.html');return false;">
+          <span class="method-name">display_dot</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Call dot and gv displaying the datstructure
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000018" class="method-detail">
+        <a name="M000018"></a>
+
+        <div class="method-heading">
+          <a href="RubyPriorityQueue.src/M000018.html" target="Code" class="method-signature"
+            onclick="popupCode('RubyPriorityQueue.src/M000018.html');return false;">
+          <span class="method-name">each</span><span class="method-args">() {|key, node.priority| ...}</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Call the given block with each [key, priority] pair in the queue
+</p>
+<p>
+Beware: Changing the queue in the block may lead to unwanted behaviour and
+even infinite loops.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000014" class="method-detail">
+        <a name="M000014"></a>
+
+        <div class="method-heading">
+          <a href="RubyPriorityQueue.src/M000014.html" target="Code" class="method-signature"
+            onclick="popupCode('RubyPriorityQueue.src/M000014.html');return false;">
+          <span class="method-name">empty?</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns true if the array is empty, false otherwise.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000016" class="method-detail">
+        <a name="M000016"></a>
+
+        <div class="method-heading">
+          <a href="RubyPriorityQueue.src/M000016.html" target="Code" class="method-signature"
+            onclick="popupCode('RubyPriorityQueue.src/M000016.html');return false;">
+          <span class="method-name">has_key? key &rarr; boolean<br />
+</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Return false if the key is not in the queue, true otherwise.
+</p>
+<pre>
+    q = PriorityQueue.new
+    (0..10).each do | i | q[i.to_s] = i end
+    q.has_key(&quot;5&quot;) #=&gt; true
+    q.has_key(5)   #=&gt; false
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000027" class="method-detail">
+        <a name="M000027"></a>
+
+        <div class="method-heading">
+          <a href="RubyPriorityQueue.src/M000027.html" target="Code" class="method-signature"
+            onclick="popupCode('RubyPriorityQueue.src/M000027.html');return false;">
+          <span class="method-name">initialize_copy</span><span class="method-args">(copy)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000026" class="method-detail">
+        <a name="M000026"></a>
+
+        <div class="method-heading">
+          <a href="RubyPriorityQueue.src/M000026.html" target="Code" class="method-signature"
+            onclick="popupCode('RubyPriorityQueue.src/M000026.html');return false;">
+          <span class="method-name">inspect</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns a string representation of the priority queue.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000019" class="method-detail">
+        <a name="M000019"></a>
+
+        <div class="method-heading">
+          <a href="RubyPriorityQueue.src/M000019.html" target="Code" class="method-signature"
+            onclick="popupCode('RubyPriorityQueue.src/M000019.html');return false;">
+          <span class="method-name">min &rarr; [object, priority]<br />
+</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Return the pair [object, priority] with minimal priority or nil when the
+queue is empty.
+</p>
+<pre>
+    q = PriorityQueue.new
+    q[&quot;a&quot;] = 10
+    q[&quot;b&quot;] = 20
+    q.min          #=&gt; [&quot;a&quot;, 10]
+    q.delete_min   #=&gt; [&quot;a&quot;, 10]
+    q.min          #=&gt; [&quot;b&quot;, 20]
+    q.delete_min   #=&gt; [&quot;b&quot;, 20]
+    q.min          #=&gt; nil
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000020" class="method-detail">
+        <a name="M000020"></a>
+
+        <div class="method-heading">
+          <a href="RubyPriorityQueue.src/M000020.html" target="Code" class="method-signature"
+            onclick="popupCode('RubyPriorityQueue.src/M000020.html');return false;">
+          <span class="method-name">min_key &rarr; object<br />
+</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Return the key that has the minimal priority or nil when the queue is
+empty.
+</p>
+<pre>
+    q = PriorityQueue.new
+    q[&quot;a&quot;] = 10
+    q[&quot;b&quot;] = 20
+    q.min_key      #=&gt; &quot;a&quot;
+    q.delete_min   #=&gt; [&quot;a&quot;, 10]
+    q.min_key      #=&gt; &quot;b&quot;
+    q.delete_min   #=&gt; [&quot;b&quot;, 20]
+    q.min_key      #=&gt; nil
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000021" class="method-detail">
+        <a name="M000021"></a>
+
+        <div class="method-heading">
+          <a href="RubyPriorityQueue.src/M000021.html" target="Code" class="method-signature"
+            onclick="popupCode('RubyPriorityQueue.src/M000021.html');return false;">
+          <span class="method-name">min_priority &rarr; priority<br />
+</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Return the minimal priority or nil when the queue is empty.
+</p>
+<pre>
+    q = PriorityQueue.new
+    q[&quot;a&quot;] = 10
+    q[&quot;b&quot;] = 20
+    q.min_priority #=&gt; 10
+    q.delete_min   #=&gt; [&quot;a&quot;, 10]
+    q.min_priority #=&gt; 20
+    q.delete_min   #=&gt; [&quot;b&quot;, 20]
+    q.min_priority #=&gt; nil
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000013" class="method-detail">
+        <a name="M000013"></a>
+
+        <div class="method-heading">
+          <a href="RubyPriorityQueue.src/M000013.html" target="Code" class="method-signature"
+            onclick="popupCode('RubyPriorityQueue.src/M000013.html');return false;">
+          <span class="method-name">push</span><span class="method-args">(key, priority)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Add an object to the queue.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000010" class="method-detail">
+        <a name="M000010"></a>
+
+        <div class="method-heading">
+          <a href="RubyPriorityQueue.src/M000010.html" target="Code" class="method-signature"
+            onclick="popupCode('RubyPriorityQueue.src/M000010.html');return false;">
+          <span class="method-name">to_dot</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Print a priority queue as a dot-graph. The output can be fed to dot from
+the vizgraph suite to create a tree depicting the internal datastructure.
+</p>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

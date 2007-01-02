@@ -130,15 +130,15 @@ else
     #### Documentation and testing.
 
     s.has_rdoc = true
-    s.extra_rdoc_files = ['README', 'REFERENCES']
+    s.extra_rdoc_files = ['README']
     s.rdoc_options <<
       '--title' <<  'GRATR - Ruby Graph Library' <<
       '--main' << 'README' <<
       '--line-numbers'
 
     #### Author and project details.
-    s.author = "Horst Duchene"
-    s.email = "hd.at.clr@hduchene.de"
+    s.author = "Shawn Garbett"
+    s.email = "shawn@garbett.org"
     s.homepage = "http://gratr.rubyforge.org"
     s.rubyforge_project = "gratr"
     

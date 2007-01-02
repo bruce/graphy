@@ -266,6 +266,16 @@ Rick Bradley who reworked the library and added many graph theoretic constructs.
 
 == Release Notes
 
+The core interface is about to be updated to allow for cleaner dependency injects. Luke Kanies has also contributed
+several optimizations for speed and logged some bugs. This will result in a 0.5 release coming soon. 
+
+=== 0.4.2
+
+* Fixed bug in parallel edge adjacency detection.
+* Fix to allow symbols to be passed through to dot for labels.
+* Changed naming to use Arcs for Digraphs and Edges for Undirected Graphs.
+* Added a gem release.
+
 === 0.4.1
 
 * Got reflection working for graphs

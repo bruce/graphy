@@ -101,7 +101,7 @@ module GRATR
         roots       = []
         te = Proc.new {|e| predecessor[e.target] = e.source}
         rv = Proc.new {|v| roots << v}
-        method(routine).call :start => start, :tree_edge => te, :root_vertex => rv
+        send routine, :start => start, :tree_edge => te, :root_vertex => rv
         [predecessor, roots]
       end
       
@@ -119,7 +119,7 @@ module GRATR
         correct_tree = false
         te = Proc.new {|e| predecessor[e.target] = e.source if correct_tree}
         rv = Proc.new {|v| correct_tree = (v == start)}
-        method(routine).call :start => start, :tree_edge => te, :root_vertex => rv
+        send routine, :start => start, :tree_edge => te, :root_vertex => rv
         predecessor       
       end
       

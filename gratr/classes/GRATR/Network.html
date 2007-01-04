@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: GRATR::Network</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">GRATR::Network</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../files/lib/gratr/maximum_flow_rb.html">
+                lib/gratr/maximum_flow.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                <a href="Digraph.html">
+                Digraph
+               </a>
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000377">eliminate_lower_bounds</a>&nbsp;&nbsp;
+      <a href="#M000376">maximum_flow</a>&nbsp;&nbsp;
+      <a href="#M000379">maximum_flow_prime</a>&nbsp;&nbsp;
+      <a href="#M000375">residual</a>&nbsp;&nbsp;
+      <a href="#M000378">restore_lower_bounds</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+    <div id="class-list">
+      <h3 class="section-bar">Classes and Modules</h3>
+
+      Module <a href="Network/Graph.html" class="link">GRATR::Network::Graph</a><br />
+
+    </div>
+
+
+
+
+    <div id="attribute-list">
+      <h3 class="section-bar">Attributes</h3>
+
+      <div class="name-list">
+        <table>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">cost</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">flow</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">lower</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">upper</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        </table>
+      </div>
+    </div>
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000377" class="method-detail">
+        <a name="M000377"></a>
+
+        <div class="method-heading">
+          <a href="#M000377" class="method-signature">
+          <span class="method-name">eliminate_lower_bounds</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000377-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000377-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/gratr/maximum_flow.rb, line 54</span>
+54:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">eliminate_lower_bounds</span>
+55:       <span class="ruby-identifier">no_lower_bounds</span> = <span class="ruby-constant">Digraph</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword kw">self</span>)
+56:       <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">upper</span>.<span class="ruby-identifier">kind_of?</span> <span class="ruby-constant">Proc</span> <span class="ruby-keyword kw">then</span>
+57:          <span class="ruby-identifier">no_lower_bounds</span>.<span class="ruby-identifier">upper</span> = <span class="ruby-constant">Proc</span>.<span class="ruby-identifier">new</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">upper</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">e</span>) <span class="ruby-operator">-</span> <span class="ruby-identifier">property</span>(<span class="ruby-identifier">e</span>,<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">lower</span>) }
+58:       <span class="ruby-keyword kw">else</span>
+59:         <span class="ruby-identifier">no_lower_bounds</span>.<span class="ruby-identifier">edges</span>.<span class="ruby-identifier">each</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span> <span class="ruby-identifier">no_lower_bounds</span>[<span class="ruby-identifier">e</span>][<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">upper</span>] <span class="ruby-operator">-=</span> <span class="ruby-identifier">property</span>(<span class="ruby-identifier">e</span>,<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">lower</span>)}
+60:       <span class="ruby-keyword kw">end</span>
+61:       <span class="ruby-identifier">no_lower_bounds</span>
+62:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000376" class="method-detail">
+        <a name="M000376"></a>
+
+        <div class="method-heading">
+          <a href="#M000376" class="method-signature">
+          <span class="method-name">maximum_flow</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000376-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000376-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/gratr/maximum_flow.rb, line 50</span>
+50:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">maximum_flow</span>() <span class="ruby-identifier">eliminate_lower_bounds</span>.<span class="ruby-identifier">maximum_flow_prime</span>.<span class="ruby-identifier">restore_lower_bounds</span>(<span class="ruby-keyword kw">self</span>); <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000379" class="method-detail">
+        <a name="M000379"></a>
+
+        <div class="method-heading">
+          <a href="#M000379" class="method-signature">
+          <span class="method-name">maximum_flow_prime</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000379-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000379-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/gratr/maximum_flow.rb, line 69</span>
+69:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">maximum_flow_prime</span>
+70:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000375" class="method-detail">
+        <a name="M000375"></a>
+
+        <div class="method-heading">
+          <a href="#M000375" class="method-signature">
+          <span class="method-name">residual</span><span class="method-args">(residual_capacity, cost_property, zero = 0)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000375-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000375-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/gratr/maximum_flow.rb, line 36</span>
+36:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">residual</span>(<span class="ruby-identifier">residual_capacity</span>, <span class="ruby-identifier">cost_property</span>, <span class="ruby-identifier">zero</span> = <span class="ruby-value">0</span>)
+37:       <span class="ruby-identifier">r</span> = <span class="ruby-constant">Digraph</span>.<span class="ruby-identifier">new</span>
+38:       <span class="ruby-identifier">edges</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">e1</span><span class="ruby-operator">|</span> 
+39:         [<span class="ruby-identifier">e1</span>,<span class="ruby-identifier">e1</span>.<span class="ruby-identifier">reverse</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span>
+40:           <span class="ruby-identifier">rij</span> = <span class="ruby-identifier">property</span>(<span class="ruby-identifier">e</span>,<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">upper</span>) <span class="ruby-operator">-</span> <span class="ruby-identifier">property</span>(<span class="ruby-identifier">e</span>,<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">flow</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">edge?</span> <span class="ruby-identifier">e</span>
+41:           <span class="ruby-identifier">rij</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">property</span>(<span class="ruby-identifier">e</span>.<span class="ruby-identifier">reverse</span>,<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">flow</span>) <span class="ruby-operator">-</span> <span class="ruby-identifier">property</span>(<span class="ruby-identifier">e</span>.<span class="ruby-identifier">reverse</span>,<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">lower</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">edge?</span> <span class="ruby-identifier">e</span>.<span class="ruby-identifier">reverse</span>
+42:           <span class="ruby-identifier">r</span>.<span class="ruby-identifier">add_edge!</span>(<span class="ruby-identifier">e</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">rij</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">zero</span>
+43:           <span class="ruby-identifier">r</span>.<span class="ruby-identifier">property_set</span>(<span class="ruby-identifier">e</span>,<span class="ruby-identifier">residual_capacity</span>, <span class="ruby-identifier">rij</span>)
+44:           <span class="ruby-identifier">r</span>.<span class="ruby-identifier">property_set</span>(<span class="ruby-identifier">e</span>,<span class="ruby-identifier">cost</span>, <span class="ruby-identifier">cost</span>(<span class="ruby-identifier">e</span>,<span class="ruby-identifier">cost_property</span>))
+45:         <span class="ruby-keyword kw">end</span>
+46:       <span class="ruby-keyword kw">end</span>
+47:       <span class="ruby-identifier">r</span>
+48:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000378" class="method-detail">
+        <a name="M000378"></a>
+
+        <div class="method-heading">
+          <a href="#M000378" class="method-signature">
+          <span class="method-name">restore_lower_bounds</span><span class="method-args">(src)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000378-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000378-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/gratr/maximum_flow.rb, line 64</span>
+64:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">restore_lower_bounds</span>(<span class="ruby-identifier">src</span>)
+65:       <span class="ruby-identifier">src</span>.<span class="ruby-identifier">edges</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span> (<span class="ruby-identifier">src</span>.<span class="ruby-identifier">flow</span> <span class="ruby-value">? </span><span class="ruby-identifier">src</span>[<span class="ruby-identifier">e</span>][<span class="ruby-identifier">src</span>.<span class="ruby-identifier">flow</span>] <span class="ruby-operator">:</span> <span class="ruby-identifier">src</span>[<span class="ruby-identifier">e</span>]) = <span class="ruby-identifier">property</span>(<span class="ruby-identifier">e</span>,<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">flow</span>) <span class="ruby-operator">+</span> <span class="ruby-identifier">src</span>.<span class="ruby-identifier">property</span>(<span class="ruby-identifier">e</span>,<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">lower</span>) }
+66:       <span class="ruby-identifier">src</span>
+67:     <span class="ruby-keyword kw">end</span>
+68:    
+69:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">maximum_flow_prime</span>
+70:     <span class="ruby-keyword kw">end</span>
+71:     
+72:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

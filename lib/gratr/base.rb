@@ -26,7 +26,7 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #++
 
-GRATR_VERSION = "0.4.2"
+GRATR_VERSION = "0.4.3"
 
 module GRATR
   class NoVertexError      < IndexError;   end

@@ -269,6 +269,13 @@ Rick Bradley who reworked the library and added many graph theoretic constructs.
 The core interface is about to be updated to allow for cleaner dependency injects. Luke Kanies has also contributed
 several optimizations for speed and logged some bugs. This will result in a 0.5 release coming soon. 
 
+=== 0.4.3
+
+* Fixed bug in dot output dependency.
+* Changed method.call to send in a couple places.
+* Fixed bug in unconnected vertices for reversal. Ticket #7237
+* Fixed bugs in A* Search. Ticket #7250.
+
 === 0.4.2
 
 * Fixed bug in parallel edge adjacency detection.

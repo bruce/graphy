@@ -7,6 +7,12 @@
 #
 # It also supports undirected edges.
 
+class Hash
+  def stringify_keys
+    inject({}) {|options, (key, value)| options[key.to_s] = value; options}
+  end
+end unless Hash.respond_to? :stringify_keys
+
 module DOT
     
   # These glogal vars are used to make nice graph source.

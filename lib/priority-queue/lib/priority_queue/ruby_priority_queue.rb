@@ -105,7 +105,8 @@ class RubyPriorityQueue
 
   # Node class used internally
   class Node # :nodoc:
-    attr_accessor :parent, :child, :left, :right, :key, :priority, :degree, :mark
+    attr_accessor :parent, :left, :right, :key, :priority, :degree, :mark
+    attr_reader :child
 
     def child=(c)
       raise "Circular Child" if c == self

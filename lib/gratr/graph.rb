@@ -90,7 +90,7 @@ module GRATR
     # Enumerable can be both two-element arrays or instances of DirectedArc or
     # UnDirectedArc. 
     def add_edges!(*args) args.each { |edge| add_edge!(edge) }; self; end
-    alias add_arc! add_edges!  
+    alias add_arcs! add_edges!  
       
     # See add_edge!
     def add_edges(*a) x=self.class.new(self); x.add_edges!(*a); self; end
@@ -106,7 +106,7 @@ module GRATR
     # Remove all vertices edges by the Enumerable a from the graph by
     # calling remove_edge!
     def remove_edges!(*a) a.each { |e| remove_edges! e }; end
-    alias remove_arc! remove_edges!
+    alias remove_arcs! remove_edges!
 
     # See remove_edges
     def remove_edges(*a) x=self.class.new(self); x.remove_edges(*a); end

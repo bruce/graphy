@@ -27,7 +27,8 @@
 
 
 require 'test/unit'
-require 'gratr/import'
+require 'gratr'
+include GRATR
 
 class TestStrongComponents < Test::Unit::TestCase # :nodoc:
   # Test from boost strong_components.cpp

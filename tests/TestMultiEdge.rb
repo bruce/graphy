@@ -27,7 +27,8 @@
 
 
 require 'test/unit'
-require 'gratr/import'
+require 'gratr'
+include GRATR
 
 class TestMultiArc < Test::Unit::TestCase # :nodoc:
 

@@ -27,7 +27,8 @@
 
 
 require 'test/unit'
-require 'gratr/import'
+require 'gratr'
+include GRATR
 
 class TestNeighborhood < Test::Unit::TestCase # :nodoc:
   

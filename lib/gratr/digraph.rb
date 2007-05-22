@@ -45,19 +45,12 @@ module GRATR
   # DirectedPseudoGraph is a class that allows for parallel edges, and a
   # DirectedMultiGraph is a class that allows for parallel edges and loops
   # as well.
-  class Digraph
-    include AdjacencyGraph
-    include Graph::Search
-    include Graph::StrongComponents
-    include Graph::Distance
-    include Graph::ChinesePostman
-  
-    def initialize(*params)
-      raise ArgumentError if params.any? do |p| 
-       !(p.kind_of? GRATR::Graph or p.kind_of? Array)
-      end if self.class == GRATR::Digraph
-      super(*params)
-    end 
+  module DigraphAlgorithms
+    
+    include Search
+    include StrongComponents
+    include Distance
+    include ChinesePostman
 
     # A directed graph is directed by definition
     def directed?() true; end
@@ -85,9 +78,17 @@ module GRATR
     
     # Returns out_degree(v) - in_degree(v)
     def delta(v) out_degree(v) - in_degree(v); end
-          
+    
   end
-
+  
+  class Digraph < Graph
+    def initialize(*params)
+      args = (params.pop if params.last.kind_of? Hash) || {}
+      args[:algorithmic_category] = DigraphAlgorithms    
+      super *(params << args)
+    end
+  end
+  
   # DirectedGraph is just an alias for Digraph should one desire
   DirectedGraph = Digraph
 
@@ -95,20 +96,18 @@ module GRATR
   # allow loops
   class DirectedPseudoGraph < Digraph
     def initialize(*params)
-      raise ArgumentError if params.any? do |p| 
-       !(p.kind_of? GRATR::Graph or p.kind_of? Array)
-      end
-      super(:parallel_edges, *params)
+      args = (params.pop if params.last.kind_of? Hash) || {}
+      args[:parallel_edges] = true
+      super *(params << args)
     end 
   end
 
   # This is a Digraph that allows for parallel edges and loops
-  class DirectedMultiGraph < Digraph
+  class DirectedMultiGraph < DirectedPseudoGraph
     def initialize(*params)
-      raise ArgumentError if params.any? do |p| 
-       !(p.kind_of? GRATR::Graph or p.kind_of? Array)
-      end
-      super(:parallel_edges, :loops, *params)
+      args = (params.pop if params.last.kind_of? Hash) || {}
+      args[:loops] = true
+      super *(params << args)
     end 
   end
 

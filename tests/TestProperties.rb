@@ -27,7 +27,8 @@
 
 
 require 'test/unit'
-require 'gratr/import'
+require 'gratr'
+include GRATR
 require 'gratr/dot'
 
 # This test runs the classes from Appendix F in 

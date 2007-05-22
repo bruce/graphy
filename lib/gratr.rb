@@ -27,7 +27,6 @@
 #++
 
 
-require 'gratr/base'
 require 'gratr/digraph'
 require 'gratr/undirected_graph'
 require 'gratr/common'

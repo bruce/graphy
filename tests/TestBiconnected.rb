@@ -26,7 +26,9 @@
 #++
 
 require 'test/unit'
-require 'gratr/import'
+require 'gratr'
+include GRATR
+
 
 class TestBiconnected < Test::Unit::TestCase # :nodoc:
   def test_tarjan

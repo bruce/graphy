@@ -25,58 +25,33 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #++
 
-
 module GRATR
   
   # This defines the minimum set of functions required to make a graph class that can
   # use the algorithms defined by this library
   module GraphAPI
     
-    # Is the graph directed?
-    # 
-    # This method must be implemented by the specific graph class
-    def directed?()             raise NotImplementedError; end
-
-    # Add a vertex to the Graph and return the Graph
-    # An additional label l can be specified as well
-    # 
-    # This method must be implemented by the specific graph class    
-    def add_vertex!(v,l=nil)     raise NotImplementedError; end
-      
-    # Add an edge to the Graph and return the Graph
-    # u can be an object of type GRATR::Arc or u,v specifies
-    # a source, target pair. The last parameter is an optional label
-    # 
-    # This method must be implemented by the specific graph class
-    def add_edge!(u,v=nil,l=nil) raise NotImplementedError; end
-      
-    # Remove a vertex to the Graph and return the Graph
-    # 
-    # This method must be implemented by the specific graph class
-    def remove_vertex!(v)        raise NotImplementedError; end
-      
-    # Remove an edge from the Graph and return the Graph
-    # 
-    # Can be a type of GRATR::Arc or a source and target
-    # This method must be implemented by the specific graph class
-    def remove_edge!(u,v=nil)    raise NotImplementedError; end
-            
-    # Return the array of vertices.
-    # 
-    # This method must be implemented by the specific graph class
-    def vertices()              raise NotImplementedError; end
-
-    # Return the array of edges.
-    # 
-    # This method must be implemented by the specific graph class
-    def edges()                 raise NotImplementedError; end
-      
-    # Returns the edge class
-    def edge_class()            raise NotImplementedError; end
-    
-    # Return the chromatic number for this graph
-    # This is currently incomplete and in some cases will be NP-complete
-    # FIXME: Should this even be here? My gut feeling is no...
-    def chromatic_number()      raise NotImplementedError; end
+    # Each implementation module must implement the following routines
+    #   * directed?()   # Is the graph directed?
+    #   * add_vertex!(v,l=nil) # Add a vertex to the graph and return the graph, l is an optional label
+    #   * add_edge!(u,v=nil,l=nil) # Add an edge to the graph and return the graph. u can be an Arc or Edge or u,v is an edge pair. last parameter is an optional label
+    #   * remove_vertex!(v) # Remove a vertex to the graph and return the graph
+    #   * remove_edge!(u,v=nil) # Remove an edge from the graph and return the graph
+    #   * vertices()  # Returns an array of of all vertices
+    #   * edges() # Returns an array of all edges
+    #   * edge_class() # Returns the class used to store edges
+    def self.included(klass)
+       [:directed?,:add_vertex!,:add_edge!,:remove_vertex!,:remove_edge!,:vertices,:edges,:edge_class].each do |meth| 
+         raise "Must implement #{meth}" unless klass.instance_methods.include?(meth.to_s)
+       end
+       
+       klass.class_eval do
+         # Is this right?
+         alias remove_arc! remove_edge!
+         alias add_arc!    add_edge!
+         alias arcs        edges
+         alias arc_class   edge_class
+       end
+    end
   end
 end

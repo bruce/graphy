@@ -26,7 +26,6 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #++
 
-
 require 'gratr/edge'
 require 'gratr/graph'
 require 'set'
@@ -36,8 +35,6 @@ module GRATR
   # This provides the basic routines needed to implement the Digraph, UndirectedGraph,
   # PseudoGraph, DirectedPseudoGraph, MultiGraph and DirectedPseudoGraph class.
   module AdjacencyGraph
-    
-    include Graph
 
     class ArrayWithAdd < Array # :nodoc:
       alias add push
@@ -47,19 +44,15 @@ module GRATR
     # copy (will merge if multiple)
     # :parallel_edges denotes that duplicate edges are allowed
     # :loops denotes that loops are allowed
-    def initialize(*params)
+    def implementation_initialize(*params)
       @vertex_dict     = Hash.new    
-      raise ArgumentError if params.any? do |p| 
-        !(p.kind_of? GRATR::Graph or 
-          p.kind_of? Array or 
-          p == :parallel_edges or
-          p == :loops)
-      end
       clear_all_labels
+      
+      args = (params.pop if params.last.kind_of? Hash) || {}
 
       # Basic configuration of adjacency
-      @allow_loops    = params.any? {|p| p == :loops}
-      @parallel_edges = params.any? {|p| p == :parallel_edges}
+      @allow_loops    = args[:loops]          || false
+      @parallel_edges = args[:parallel_edges] || false
       @edgelist_class = @parallel_edges ? ArrayWithAdd : Set
       if @parallel_edges
         @edge_number      = Hash.new
@@ -176,7 +169,7 @@ module GRATR
       end.to_a
     end
  
-    alias graph_adjacent adjacent
+# FIXME, EFFED UP
     def adjacent(x, options={})
       options[:direction] ||= :out
       if !x.kind_of?(GRATR::Arc) and (options[:direction] == :out || !directed?)
@@ -192,39 +185,15 @@ module GRATR
         graph_adjacent(x,options)
       end
     end
-    
- 
-  public
 
-    def self.included(cl)
-      # Shortcut for creating a Graph
-      #
-      #  Example: GRATR::Digraph[1,2, 2,3, 2,4, 4,5].edges.to_a.to_s =>
-      #    "(1-2)(2-3)(2-4)(4-5)"
-      # 
-      # Or as a Hash for specifying lables
-      # GRATR::Digraph[ [:a,:b] => 3, [:b,:c] => 4 ]  (Note: Do not use for Multi or Pseudo graphs)
-      def cl.[] (*a)
-        result = new
-        if a.size == 1 and a[0].kind_of? Hash
-          # Convert to edge class
-          a[0].each do |k,v|
-            if result.edge_class.include? GRATR::ArcNumber
-              result.add_edge!(result.edge_class[k[0],k[1],nil,v])
-            else
-             result.add_edge!(result.edge_class[k[0],k[1],v])
-            end 
-          end
-        elsif a[0].kind_of? GRATR::Arc
-          a.each{|e| result.add_edge!(e); result[e] = e.label}
-        elsif a.size % 2 == 0    
-          0.step(a.size-1, 2) {|i| result.add_edge!(a[i], a[i+1])}
-        else
-          raise ArgumentError
-        end
-        result
+=begin    
+    def self.included(klass)
+      klass.class_eval do
+        alias graph_adjacent adjacent
+#        alias_method :adjacent, :graph_adjacent
       end
     end
-          
+=end
+
   end # Adjacency Graph
 end # GRATR

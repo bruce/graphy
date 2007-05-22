@@ -33,7 +33,7 @@
 require 'gratr/rdot'
 
 module GRATR
-  module Graph
+  class Graph
  
     # Return a DOT::DOTDigraph for directed graphs or a DOT::DOTSubgraph for an
     # undirected Graph.  _params_ can contain any graph property specified in

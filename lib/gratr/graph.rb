@@ -32,21 +32,62 @@ require 'gratr/labels'
 require 'gratr/graph_api'
 
 module GRATR
+  GRATR_VERSION = "0.5"
   
   # Using the functions required by the GraphAPI, it implements all the
   # basic functions of a Graph class by using only functions in GraphAPI.
   # An actual implementation still needs to be done, as in Digraph or
   # UndirectedGraph.
-  module Graph
+  class Graph
     include Enumerable
     include Labels
-    include GraphAPI
-      
-    alias remove_arc! remove_edge!
-    alias add_arc! add_edge!
-    alias arcs edges
-    alias arc_class edge_class  
-      
+    
+    def self.[](*a) self.new.from_array(*a); end
+
+    def initialize(*params)
+      raise ArgumentError if params.any? do |p| 
+       !(p.kind_of? GRATR::Graph or p.kind_of? Array or p.kind_of? Hash)
+      end
+      args = params.last || {}
+      class << self
+        self
+      end.class_eval do
+        include( args[:implementation]       ? args[:implementation]       : AdjacencyGraph )
+        include( args[:algorithmic_category] ? args[:algorithmic_category] : Digraph        )
+        include GraphAPI
+      end
+      implementation_initialize(*params)
+    end     
+       
+    # Shortcut for creating a Graph
+    #
+    #  Example: GRATR::Graph[1,2, 2,3, 2,4, 4,5].edges.to_a.to_s =>
+    #    "(1-2)(2-3)(2-4)(4-5)"
+    # 
+    # Or as a Hash for specifying lables
+    # GRATR::Graph[ [:a,:b] => 3, [:b,:c] => 4 ]  (Note: Do not use for Multi or Pseudo graphs)
+    def from_array(*a)
+      if a.size == 1 and a[0].kind_of? Hash
+        # Convert to edge class
+        a[0].each do |k,v|
+#FIXME, edge class shouldn't be assume here!!!
+          if edge_class.include? GRATR::ArcNumber
+            add_edge!(edge_class[k[0],k[1],nil,v])
+          else
+            add_edge!(edge_class[k[0],k[1],v])
+          end 
+        end
+#FIXME, edge class shouldn't be assume here!!!
+      elsif a[0].kind_of? GRATR::Arc
+        a.each{|e| add_edge!(e); self[e] = e.label}
+      elsif a.size % 2 == 0    
+        0.step(a.size-1, 2) {|i| add_edge!(a[i], a[i+1])}
+      else
+        raise ArgumentError
+      end
+      self
+    end
+    
     # Non destructive version of add_vertex!, returns modified copy of Graph
     def add_vertex(v, l=nil) x=self.class.new(self); x.add_vertex!(v,l); end
       
@@ -67,7 +108,7 @@ module GRATR
     #   :type can be either :edges or :vertices (default).
     #   :direction can be :in, :out(default) or :all.
     #
-    # Note: It is probably more efficently done in implementation.
+    # Note: It is probably more efficently done in the implementation class.
     def adjacent(x, options={})
       d = directed? ? (options[:direction] || :out) : :all
 
@@ -78,6 +119,9 @@ module GRATR
 
       (options[:type] == :edges ? edges : to_a).select {|u| adjacent?(x,u,d)}
     end
+#FIXME, THIS IS A HACK AROUND A SERIOUS PROBLEM
+    alias graph_adjacent adjacent
+    
 
     # Add all objects in _a_ to the vertex set.
     def add_vertices!(*a) a.each {|v| add_vertex! v}; self; end
@@ -269,8 +313,8 @@ module GRATR
       result = self.class.new(self)
       case other
         when GRATR::Graph : result.merge(other)
-        when GRATR::Arc  : result.add_edge!(other)
-        else              result.add_vertex!(other)
+        when GRATR::Arc   : result.add_edge!(other)
+        else                result.add_vertex!(other)
       end
     end
 
@@ -278,8 +322,8 @@ module GRATR
     def -(other)
       case  other
         when GRATR::Graph : induced_subgraph(vertices - other.vertices)
-        when GRATR::Arc  : self.class.new(self).remove_edge!(other)
-        else              self.class.new(self).remove_vertex!(other)
+        when GRATR::Arc   : self.class.new(self).remove_edge!(other)
+        else                self.class.new(self).remove_vertex!(other)
       end
     end
 
@@ -308,7 +352,6 @@ module GRATR
     
    private
     def edge_convert(*args) args[0].kind_of?(GRATR::Arc) ? args[0] : edge_class[*args]; end
-    
 
   end # Graph
 

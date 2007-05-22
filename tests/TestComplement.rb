@@ -28,7 +28,8 @@
 
 
 require 'test/unit'
-require 'gratr/import'
+require 'gratr'
+include GRATR
 
 class TestComplement < Test::Unit::TestCase # :nodoc:
   

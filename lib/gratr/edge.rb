@@ -25,53 +25,9 @@
 # OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #++
-
+require 'gratr/arc'
 
 module GRATR
-
-  # Arc includes classes for representing egdes of directed and
-  # undirected graphs. There is no need for a Vertex class, because any ruby
-  # object can be a vertex of a graph.
-  #
-  # Arc's base is a Struct with a :source, a :target and a :label
-  Struct.new("ArcBase",:source, :target, :label)
-
-  class Arc < Struct::ArcBase
-
-    def initialize(p_source,p_target,p_label=nil)
-      super(p_source, p_target, p_label)
-    end
-
-    # Ignore labels for equality
-    def eql?(other) self.class == other.class and target==other.target and source==other.source; end
-
-    # Alias for eql?
-    alias == eql?
-
-    # Returns (v,u) if self == (u,v).
-    def reverse() self.class.new(target, source, label); end
-
-    # Sort support
-    def <=>(rhs) [source,target] <=> [rhs.source,rhs.target]; end
-
-    # Arc.new[1,2].to_s => "(1-2 'label')"
-    def to_s
-      l = label ? " '#{label.to_s}'" : ''
-      "(#{source}-#{target}#{l})"
-    end
-    
-    # Hash is defined in such a way that label is not
-    # part of the hash value
-    def hash() source.hash ^ (target.hash+1); end
-
-    # Shortcut constructor. Instead of Arc.new(1,2) one can use Arc[1,2]
-    def self.[](p_source, p_target, p_label=nil)
-      new(p_source, p_target, p_label)
-    end
-    
-    def inspect() "#{self.class.to_s}[#{source.inspect},#{target.inspect},#{label.inspect}]"; end
-    
-  end
     
   # An undirected edge is simply an undirected pair (source, target) used in
   # undirected graphs. Edge[u,v] == Edge[v,u]
@@ -85,8 +41,6 @@ module GRATR
 
     # Hash is defined such that source and target can be reversed and the
     # hash value will be the same
-    #
-    # This will cause problems with self loops
     def hash() source.hash ^ target.hash; end
 
     # Sort support
@@ -104,40 +58,7 @@ module GRATR
     end
     
   end
-  
-  # This module provides for internal numbering of edges for differentiating between mutliple edges
-  module ArcNumber
     
-    attr_accessor :number # Used to differentiate between mutli-edges
-    
-    def initialize(p_source,p_target,p_number,p_label=nil)
-      self.number = p_number 
-      super(p_source, p_target, p_label)
-    end
-
-    # Returns (v,u) if self == (u,v).
-    def reverse() self.class.new(target, source, number, label); end
-    def hash() super ^ number.hash; end    
-    def to_s() super + "[#{number}]"; end
-    def <=>(rhs) (result = super(rhs)) == 0 ? number <=> rhs.number : result; end 
-    def inspect() "#{self.class.to_s}[#{source.inspect},#{target.inspect},#{number.inspect},#{label.inspect}]"; end
-    def eql?(rhs) super(rhs) and (rhs.number.nil? or number.nil? or number == rhs.number); end 
-    def ==(rhs) eql?(rhs); end
-
-    # Shortcut constructor. Instead of Arc.new(1,2) one can use Arc[1,2]
-    def self.included(cl)
-      
-      def cl.[](p_source, p_target, p_number=nil, p_label=nil)
-        new(p_source, p_target, p_number, p_label)
-      end
-    end
-
-  end
-  
-  class MultiArc < Arc
-    include ArcNumber
-  end
-  
   class MultiEdge < Edge
     include ArcNumber
   end

@@ -27,7 +27,8 @@
 
 
 require 'test/unit'
-require 'gratr/import'
+require 'gratr'
+include GRATR
 
 class TestTriagulated < Test::Unit::TestCase #:nodoc:
 
@@ -113,7 +114,7 @@ class TestTriagulated < Test::Unit::TestCase #:nodoc:
   end
   
   def test_lexicographic_queue
-    q = UndirectedGraph::LexicographicQueue.new([1,2,3,4,5,6,7,8,9])
+    q = GRATR::Search::LexicographicQueue.new([1,2,3,4,5,6,7,8,9])
     assert_equal 9, q.pop
     q.add_lexeme([3,4,5,6,7,8])
     assert_equal 8, q.pop

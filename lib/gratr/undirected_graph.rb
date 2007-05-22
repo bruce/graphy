@@ -34,18 +34,10 @@ require 'gratr/comparability'
 require 'set'
 
 module GRATR
-  class UndirectedGraph
-    include AdjacencyGraph
-    include Graph::Search
-    include Graph::Biconnected
-    include Graph::Comparability
-    
-    def initialize(*params)
-      raise ArgumentError if params.any? do |p| 
-       !(p.kind_of? GRATR::Graph or p.kind_of? Array)
-      end if self.class == GRATR::UndirectedGraph
-      super(*params)
-    end 
+  module UndirectedGraphAlgorithms
+    include Search
+    include Biconnected
+    include Comparability
 
     # UndirectedGraph is by definition undirected, always returns false
     def directed?()  false; end
@@ -126,28 +118,33 @@ module GRATR
       end; chi
     end
    
-  end # UndirectedGraph
+  end # UndirectedGraphAlgorithms
 
-  # This is a UndirectedGraph that allows for parallel edges, but does not
-  # allow loops
-  class UndirectedPseudoGraph < UndirectedGraph
-    def initialize(*params)
-      raise ArgumentError if params.any? do |p| 
-       !(p.kind_of? Graph or p.kind_of? Array)
-      end
-      super(:parallel_edges, *params)
-    end 
-  end
+  class UndirectedGraph < Graph
+     def initialize(*params)
+       args = (params.pop if params.last.kind_of? Hash) || {}
+       args[:algorithmic_category] = UndirectedGraphAlgorithms    
+       super *(params << args)
+     end
+   end
 
-  # This is a UndirectedGraph that allows for parallel edges and loops
-  class UndirectedMultiGraph < UndirectedGraph
-    def initialize(*params)
-      raise ArgumentError if params.any? do |p| 
-       !(p.kind_of? Graph or p.kind_of? Array)
-      end
-      super(:parallel_edges, :loops, *params)
-    end 
-  end
+   # This is a Digraph that allows for parallel edges, but does not
+   # allow loops
+   class UndirectedPseudoGraph < UndirectedGraph
+     def initialize(*params)
+       args = (params.pop if params.last.kind_of? Hash) || {}
+       args[:parallel_edges] = true
+       super *(params << args)
+     end 
+   end
 
-
+   # This is a Digraph that allows for parallel edges and loops
+   class UndirectedMultiGraph < UndirectedPseudoGraph
+     def initialize(*params)
+       args = (params.pop if params.last.kind_of? Hash) || {}
+       args[:loops] = true
+       super *(params << args)
+     end 
+   end
+   
 end # GRATR

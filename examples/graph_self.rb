@@ -1,7 +1,9 @@
 #!/usr/bin/ruby -I../lib
 
-require 'gratr/import'
+require 'gratr'
 require 'gratr/dot'
+
+include GRATR
 
 # This program gives an example of dynamic analysis of a program's call stack,
 # that exports to dot and creates a jpg visualization of the call diagram.

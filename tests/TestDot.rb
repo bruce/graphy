@@ -26,7 +26,8 @@
 #++
 
 require 'test/unit'
-require 'gratr/import'
+require 'gratr'
+include GRATR
 
 class TestDot < Test::Unit::TestCase # :nodoc:
   

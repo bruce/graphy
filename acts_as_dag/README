@@ -2,11 +2,19 @@
 
 A Plugin to use GRATR in rails. Written by Rick Bradley.
 
+'dag' is an acronym for Directed Acyclic Graph. An intersect table in a database
+is a graph structure. One of the more useful ones is a directed acyclic graph, or
+more simply a tree with the additional ability for children to have multiple parents.
+A concrete example is that of an organization chart. These are usually modelled
+as a tree, but this fails the moment an employee splits his work between two
+supervisors. An organization chart is more appropriately modeled as a DAG.
+
 Documentation in the works.
 
 == Copying
 
 Copyright (c) 2006, Rick Bradley
+Copyright (c) 2006, 2007, Rick Bradley and Shawn Garbett
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification,

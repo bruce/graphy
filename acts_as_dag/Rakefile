@@ -9,7 +9,7 @@ require 'rake/testtask'
 require 'rake/contrib/rubyforgepublisher'
 
 PKG_NAME      = 'acts_as_dag'
-PKG_VERSION   = '0.0.1'
+PKG_VERSION   = '0.0.2'
 PKG_FILE_NAME = "#{PKG_NAME}-#{PKG_VERSION}"
 PROD_HOST     = "rick@rickbradley.com"
 RUBY_FORGE_PROJECT = 'ar-dag'

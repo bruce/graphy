@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>lib/gratr/search.rb</string>
+	<string>tests/TestChinesePostman.rb</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -42,7 +42,7 @@
 			<key>filename</key>
 			<string>README</string>
 			<key>lastUsed</key>
-			<date>2007-01-02T05:21:17Z</date>
+			<date>2007-02-08T18:42:30Z</date>
 		</dict>
 		<dict>
 			<key>expanded</key>
@@ -169,35 +169,21 @@
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
 		</dict>
-		<key>lib/gratr/chinese_postman.rb</key>
+		<key>lib/gratr/adjacency_graph.rb</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>0</integer>
+				<integer>10</integer>
 				<key>line</key>
-				<integer>0</integer>
+				<integer>219</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>0</integer>
+			<integer>175</integer>
 		</dict>
 		<key>lib/gratr/common.rb</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>0</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
-		<key>lib/gratr/comparability.rb</key>
 		<dict>
 			<key>caret</key>
 			<dict>
@@ -216,58 +202,28 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>27</integer>
+				<integer>23</integer>
 				<key>line</key>
-				<integer>51</integer>
+				<integer>94</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>45</integer>
-		</dict>
-		<key>lib/gratr/digraph_distance.rb</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>0</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>35</integer>
+			<integer>51</integer>
 		</dict>
 		<key>lib/gratr/graph.rb</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>50</integer>
+				<integer>0</integer>
 				<key>line</key>
-				<integer>262</integer>
+				<integer>309</integer>
 			</dict>
-			<key>columnSelection</key>
-			<false/>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>137</integer>
-			<key>selectFrom</key>
-			<dict>
-				<key>column</key>
-				<integer>43</integer>
-				<key>line</key>
-				<integer>262</integer>
-			</dict>
-			<key>selectTo</key>
-			<dict>
-				<key>column</key>
-				<integer>50</integer>
-				<key>line</key>
-				<integer>262</integer>
-			</dict>
+			<integer>274</integer>
 		</dict>
 		<key>lib/gratr/graph_api.rb</key>
 		<dict>
@@ -283,91 +239,33 @@
 			<key>firstVisibleLine</key>
 			<integer>23</integer>
 		</dict>
-		<key>lib/gratr/labels.rb</key>
+		<key>lib/gratr/undirected_graph.rb</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>29</integer>
+				<integer>4</integer>
 				<key>line</key>
-				<integer>95</integer>
-			</dict>
-			<key>columnSelection</key>
-			<false/>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>64</integer>
-			<key>selectFrom</key>
-			<dict>
-				<key>column</key>
-				<integer>25</integer>
-				<key>line</key>
-				<integer>95</integer>
-			</dict>
-			<key>selectTo</key>
-			<dict>
-				<key>column</key>
-				<integer>29</integer>
-				<key>line</key>
-				<integer>95</integer>
-			</dict>
-		</dict>
-		<key>lib/gratr/rdot.rb</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>56</integer>
-				<key>line</key>
-				<integer>143</integer>
+				<integer>39</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>127</integer>
+			<integer>16</integer>
 		</dict>
-		<key>lib/gratr/search.rb</key>
+		<key>tests/TestChinesePostman.rb</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>13</integer>
+				<integer>19</integer>
 				<key>line</key>
-				<integer>121</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>101</integer>
-		</dict>
-		<key>lib/priority-queue/lib/priority_queue.rb</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>0</integer>
-				<key>line</key>
-				<integer>0</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
-		<key>tests/TestBiconnected.rb</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
 				<integer>28</integer>
-				<key>line</key>
-				<integer>37</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>9</integer>
+			<integer>7</integer>
 		</dict>
 		<key>tests/TestComplement.rb</key>
 		<dict>
@@ -382,20 +280,6 @@
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
-		</dict>
-		<key>tests/TestDigraph.rb</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>10</integer>
-				<key>line</key>
-				<integer>192</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>157</integer>
 		</dict>
 		<key>tests/TestInspection.rb</key>
 		<dict>
@@ -414,16 +298,15 @@
 	</dict>
 	<key>openDocuments</key>
 	<array>
-		<string>lib/priority-queue/lib/priority_queue.rb</string>
-		<string>lib/gratr/search.rb</string>
-		<string>lib/gratr/graph.rb</string>
 		<string>lib/gratr/digraph.rb</string>
-		<string>lib/gratr/labels.rb</string>
-		<string>tests/TestDigraph.rb</string>
+		<string>lib/gratr/graph.rb</string>
+		<string>lib/gratr/adjacency_graph.rb</string>
+		<string>tests/TestChinesePostman.rb</string>
+		<string>lib/gratr/undirected_graph.rb</string>
 	</array>
 	<key>showFileHierarchyDrawer</key>
 	<true/>
 	<key>windowFrame</key>
-	<string>{{241, 16}, {1119, 766}}</string>
+	<string>{{220, 21}, {908, 854}}</string>
 </dict>
 </plist>

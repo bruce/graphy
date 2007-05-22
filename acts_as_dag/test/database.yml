@@ -6,7 +6,7 @@
 #  :dbfile: acts_as_range_plugin.sqlite3.db
 postgresql:
   :adapter: postgresql
-  :username: rick
+  :host: localhost
   :database: acts_as_dag_plugin_test
   :min_messages: ERROR
 #mysql:

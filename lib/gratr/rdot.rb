@@ -248,7 +248,7 @@ module DOT
     def initialize (params = {}, option_list = GRAPH_OPTS)
       super(params, option_list)
       @nodes      = params['nodes'] ? params['nodes'] : []
-      @dot_string = 'graph'
+      @dot_string = 'subgraph'
     end
 
     def each_node

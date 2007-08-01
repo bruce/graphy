@@ -66,13 +66,29 @@ class DirectedTest < Test::Unit::TestCase
     assert_equal [7], Node.graph.adjacent(Node.find(2), :direction => :in, :type => :edges).map(&:source).map(&:id).sort
   end
   
+  def test_adjacent_edges_in_must_return_arcs
+    assert Node.graph.adjacent(Node.find(2), :direction => :in, :type => :edges).all? {|e| e.is_a? GRATR::Arc}
+  end
+  
   def test_adjacent_edges_out_must_return_all_out_edges
-    assert_equal [1], Node.graph.adjacent(Node.find(2), :direction => :out, :type => :edges).map(&:destination).map(&:id).sort
+    assert_equal [1], Node.graph.adjacent(Node.find(2), :direction => :out, :type => :edges).map(&:target).map(&:id).sort
+  end
+
+  def test_adjacent_edges_out_must_return_arcs
+    assert Node.graph.adjacent(Node.find(2), :direction => :out, :type => :edges).all? {|e| e.is_a? GRATR::Arc}
   end
 
   def test_adjacent_edges_all_must_return_all_parents_and_children
     assert_equal [[2,1],[7,2]],
-                 Node.graph.adjacent(Node.find(2), :direction => :all, :type => :edges).map {|e| [e.source.id, e.destination.id]}.sort
+                 Node.graph.adjacent(Node.find(2), :direction => :all, :type => :edges).map {|e| [e.source.id, e.target.id]}.sort
+  end
+
+  def test_adjacent_edges_all_must_return_arcs
+    assert Node.graph.adjacent(Node.find(2), :direction => :all, :type => :edges).all? {|e| e.is_a? GRATR::Arc}
+  end
+  
+  def test_adjacent_edges_out_must_return_arcs
+    assert Node.graph.adjacent(Node.find(2), :direction => :out, :type => :edges).all? {|e| e.is_a? GRATR::Arc}
   end
   
   def test_sinks_must_return_nodes_with_no_children

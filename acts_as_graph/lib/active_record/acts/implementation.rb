@@ -63,8 +63,14 @@ module ActiveRecord
           options[:direction] ||= :out
           result = []
           if options[:type] == :edges
-            result += x.send(@config[:in_edges])  if [:in,  :all].include?(options[:direction])
-            result += x.send(@config[:out_edges]) if [:out, :all].include?(options[:direction])
+            if [:in,  :all].include?(options[:direction])
+              es=x.send(@config[:in_edges])
+              result += es.map {|e| GRATR::Arc[e.send(@config[:in]),e.send(@config[:out])]}
+            end
+            if [:out, :all].include?(options[:direction])
+              es=x.send(@config[:out_edges])
+              result += es.map {|e| GRATR::Arc[e.send(@config[:in]),e.send(@config[:out])]}
+            end
           else
             result += x.send(@config[:parents])   if [:in,  :all].include?(options[:direction])
             result += x.send(@config[:children])  if [:out, :all].include?(options[:direction])

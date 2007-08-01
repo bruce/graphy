@@ -12,8 +12,8 @@ module ActiveRecord
         def acts_as_graph_directed_associations(options)
           has_many options[:in_edges],  :class_name => options[:edges_class], :foreign_key => "#{options[:out]}_id"
           has_many options[:out_edges], :class_name => options[:edges_class], :foreign_key => "#{options[:in]}_id"
-          has_many options[:parents],   :through => options[:in_edges]
-          has_many options[:children],  :through => options[:out_edges]
+          has_many options[:parents],   :through => options[:in_edges],       :source      => options[:in]
+          has_many options[:children],  :through => options[:out_edges],      :source      => options[:out]
         end
 
         def acts_as_graph_undirected_associations(options)

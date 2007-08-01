@@ -3,7 +3,7 @@ ActiveRecord::Schema.define(:version => 1) do
     t.column "name", :string
   end             
   
-  create_table :nodes_edges, :force => true, :id => false do |t|
+  create_table :nodes_edges, :force => true do |t|
       t.column :source_id, :integer
       t.column :destination_id, :integer
   end

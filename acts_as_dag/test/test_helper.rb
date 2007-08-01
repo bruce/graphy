@@ -1,19 +1,38 @@
 $:.unshift(File.dirname(__FILE__) + '/../lib')
+RAILS_ROOT = File.dirname(__FILE__) + '/../../../..'
 
-require 'test/unit'
-require File.expand_path(File.join(File.dirname(__FILE__), '../../../../config/environment.rb'))
 require 'rubygems'
-require 'active_support/breakpoint'
-require 'active_record/fixtures'
+require 'test/unit'
 
-config = YAML::load(IO.read(File.dirname(__FILE__) + '/database.yml'))
+######################
+# Firing up a test environment for ActiveRecord should not be this hard, but it is...
+db_config = begin
+  require "#{RAILS_ROOT}/vendor/rails/activerecord/lib/active_record" 
+  require "#{RAILS_ROOT}/vendor/rails/activerecord/lib/active_record/fixtures" 
+  require File.expand_path(File.join(File.dirname(__FILE__), '../../../../config/environment.rb'))
+  "#{RAILS_ROOT}/config/database.yml"
+rescue LoadError => e
+  puts "Unable to find owning project environment, using local configuration"
+  require 'active_record' 
+  require 'active_record/fixtures'
+  "test/database.yml"
+end
+
+require 'erb'
+require "#{File.dirname(__FILE__)}/../init"
+
+config = YAML::load(ERB.new(IO.read(db_config)).result)
 ActiveRecord::Base.logger = Logger.new(File.dirname(__FILE__) + "/debug.log")
-ActiveRecord::Base.establish_connection(config[ENV['DB'] || 'sqlite'])
+ActiveRecord::Base.establish_connection(config['test'])
 
-load(File.dirname(__FILE__) + "/schema.rb")
+load(File.dirname(__FILE__) + "/schema.rb") if File.exist?(File.dirname(__FILE__) + "/schema.rb")
 
 Test::Unit::TestCase.fixture_path = File.dirname(__FILE__) + "/fixtures/"
+Fixtures.create_fixtures(Test::Unit::TestCase.fixture_path, [:nodes, :nodes_edges])
 $LOAD_PATH.unshift(Test::Unit::TestCase.fixture_path)
+
+####################
+
 
 class Test::Unit::TestCase #:nodoc:
   def create_fixtures(*table_names)
@@ -31,39 +50,4 @@ class Test::Unit::TestCase #:nodoc:
   self.use_instantiated_fixtures  = false
 
   # Add more helper methods to be used by all tests here...
-  def assert_edge(source_id, destination_id)
-    ActiveRecord::Base.connection.select_all('select * from nodes_edges').each do |row|
-      return assert(true) if row['source_id'].to_i == source_id.to_i and 
-                             row['destination_id'].to_i == destination_id.to_i
-    end
-    assert false, "source_id[#{source_id}] & destination_id[#{destination_id}] not found"
-  end
-  
-  def assert_not_edge(source_id, destination_id)
-    ActiveRecord::Base.connection.select_all('select * from nodes_edges').each do |row|
-      return assert(false, "source_id[#{source_id}] & destination_id[#{destination_id}] found in [#{row.inspect}]") if row['source_id'].to_i == source_id.to_i and row['destination_id'].to_i == destination_id.to_i
-    end
-    assert true
-  end
-  
-  # http://project.ioni.st/post/217#post-217
-  #
-  #  def test_new_publication
-  #    assert_difference(Publication, :count) do
-  #      post :create, :publication => {...}
-  #      # ...
-  #    end
-  #  end
-  # 
-  def assert_difference(object, method = nil, difference = 1)
-    initial_value = object.send(method)
-    yield
-    assert_equal initial_value + difference, object.send(method), "#{object}##{method}"
-  end
-
-  def assert_no_difference(object, method, &block)
-    assert_difference object, method, 0, &block
-  end
-  
-  
 end

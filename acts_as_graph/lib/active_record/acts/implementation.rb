@@ -29,24 +29,22 @@ module ActiveRecord
           !ar_edges_class.find(:first, :conditions => ["#{@config[:in]}_id = ? and #{@config[:out]}_id = ?", u.id, v.id]).nil?
         end
 
-        # Probably better to use active record for this
         def add_vertex!(vertex, label=nil)
-          raise NotImplementedError        
+          raise NotImplementedError, "Use ActiveRecord::Base methods on main object"        
         end
 
-        # Probably better to use active record for this
         def add_edge!(u, v=nil, l=nil, n=nil)
-          raise NotImplementedError        
+          raise NotImplementedError, "Use ActiveRecord::Base methods on main object"        
         end
 
         # Probably better to use active record for this
         def remove_vertex!(v)
-          raise NotImplementedError        
+          raise NotImplementedError, "Use ActiveRecord::Base methods on main object"        
         end
 
         # Probably better to use active record for this
         def remove_edge!(u, v=nil)
-          raise NotImplementedError        
+          raise NotImplementedError, "Use ActiveRecord::Base methods on main object"        
         end
 
         # Returns an array of vertices that the graph has

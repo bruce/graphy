@@ -74,6 +74,15 @@ class DirectedTest < Test::Unit::TestCase
     assert_equal [[2,1],[7,2]],
                  Node.graph.adjacent(Node.find(2), :direction => :all, :type => :edges).map {|e| [e.source.id, e.destination.id]}.sort
   end
+  
+  def test_sinks_must_return_nodes_with_no_children
+    [1,4].map {|s| Node.find(s)}.each {|n| assert Node.graph.sinks.include?(n)}
+    assert_equal 2, Node.graph.sinks.length
+  end
 
+  def test_sources_must_return_nodes_with_no_parents
+    [3,7].map {|s| Node.find(s)}.each {|n| assert Node.graph.sources.include?(n)}
+    assert_equal 2, Node.graph.sources.length
+  end
   
 end

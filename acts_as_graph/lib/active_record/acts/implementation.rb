@@ -26,7 +26,7 @@ module ActiveRecord
         # An O(1) implementation 
         def edge?(u, v=nil)
           u, v = u.source, u.target if u.kind_of? GRATR::Arc
-          !eval(@config[:edges_class]).find(:first, :conditions => ["#{@config[:in]}_id = ? and #{@config[:out]}_id = ?", u.id, v.id]).nil?
+          !ar_edges_class.find(:first, :conditions => ["#{@config[:in]}_id = ? and #{@config[:out]}_id = ?", u.id, v.id]).nil?
         end
 
         # Probably better to use active record for this
@@ -50,12 +50,12 @@ module ActiveRecord
         end
 
         # Returns an array of vertices that the graph has
-        def vertices() @config[:ar_object].find(:all); end
+        def vertices() ar_object.find(:all); end
 
         # Returns an array of edges, most likely of class Arc or Edge depending 
         # upon the type of graph
         def edges
-          eval(@config[:edges_class]).find(:all).map {|e| edge_class[e.send(@config[:in]), e.send(@config[:out])]}
+          ar_edges_class.find(:all).map {|e| edge_class[e.send(@config[:in]), e.send(@config[:out])]}
         end
 
         def adjacent(x, options={})
@@ -71,7 +71,18 @@ module ActiveRecord
           end
           result
         end        
-             
+        
+        def sources() not_in_edges(:out); end
+        def sinks()   not_in_edges(:in);  end
+       
+       protected
+       
+        def ar_edges_class() eval(@config[:edges_class]); end
+        def ar_object() @config[:ar_object]; end
+        
+        def not_in_edges(side)
+          ar_object.find(:all, :conditions => "id not in (select distinct #{@config[side]}_id from #{ar_edges_class.table_name})")
+        end
       end
     end
   end

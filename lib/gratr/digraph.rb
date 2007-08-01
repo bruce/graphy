@@ -79,6 +79,21 @@ module GRATR
     # Returns out_degree(v) - in_degree(v)
     def delta(v) out_degree(v) - in_degree(v); end
     
+    def community(node, direction)
+      nodes, stack = {}, adjacent(node, :direction => direction)
+      while n = stack.pop
+        unless nodes[n.object_id] || node == n
+          nodes[n.object_id] = n
+          stack += adjacent(n, :direction => direction)
+        end
+      end
+      nodes.values
+    end
+    
+    def descendants(node) community(node, :out); end
+    def ancestors(node)   community(node, :in ); end
+    def family(node)      community(node, :all); end    
+    
   end
   
   class Digraph < Graph

@@ -1,5 +1,5 @@
 #--
-# Copyright (c) 2006 Shawn Patrick Garbett
+# Copyright (c) 2006,2007 Shawn Patrick Garbett
 # Copyright (c) 2002,2004,2005 by Horst Duchene
 # 
 # Redistribution and use in source and binary forms, with or without modification,

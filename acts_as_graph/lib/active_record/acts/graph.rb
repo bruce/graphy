@@ -6,52 +6,6 @@ module ActiveRecord
       def self.included(base) # :nodoc:
         base.extend ClassMethods
       end
-
-      #   # return a list of all descendants of this graph node
-      #    def descendants                
-      #      stack = [ self.send(acts_as_dag_configuration[:in]) ].flatten
-      #      nodes = {}
-      #      while stack.length > 0
-      #        n = stack.pop
-      #        if n and ! nodes[n.id]                   
-      #          nodes[n.id] = n
-      #            (stack << [n.send(acts_as_dag_configuration[:in])]).flatten!
-      #        end
-      #      end
-      #      nodes.values
-      #    end
-      #   
-      #    # return a list of all ancestors of this graph node
-      #    def ancestors    
-      #      stack = [ self.send(acts_as_dag_configuration[:out]) ].flatten
-      #      nodes = {}
-      #      while stack.length > 0
-      #        n = stack.pop
-      #        if n and ! nodes[n.id]                   
-      #          nodes[n.id] = n
-      #          (stack << [n.send(acts_as_dag_configuration[:out])]).flatten!
-      #        end
-      #      end
-      #      nodes.values
-      #    end     
-      #  
-      #   # This act provides the capabilities for a class to behave as a directed acyclic graph.
-      #   # The class that has this specified needs to have a <model>_edges tables defined.
-      #   module ClassMethods
-      #     
-      #   
-      #     # which nodes in the DAG have no in edges?
-      #     def sources
-      #       find :all, :conditions => "id not in (select distinct #{acts_as_dag_configuration[:destination_key]} from #{acts_as_dag_configuration[:edges_class].table_name})"
-      #     end
-      #   
-      #     # which nodes in the DAG have no out edges?
-      #     def sinks
-      #       find :all, :conditions => "id not in (select distinct #{acts_as_dag_configuration[:source_key]} from #{acts_as_dag_configuration[:edges_class].table_name})"
-      #     end         
-      #                              
-      #   end            
-      # end
         
       module ClassMethods
         

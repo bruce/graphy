@@ -28,7 +28,7 @@ module ActiveRecord
           configuration_pass_one = {
             :method_name     => name,
             :ar_object       => self,
-            :edges_class     => "#{self}Edges",
+            :edges_class     => "#{self}Edge",
             :directed        => true,
             :in              => :source,
             :out             => :destination,

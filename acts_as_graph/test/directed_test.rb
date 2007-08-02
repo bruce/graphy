@@ -1,10 +1,10 @@
 require File.join(File.dirname(__FILE__), 'test_helper')
 
 class Node < ActiveRecord::Base
-  acts_as_graph :graph, :in => :source, :out => :destination, :edges_class => 'NodeEdges'
+  acts_as_graph :graph, :in => :source, :out => :destination, :edges_class => 'NodeEdge'
 end
 
-class NodeEdges < ActiveRecord::Base
+class NodeEdge < ActiveRecord::Base
   set_table_name 'nodes_edges'
   belongs_to :source,      :class_name => 'Node', :foreign_key => 'source_id'
   belongs_to :destination, :class_name => 'Node', :foreign_key => 'destination_id'
@@ -27,7 +27,7 @@ class DirectedTest < Test::Unit::TestCase
   end
   
   def test_edges_must_return_all_edges
-    assert_equal NodeEdges.count, Node.graph.edges.size
+    assert_equal NodeEdge.count, Node.graph.edges.size
   end
   
   def test_edges_must_return_array_of_arcs

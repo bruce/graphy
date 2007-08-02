@@ -263,11 +263,15 @@ Rick Bradley who reworked the library and added many graph theoretic constructs.
 * Min-Max Flow 
 * Near optimal traveling salesman problem
 * Orientation of undirected graphs
+* Undirected graphs from ActiveRecord
 
 == Release Notes
 
-The core interface is about to be updated to allow for cleaner dependency injects. Luke Kanies has also contributed
-several optimizations for speed and logged some bugs. This will result in a 0.5 release coming soon. 
+== 0.5.1
+
+* Full rework of internals to have dual dependencies, first upon an implementation (ActiveRecord, Adjancency Lists, external libraries, ...) and secondly an algorithmic category, i.e. directed graph, undirected graph, hypergraph, etc. Now advanced algorithms are fully decoupled from implementation and algorithmic category. 
+* Full integration with acts_as_graph plugin for Rails. Undirected Graphs from ActiveRecord not working yet.
+* Minor bug fixes.
 
 === 0.4.3
 

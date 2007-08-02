@@ -32,7 +32,7 @@ require 'gratr/labels'
 require 'gratr/graph_api'
 
 module GRATR
-  GRATR_VERSION = "0.5"
+  GRATR_VERSION = "0.5.1"
   
   # Using the functions required by the GraphAPI, it implements all the
   # basic functions of a Graph class by using only functions in GraphAPI.

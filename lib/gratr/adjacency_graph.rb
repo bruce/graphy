@@ -1,5 +1,5 @@
 #--
-# Copyright (c) 2006 Shawn Patrick Garbett
+# Copyright (c) 2006,2007 Shawn Patrick Garbett
 # Copyright (c) 2002,2004,2005 by Horst Duchene
 # 
 # Redistribution and use in source and binary forms, with or without modification,
@@ -185,15 +185,6 @@ module GRATR
         graph_adjacent(x,options)
       end
     end
-
-=begin    
-    def self.included(klass)
-      klass.class_eval do
-        alias graph_adjacent adjacent
-#        alias_method :adjacent, :graph_adjacent
-      end
-    end
-=end
 
   end # Adjacency Graph
 end # GRATR

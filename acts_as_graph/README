@@ -1,4 +1,4 @@
-= acts_as_dag
+= acts_as_graph
 
 A Plugin to use GRATR in rails. Written by Rick Bradley.
 
@@ -9,9 +9,11 @@ A concrete example is that of an organization chart. These are usually modelled
 as a tree, but this fails the moment an employee splits his work between two
 supervisors. An organization chart is more appropriately modeled as a DAG.
 
-Documentation in the works.
+== This now works fully integrated with the GRATR library for graph algorithms
 
-== Copying
+Requires the GRATR library to be installed.
+
+== Licensing
 
 Copyright (c) 2006 Rick Bradley
 Copyright (c) 2006, 2007 Rick Bradley and Shawn Garbett

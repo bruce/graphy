@@ -84,15 +84,16 @@ module GRATR
     # Each node is an array of nodes from the original graph
     def condensation
       sc  = strong_components
-      cg  = self.class.new
+      cg  = DirectedMultiGraph.new
       map = sc.inject({}) do |a,c| 
         c.each {|v| a[v] = c }; a
       end
       sc.each do |c|
         c.each do |v|
-          adjacent(v).each {|v| cg.add_edge!(c, map[v]) unless c == map[v]}
+          adjacent(v).each {|v1| cg.add_edge!(c, map[v1]) unless cg.edge?(c, map[v1]) }
         end
-      end; cg
+      end; 
+      cg
     end
 
     # Compute transitive closure of a graph. That is any node that is reachable
@@ -112,13 +113,12 @@ module GRATR
     # is not changed.
     def transitive_closure() self.class.new(self).transitive_closure!; end
 
-   private
     def gratr_inner_transitive_closure!  # :nodoc:
-      topsort.reverse.each do |u| 
+      sort.reverse.each do |u| 
         adjacent(u).each do |v|
           adjacent(v).each {|w| add_edge!(u,w) unless edge?(u,w)}
         end
       end; self
     end
-  end # StrongComponens
+  end # StrongComponents
 end # GRATR

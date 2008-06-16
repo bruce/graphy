@@ -60,8 +60,8 @@ class TestStrongComponents < Test::Unit::TestCase # :nodoc:
     assert cg_vertices.include?(['d','e'])
     assert cg_vertices.include?(['f', 'g'])
     assert cg_vertices.include?(['a', 'b', 'c', 'h', 'i'])
-    assert cg.edges.map {|e| [e.source.sort.join, e.target.sort.join] }.sort ==
-           [['abchi','de'], ['abchi', 'fg'], ['abchi', 'j'], ['fg', 'de']]
+    assert cg.edges.map {|e| [e.source.sort.join, e.target.sort.join] }.to_a.sort ==
+           [["abchi", "abchi"], ["abchi", "de"], ["abchi", "fg"], ["abchi", "j"], ["de", "de"], ["fg", "de"], ["fg", "fg"]]
   end
     
 

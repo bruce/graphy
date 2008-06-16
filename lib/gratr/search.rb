@@ -408,6 +408,15 @@ module GRATR
       dfs({:exit_vertex => push, :back_edge => back, :start => start})
       result.each {|v| block.call(v)} if block; result
     end
+    
+    # Does a top sort, but trudges forward if a cycle occurs. Use with caution.
+    def sort(start = nil, &block)
+      result  = []
+      push    = Proc.new {|v| result.unshift(v)}
+      start   ||= vertices[0]
+      dfs({:exit_vertex => push, :start => start})
+      result.each {|v| block.call(v)} if block; result
+    end
 
     # Returns true if a graph contains no cycles, false otherwise
     def acyclic?() topsort.size == size; end

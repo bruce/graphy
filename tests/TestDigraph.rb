@@ -98,8 +98,8 @@ class TestDigraph < Test::Unit::TestCase # :nodoc:
 
   def test_vertices
     assert_equal [1,2,3,4],   @single.vertices.sort
-    assert_equal [1,2,3,4,5], @single.add_vertex!(5).sort
-    assert_equal [1,2,4,5],   @single.remove_vertex!(3).sort
+    assert_equal [1,2,3,4,5], @single.add_vertex!(5).to_a.sort
+    assert_equal [1,2,4,5],   @single.remove_vertex!(3).to_a.sort
     assert !@single.vertex?(3)
     assert !@single.edge?(2,3)
     assert !@single.edge?(3,4)

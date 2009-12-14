@@ -30,7 +30,7 @@ The Tour
 
 There are two Arc classes, `Graph::Arc` and `Graph::Edge`.
 
-## Graph Types
+### Graph Types
 
 There are a number of different graph types, each of which provide
 different features and constraints:
@@ -53,7 +53,7 @@ different features and constraints:
 `Graph::UndirectedGraph`, `Graph::UndirectedPseudoGraph`, and
 `Graph::UndirectedMultiGraph` are similar but all edges are undirected.
 
-## Data Structures
+### Data Structures
 
 Use the `Graph::AdjacencyGraph` module provides a generalized adjacency
 list and an edge list adaptor.
@@ -157,19 +157,23 @@ For more information on Graph Theory, you may want to read:
 * The [documentation][3] for the Boost Graph Library
 * [The Dictionary of Algorithms and Data Structures][4]
 
-== Credits
+Credits
+-------
 
 See CREDITS.markdown
 
-== TODO
+TODO
+----
 
 See TODO.markdown
 
-== CHANGELOG
+CHANGELOG
+---------
 
 See CHANGELOG.markdown
 
-== License
+License
+-------
 
 See LICENSE
 

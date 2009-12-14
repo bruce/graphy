@@ -1,6 +1,6 @@
-require File.join(File.dirname(__FILE__), 'test_helper')
+require File.join(File.dirname(__FILE__), 'spec_helper')
 
-class TestDot < Test::Unit::TestCase # :nodoc:
+describe "Dot" do # :nodoc:
   
   DG_DOT = <<-DOT
 digraph  {
@@ -30,7 +30,7 @@ digraph  {
 }
 DOT
   
-  def setup
+  before do
     @dg = DOT::DOTDigraph.new('label' => 'Datacenters')
     @dg << DOT::DOTNode.new('name' => 'Miranda', 'color' => 'green', 'style' => 'filled')
     @dg << DOT::DOTDirectedArc.new('from' => 'Miranda', 'to' => 'Hillview')
@@ -39,9 +39,10 @@ DOT
     @dg << DOT::DOTDirectedArc.new('from' => 'Sunnyvale', 'to' => 'Miranda')
   end
   
-  def test_generation
-    assert @dg.to_s
-    assert_equal DG_DOT, @dg.to_s
+  describe "generation" do
+    it do
+      @dg.to_s.should == DG_DOT
+    end
   end
   
 end

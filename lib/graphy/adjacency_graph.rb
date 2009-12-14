@@ -1,7 +1,8 @@
 module Graphy
 
-  # This provides the basic routines needed to implement the Digraph, UndirectedGraph,
-  # PseudoGraph, DirectedPseudoGraph, MultiGraph and DirectedPseudoGraph class.
+  # This provides the basic routines needed to implement the Digraph,
+  # UndirectedGraph, PseudoGraph, DirectedPseudoGraph, MultiGraph and
+  # DirectedPseudoGraph class.
   module AdjacencyGraph
 
     class ArrayWithAdd < Array # :nodoc:

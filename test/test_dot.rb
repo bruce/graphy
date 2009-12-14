@@ -26,8 +26,8 @@
 #++
 
 require 'test/unit'
-require 'gratr'
-include GRATR
+require 'graphy'
+include Graphy
 
 class TestDot < Test::Unit::TestCase # :nodoc:
   

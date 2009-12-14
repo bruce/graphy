@@ -23,8 +23,8 @@
 #++
 
 require 'test/unit'
-require 'gratr'
-include GRATR
+require 'graphy'
+include Graphy
   
 class TestCommunity < Test::Unit::TestCase # :nodoc:
   def setup

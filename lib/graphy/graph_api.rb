@@ -16,8 +16,7 @@
 # 
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 # ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-# WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-# DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE
+# WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE AREf
 # FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
 # DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
 # SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
@@ -26,30 +25,33 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #++
 
-
-require 'test/unit'
-require 'graphy'
-include Graphy
-
-class TestComplement < Test::Unit::TestCase # :nodoc:
+module Graphy
   
-  def test_square
-    x = UndirectedGraph[:a,:b, :b,:c, :c,:d, :d,:a].complement
-    assert_equal 2, x.edges.size
-    assert x.edges.include?(Edge[:a,:c])
-    assert x.edges.include?(Edge[:b,:d])
-  end
-  
-  def test_g1
-    g1 = UndirectedGraph[ :a,:b, :a,:d, :a,:e, :a,:i, :a,:g, :a,:h,
-                          :b,:c, :b,:f,
-                          :c,:d, :c,:h,
-                          :d,:h, :d,:e,
-                          :e,:f,
-                          :f,:g, :f,:h, :f,:i,
-                          :h,:i ].complement
-    assert_equal 19, g1.edges.size
+  # This defines the minimum set of functions required to make a graph class that can
+  # use the algorithms defined by this library
+  module GraphAPI
     
+    # Each implementation module must implement the following routines
+    #   * directed?()   # Is the graph directed?
+    #   * add_vertex!(v,l=nil) # Add a vertex to the graph and return the graph, l is an optional label
+    #   * add_edge!(u,v=nil,l=nil) # Add an edge to the graph and return the graph. u can be an Arc or Edge or u,v is an edge pair. last parameter is an optional label
+    #   * remove_vertex!(v) # Remove a vertex to the graph and return the graph
+    #   * remove_edge!(u,v=nil) # Remove an edge from the graph and return the graph
+    #   * vertices()  # Returns an array of of all vertices
+    #   * edges() # Returns an array of all edges
+    #   * edge_class() # Returns the class used to store edges
+    def self.included(klass)
+       [:directed?,:add_vertex!,:add_edge!,:remove_vertex!,:remove_edge!,:vertices,:edges,:edge_class].each do |meth| 
+         raise "Must implement #{meth}" unless klass.instance_methods.include?(meth.to_s)
+       end
+       
+       klass.class_eval do
+         # Is this right?
+         alias remove_arc! remove_edge!
+         alias add_arc!    add_edge!
+         alias arcs        edges
+         alias arc_class   edge_class
+       end
+    end
   end
-
 end

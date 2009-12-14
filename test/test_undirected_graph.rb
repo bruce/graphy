@@ -28,8 +28,8 @@
 
 
 require 'test/unit'
-require 'gratr'
-include GRATR
+require 'graphy'
+include Graphy
 
 class TestUndirectedGraph < Test::Unit::TestCase # :nodoc:
 

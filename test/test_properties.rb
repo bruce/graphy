@@ -27,9 +27,9 @@
 
 
 require 'test/unit'
-require 'gratr'
-include GRATR
-require 'gratr/dot'
+require 'graphy'
+include Graphy
+require 'graphy/dot'
 
 # This test runs the classes from Appendix F in 
 # _Algorithmic_Graph_Theory_and_Perfect_Graphs,

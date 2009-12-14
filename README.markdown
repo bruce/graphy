@@ -1,5 +1,5 @@
-Graph Theory Library for Ruby
-=============================
+Graphy: A Graph Theory Library for Ruby
+=======================================
 
 A framework for graph data structures and algorithms.
 
@@ -28,37 +28,37 @@ The Tour
 
 ### Arcs
 
-There are two Arc classes, `Graph::Arc` and `Graph::Edge`.
+There are two Arc classes, `Graphy::Arc` and `Graphy::Edge`.
 
 ### Graph Types
 
 There are a number of different graph types, each of which provide
 different features and constraints:
 
-`Graph::Digraph` and it's pseudonym `Graph::DirectedGraph`:
+`Graphy::Digraph` and it's pseudonym `Graphy::DirectedGraph`:
 
 * Single directed edges between vertices
 * Loops are forbidden
 
-`Graph::DirectedPseudoGraph`:
+`Graphy::DirectedPseudoGraph`:
 
 * Multiple directed edges between vertices
 * Loops are forbidden
 
-`Graph::DirectedMultiGraph`:
+`Graphy::DirectedMultiGraph`:
 
 * Multiple directed edges between vertices
 * Loops on vertices
 
-`Graph::UndirectedGraph`, `Graph::UndirectedPseudoGraph`, and
+`Graphy::UndirectedGraph`, `Graphy::UndirectedPseudoGraph`, and
 `Graph::UndirectedMultiGraph` are similar but all edges are undirected.
 
 ### Data Structures
 
-Use the `Graph::AdjacencyGraph` module provides a generalized adjacency
+Use the `Graphy::AdjacencyGraph` module provides a generalized adjacency
 list and an edge list adaptor.
 
-The `Graph::Digraph` class is the general purpose "swiss army knife" of graph
+The `Graphy::Digraph` class is the general purpose "swiss army knife" of graph
 classes, most of the other classes are just modifications to this class.
 It is optimized for efficient access to just the out-edges, fast vertex
 insertion and removal at the cost of extra space overhead, etc.
@@ -68,17 +68,17 @@ Example Usage
 
 Require the library:
 
-    require 'graph'
+    require 'graphy'
 
 If you'd like to include all the classes in the current scope (so you
-don't have to prefix with `Graph::`), just:
+don't have to prefix with `GraphTeory::`), just:
 
-    include Graph
+    include Graphy
 
 Let's play with the library a bit in IRB:
 
     >> dg = Digraph[1,2, 2,3, 2,4, 4,5, 6,4, 1,6]
-    => Graph::Digraph[[2, 3], [1, 6], [2, 4], [4, 5], [1, 2], [6, 4]] 
+    => Graphy::Digraph[[2, 3], [1, 6], [2, 4], [4, 5], [1, 2], [6, 4]] 
 
 A few properties of the graph 
 
@@ -135,7 +135,7 @@ Here's an example showing the module inheritance hierarchy:
     >> ObjectSpace.each_object(Module) do |m|
     >>   m.ancestors.each {|a| module_graph.add_edge!(m,a) if m != a} 
     >> end
-    >> gv = module_graph.vertices.select {|v| v.to_s.match(/Graph/) }
+    >> gv = module_graph.vertices.select {|v| v.to_s.match(/Graphy/) }
     >> module_graph.induced_subgraph(gv).write_to_graphic_file('jpg','module_graph')
 
 Look for more in the examples directory.

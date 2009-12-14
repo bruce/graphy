@@ -4,12 +4,12 @@ require 'rake'
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
-    gem.name = "graph"
-    gem.summary = "Graph Theory Ruby library"
+    gem.name = "graphy"
+    gem.summary = "A Graph Theory Ruby library"
     gem.description =<<-EOD
 A framework for graph data structures and algorithms.
 
-This library is based on GRATR and RGL..
+This library is based on GRATR and RGL.
 
 Graph algorithms currently provided are:
 
@@ -56,7 +56,7 @@ Rake::RDocTask.new do |rdoc|
   version = File.exist?('VERSION') ? File.read('VERSION') : ""
 
   rdoc.rdoc_dir = 'rdoc'
-  rdoc.title = "graph #{version}"
+  rdoc.title = "graphy #{version}"
   rdoc.rdoc_files.include('README*')
   rdoc.rdoc_files.include('lib/**/*.rb')
 end

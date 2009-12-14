@@ -1,6 +1,4 @@
-require 'test/unit'
-require 'graphy'
-include Graphy
+require File.join(File.dirname(__FILE__), 'test_helper')
 
 class TestInspection < Test::Unit::TestCase # :nodoc:
   

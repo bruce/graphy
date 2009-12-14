@@ -1,7 +1,5 @@
 
-require 'test/unit'
-require 'graphy'
-include Graphy
+require File.join(File.dirname(__FILE__), 'test_helper')
 require 'graphy/dot'
 
 # This test runs the classes from Appendix F in 

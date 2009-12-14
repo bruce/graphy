@@ -26,10 +26,6 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #++
 
-require 'graphy/edge'
-require 'graphy/graph'
-require 'set'
-
 module Graphy
 
   # This provides the basic routines needed to implement the Digraph, UndirectedGraph,

@@ -30,8 +30,6 @@
 # rdot.rb is a modified version which also contains support for undirected
 # graphs.
 
-require 'graphy/rdot'
-
 module Graphy
   class Graph
  

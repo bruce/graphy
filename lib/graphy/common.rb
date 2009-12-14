@@ -25,10 +25,6 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #++
 
-
-require 'graphy/edge'
-require 'graphy/graph'
-
 module Graphy
   # This class defines a cycle graph of size n
   # This is easily done by using the base Graph

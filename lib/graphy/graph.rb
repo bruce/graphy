@@ -26,11 +26,6 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #++
 
-
-require 'graphy/edge'
-require 'graphy/labels'
-require 'graphy/graph_api'
-
 module Graphy
   Graphy_VERSION = "0.5.1"
   

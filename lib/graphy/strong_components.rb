@@ -25,9 +25,6 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #++
 
-
-require 'set'
-
 module Graphy
   module StrongComponents
     # strong_components computes the strongly connected components

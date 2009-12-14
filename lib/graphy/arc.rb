@@ -25,8 +25,6 @@
 # OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #++
-require 'graphy/arc_number'
-
 module Graphy
 
   # Arc includes classes for representing egdes of directed and
